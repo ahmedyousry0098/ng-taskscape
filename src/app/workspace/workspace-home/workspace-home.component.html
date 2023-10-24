@@ -1,6 +1,141 @@
-<div class="container m-2">
-  <h3 class="">Welcome Name</h3>
+<div class="container m-5">
+  <h3 class="font-semibold">Welcome Name!</h3>
   <p>You have 10 tasks to do today</p>
-  <hr />
-  <h4>My Work</h4>
+
+  <h3 class="mt-12">My Work</h3>
+  <div class="w-full mt-4 bg-white border border-gray-200 rounded-lg shadow">
+    <div class="sm:hidden">
+      <select
+        id="tabs"
+        class="bg-gray-50 border-0 border-b border-gray-200 text-gray-900 text-sm rounded-t-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+      >
+        <option>Todo</option>
+        <option>Done</option>
+        <option>OverDue</option>
+      </select>
+    </div>
+    <ul
+      class="hidden text-sm font-medium text-center text-gray-500 divide-x divide-gray-200 rounded-lg sm:flex"
+      id="fullWidthTab"
+      data-tabs-toggle="#fullWidthTabContent"
+      role="tablist"
+    >
+      <li class="w-full">
+        <button
+          id="todo-tab"
+          data-tabs-target="#todo"
+          type="button"
+          role="tab"
+          aria-controls="todo"
+          aria-selected="true"
+          class="inline-block w-full p-4 rounded-tl-lg bg-gray-50 hover:bg-gray-100 focus:outline-none"
+        >
+          Todo
+        </button>
+      </li>
+      <li class="w-full">
+        <button
+          id="done-tab"
+          data-tabs-target="#done"
+          type="button"
+          role="tab"
+          aria-controls="done"
+          aria-selected="false"
+          class="inline-block w-full p-4 bg-gray-50 hover:bg-gray-100 focus:outline-none"
+        >
+          Done
+        </button>
+      </li>
+      <li class="w-full">
+        <button
+          id="overdue-tab"
+          data-tabs-target="#overdue"
+          type="button"
+          role="tab"
+          aria-controls="overdue"
+          aria-selected="false"
+          class="inline-block w-full p-4 bg-gray-50 hover:bg-gray-100 focus:outline-none"
+        >
+          Overdue
+        </button>
+      </li>
+    </ul>
+    <div id="fullWidthTabContent" class="border-t border-gray-200">
+      <div
+        class="hidden p-4 bg-white rounded-lg md:p-8"
+        id="todo"
+        role="tabpanel"
+        aria-labelledby="todo-tab"
+      >
+        <ul
+          role="list"
+          class="divide-y divide-gray-200 dark:divide-gray-700 w-72"
+        >
+          <li class="py-3 sm:py-4">
+            <div class="flex items-center space-x-4">
+              <p>todo task 1</p>
+            </div>
+          </li>
+          <li class="py-3 sm:py-4">
+            <div class="flex items-center space-x-4">
+              <p>todo task 2</p>
+            </div>
+          </li>
+          <li class="py-3 sm:py-4">
+            <div class="flex items-center space-x-4">
+              <p>todo task 3</p>
+            </div>
+          </li>
+        </ul>
+      </div>
+      <div
+        class="hidden p-4 bg-white rounded-lg md:p-8"
+        id="done"
+        role="tabpanel"
+        aria-labelledby="done-tab"
+      >
+        <ul role="list" class="divide-y divide-gray-200 w-72">
+          <li class="py-3 sm:py-4">
+            <div class="flex items-center space-x-4">
+              <p>done task 1</p>
+            </div>
+          </li>
+          <li class="py-3 sm:py-4">
+            <div class="flex items-center space-x-4">
+              <p>done task 2</p>
+            </div>
+          </li>
+          <li class="py-3 sm:py-4">
+            <div class="flex items-center space-x-4">
+              <p>done task 3</p>
+            </div>
+          </li>
+        </ul>
+      </div>
+      <div
+        class="hidden p-4 bg-white rounded-lg md:p-8"
+        id="overdue"
+        role="tabpanel"
+        aria-labelledby="overdue-tab"
+      >
+        <ul role="list" class="divide-y divide-gray-200 w-72">
+          <li class="py-3 sm:py-4">
+            <div class="flex items-center space-x-4">
+              <p>overdue task 1</p>
+            </div>
+          </li>
+          <li class="py-3 sm:py-4">
+            <div class="flex items-center space-x-4">
+              <p>overdue task 2</p>
+            </div>
+          </li>
+          <li class="py-3 sm:py-4">
+            <div class="flex items-center space-x-4">
+              <p>overdue task 3</p>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
 </div>

@@ -7,6 +7,9 @@ import { WorkspaceHomeComponent } from './workspace-home/workspace-home.componen
 import { WorkspaceLayoutComponent } from './workspace-layout/workspace-layout.component';
 import { WorkspaceRoutingModule } from './workspace-routing.module';
 import { RouterModule } from '@angular/router';
+import { NotificationComponent } from './notification/notification.component';
+import { ProfileComponent } from './profile/profile.component';
+import { SettingsComponent } from './settings/settings.component';
 @NgModule({
   declarations: [
     ControlsSideBarComponent,
@@ -14,6 +17,9 @@ import { RouterModule } from '@angular/router';
     TasksComponent,
     WorkspaceHomeComponent,
     WorkspaceLayoutComponent,
+    NotificationComponent,
+    ProfileComponent,
+    SettingsComponent,
   ],
   imports: [CommonModule, RouterModule, WorkspaceRoutingModule],
 })

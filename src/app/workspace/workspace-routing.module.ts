@@ -3,6 +3,10 @@ import { RouterModule, Routes } from '@angular/router';
 import { WorkspaceLayoutComponent } from './workspace-layout/workspace-layout.component';
 import { WorkspaceHomeComponent } from './workspace-home/workspace-home.component';
 import { TasksComponent } from './tasks/tasks.component';
+import { NotificationComponent } from './notification/notification.component';
+import { ProjectsComponent } from './projects/projects.component';
+import { ProfileComponent } from './profile/profile.component';
+import { SettingsComponent } from './settings/settings.component';
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'home' },
@@ -13,6 +17,22 @@ const routes: Routes = [
   {
     path: 'tasks',
     component: TasksComponent,
+  },
+  {
+    path: 'notification',
+    component: NotificationComponent,
+  },
+  {
+    path: 'projects',
+    component: ProjectsComponent,
+  },
+  {
+    path: 'profile',
+    component: ProfileComponent,
+  },
+  {
+    path: 'settings',
+    component: SettingsComponent,
   },
 ];
 
