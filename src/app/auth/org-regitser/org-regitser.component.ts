@@ -9,30 +9,46 @@ import { AuthService } from 'src/app/services/auth.service';
   styleUrls: ['./org-regitser.component.css']
 })
 export class OrgRegitserComponent {
-  constructor(private _authService: AuthService, private _router: Router) { }
+  constructor(private _AuthService: AuthService, private _Router: Router) { }
 
   isLoading: boolean = false;
   orgRegisterForm: FormGroup = new FormGroup({
-    organization_name: new FormControl(null, [Validators.required]),
-    company: new FormControl(null, [Validators.required, Validators.minLength(3), Validators.maxLength(30)]),
-    headQuarters: new FormControl(null, [Validators.required, Validators.minLength(2), Validators.maxLength(20)]),
+    organization_name: new FormControl('', [Validators.required]),
+    company: new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(30)]),
+    headQuarters: new FormControl('', [Validators.required, Validators.minLength(2), Validators.maxLength(20)]),
     industry: new FormControl('software development'),
-    description: new FormControl(null, [Validators.required, Validators.minLength(3), Validators.maxLength(300)]),
-    logo: new FormControl(null)
+    description: new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(300)]),
+    logo: new FormControl('')
   })
 
-  handleOrgRegister(orgRegisterForm: FormGroup) {
+  handleFile(event: Event) {
+    const files = (event.target as HTMLInputElement).files
+    if (files && files.length > 0) {
+      this.orgRegisterForm.patchValue({logo: files[0]})
+    }
+  }
+
+  handleOrgRegister() {
     this.isLoading = true;
-    this._authService.orgRegister(this.orgRegisterForm.value).subscribe({
+    const formData = new FormData()
+    for (let key in this.orgRegisterForm.value) {
+      formData.append(key, this.orgRegisterForm.value[key])
+    }
+    this._AuthService.orgRegister(formData).subscribe({
       next: (res) => {
-        if (res.message === 'done') {
-          this.isLoading = false;
-          this._router.navigate(['/admin-register'])
-        }
+        localStorage.setItem('org', JSON.stringify(
+          {
+            orgId: res.organization._id,
+            organization_name: res.organization.organization_name
+          }
+        ))
+        this._Router.navigate(['/admin-register'])
       },
       error: (err) => {
-        this.isLoading = false;
         console.log(err)
+      },
+      complete: () => {
+        this.isLoading = false
       }
     })
   }
