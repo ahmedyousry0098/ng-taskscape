@@ -7,6 +7,7 @@ import { NotificationComponent } from './notification/notification.component';
 import { ProjectsComponent } from './projects/projects.component';
 import { ProfileComponent } from './profile/profile.component';
 import { SettingsComponent } from './settings/settings.component';
+import { ProjectDetailsComponent } from './project-details/project-details.component';
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'home' },
@@ -25,6 +26,10 @@ const routes: Routes = [
   {
     path: 'projects',
     component: ProjectsComponent,
+  },
+  {
+    path: 'projects/details',
+    component: ProjectDetailsComponent,
   },
   {
     path: 'profile',

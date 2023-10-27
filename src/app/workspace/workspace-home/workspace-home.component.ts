@@ -5,4 +5,9 @@ import { Component } from '@angular/core';
   templateUrl: './workspace-home.component.html',
   styleUrls: ['./workspace-home.component.css'],
 })
-export class WorkspaceHomeComponent {}
+export class WorkspaceHomeComponent {
+  openTab = 1;
+  toggleTabs($tabNumber: number) {
+    this.openTab = $tabNumber;
+  }
+}

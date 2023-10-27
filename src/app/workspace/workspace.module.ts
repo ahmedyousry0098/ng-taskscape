@@ -10,6 +10,10 @@ import { RouterModule } from '@angular/router';
 import { NotificationComponent } from './notification/notification.component';
 import { ProfileComponent } from './profile/profile.component';
 import { SettingsComponent } from './settings/settings.component';
+import { ProjectDetailsComponent } from './project-details/project-details.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
+
 @NgModule({
   declarations: [
     ControlsSideBarComponent,
@@ -20,7 +24,14 @@ import { SettingsComponent } from './settings/settings.component';
     NotificationComponent,
     ProfileComponent,
     SettingsComponent,
+    ProjectDetailsComponent,
   ],
-  imports: [CommonModule, RouterModule, WorkspaceRoutingModule],
+  imports: [
+    CommonModule,
+    RouterModule,
+    WorkspaceRoutingModule,
+    ReactiveFormsModule,
+    HttpClientModule,
+  ],
 })
 export class WorkspaceModule {}

@@ -15,20 +15,6 @@ const routes: Routes = [
     loadChildren: () =>
       import('./workspace/workspace.module').then((m) => m.WorkspaceModule),
   },
-  // {
-  //   path: 'workspace',
-  //   component: WorkspaceLayoutComponent,
-  //   children: [
-  //     {
-  //       path: 'home',
-  //       component: WorkspaceHomeComponent,
-  //     },
-  //     {
-  //       path: 'tasks',
-  //       component: TasksComponent,
-  //     },
-  //   ],
-  // },
 ];
 
 @NgModule({

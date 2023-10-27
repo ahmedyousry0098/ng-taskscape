@@ -1,1 +1,266 @@
-<p>projects works!</p>
+<div class="container">
+  <h2 class="font-bold text-xl p-1 ml-5 mt-5">Your projects</h2>
+  <!-- projects container -->
+  <div class="flex flex-wrap gap-3 ml-6">
+    <!-- project Card -->
+    <div class="bg-gray-200 w-80 h-52 m-2 flex justify-center">
+      <!-- card body -->
+      <div class="flex flex-col justify-center items-center">
+        <h3 class="font-semibold text-xl">Project Name</h3>
+        <p>You have 10 tasks ToDo</p>
+        <button class="bg-slate-500 py-2 px-4 text-white rounded-md mt-2">
+          view
+        </button>
+      </div>
+    </div>
+    <div class="bg-teal-300 w-80 h-52 m-2 flex justify-center">
+      <!-- card body -->
+      <div class="flex flex-col justify-center items-center">
+        <h3 class="font-semibold text-xl">Project Name</h3>
+        <p>You have 10 tasks ToDo</p>
+        <button class="bg-slate-500 py-2 px-4 text-white rounded-md mt-2">
+          view
+        </button>
+      </div>
+    </div>
+    <div class="bg-blue-300 w-80 h-52 m-2 flex justify-center">
+      <!-- card body -->
+      <div class="flex flex-col justify-center items-center">
+        <h3 class="font-semibold text-xl">Project Name</h3>
+        <p>You have 10 tasks ToDo</p>
+        <button class="bg-slate-500 py-2 px-4 text-white rounded-md mt-2">
+          view
+        </button>
+      </div>
+    </div>
+    <div class="bg-green-300 w-80 h-52 m-2 flex justify-center">
+      <!-- card body -->
+      <div
+        data-modal-target="addProject-modal"
+        data-modal-toggle="addProject-modal"
+        class="flex flex-col justify-center items-center cursor-pointer"
+      >
+        <h3 class="font-semibold text-xl">Add Project</h3>
+        <p class="text-2xl">+</p>
+      </div>
+    </div>
+    <div
+      id="addProject-modal"
+      data-modal-backdrop="addProject"
+      tabindex="-1"
+      aria-hidden="true"
+      class="fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full"
+    >
+      <div class="relative w-full max-w-2xl max-h-full">
+        <!-- Modal content -->
+        <div class="relative bg-white rounded-lg shadow">
+          <!-- Modal header -->
+          <div class="flex items-start justify-between p-4 border-b rounded-t">
+            <h3 class="text-xl font-semibold text-gray-900">
+              Create New Project
+            </h3>
+            <button
+              type="button"
+              class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ml-auto inline-flex justify-center items-center"
+              data-modal-hide="addProject-modal"
+            >
+              <svg
+                class="w-3 h-3"
+                aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 14 14"
+              >
+                <path
+                  stroke="currentColor"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"
+                />
+              </svg>
+              <span class="sr-only">Close modal</span>
+            </button>
+          </div>
+          <!-- Modal body -->
+          <div class="p-6 space-y-6">
+            <form [formGroup]="addNewProjectForm" (ngSubmit)="onSubmit()">
+              <!-- project name -->
+              <div class="flex flex-col gap-1">
+                <label for="project-name">Project Name</label>
+                <input
+                  type="text"
+                  name="project-name"
+                  id="project-name"
+                  formControlName="projectName"
+                  class="border border-gray-600 rounded-md"
+                  [class.border-red-500]="
+                    addNewProjectForm.get('projectName')?.invalid &&
+                    (addNewProjectForm.get('projectName')?.touched ||
+                      addNewProjectForm.get('projectName')?.dirty ||
+                      isSubmitted)
+                  "
+                />
+                <span
+                  class="text-red-500"
+                  *ngIf="
+                    addNewProjectForm.get('projectName')?.invalid &&
+                    (addNewProjectForm.get('projectName')?.touched ||
+                      addNewProjectForm.get('projectName')?.dirty ||
+                      isSubmitted)
+                  "
+                  >This field is required</span
+                >
+              </div>
+              <!-- date -->
+              <div class="flex justify-between">
+                <!-- Start Date -->
+                <div class="flex flex-col gap-1">
+                  <label for="startDate">Start Date</label>
+                  <input
+                    type="date"
+                    name="startDate"
+                    id="startDate"
+                    formControlName="startDate"
+                    class="border border-gray-600 rounded-md"
+                    [class.border-red-500]="
+                      addNewProjectForm.get('startDate')?.invalid &&
+                      (addNewProjectForm.get('startDate')?.touched ||
+                        addNewProjectForm.get('startDate')?.dirty ||
+                        isSubmitted)
+                    "
+                  />
+                  <span
+                    class="text-red-500"
+                    *ngIf="
+                      addNewProjectForm.get('startDate')?.invalid &&
+                      (addNewProjectForm.get('startDate')?.touched ||
+                        addNewProjectForm.get('startDate')?.dirty ||
+                        isSubmitted)
+                    "
+                    >This field is required</span
+                  >
+                </div>
+                <div class="flex flex-col gap-1">
+                  <label for="endDate">End Date</label>
+                  <input
+                    type="date"
+                    name="endDate"
+                    id="endDate"
+                    formControlName="endDate"
+                    class="border border-gray-600 rounded-md"
+                    [class.border-red-500]="
+                      addNewProjectForm.get('endDate')?.invalid &&
+                      (addNewProjectForm.get('endDate')?.touched ||
+                        addNewProjectForm.get('endDate')?.dirty ||
+                        isSubmitted)
+                    "
+                  />
+                  <span
+                    class="text-red-500"
+                    *ngIf="
+                      addNewProjectForm.get('endDate')?.invalid &&
+                      (addNewProjectForm.get('endDate')?.touched ||
+                        addNewProjectForm.get('endDate')?.dirty ||
+                        isSubmitted)
+                    "
+                    >This field is required</span
+                  >
+                </div>
+              </div>
+              <!-- description -->
+              <div class="flex flex-col gap-1">
+                <label for="projectDescription">Project Description</label>
+                <textarea
+                  name="projectDescription"
+                  id="projectDescription"
+                  cols="30"
+                  rows="5"
+                  formControlName="projectDescription"
+                  class="border border-gray-600 rounded-md"
+                  [class.border-red-500]="
+                    addNewProjectForm.get('projectDescription')?.invalid &&
+                    (addNewProjectForm.get('projectDescription')?.touched ||
+                      addNewProjectForm.get('projectDescription')?.dirty ||
+                      isSubmitted)
+                  "
+                ></textarea>
+                <span
+                  class="text-red-500"
+                  *ngIf="
+                    addNewProjectForm.get('projectDescription')?.invalid &&
+                    (addNewProjectForm.get('projectDescription')?.touched ||
+                      addNewProjectForm.get('projectDescription')?.dirty ||
+                      isSubmitted)
+                  "
+                  >This field is required</span
+                >
+              </div>
+              <div class="flex justify-between">
+                <div class="flex flex-col gap-1">
+                  <label for="employees">Collaborators</label>
+                  <select
+                    name="employees"
+                    id="employees"
+                    formControlName="employees"
+                    ngModel="employees"
+                    class="border border-gray-600 rounded-md"
+                    [class.border-red-500]="
+                      addNewProjectForm.get('employees')?.invalid &&
+                      (addNewProjectForm.get('employees')?.touched ||
+                        addNewProjectForm.get('employees')?.dirty ||
+                        isSubmitted)
+                    "
+                  >
+                    <ng-template *ngFor="let employee of employees">
+                      <select
+                        *ngIf="employee.role === 'member'"
+                        value="{{ employee._id }}"
+                      >
+                        {{
+                          employee.employeeName
+                        }}
+                      </select>
+                    </ng-template>
+                  </select>
+                  <span
+                    class="text-red-500"
+                    *ngIf="
+                      addNewProjectForm.get('employees')?.invalid &&
+                      (addNewProjectForm.get('employees')?.touched ||
+                        addNewProjectForm.get('employees')?.dirty ||
+                        isSubmitted)
+                    "
+                    >This field is required</span
+                  >
+                </div>
+                <!-- employees list -->
+                <div>
+                  <h2>Collaborators Added</h2>
+                </div>
+              </div>
+
+              <div
+                class="flex items-center p-6 space-x-2 border-t border-gray-200 rounded-b dark:border-gray-600"
+              >
+                <button
+                  type="submit"
+                  class="text-white bg-blue-600 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
+                >
+                  Add Project
+                </button>
+                <button
+                  data-modal-hide="addProject-modal"
+                  type="button"
+                  class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600"
+                >
+                  Decline
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
