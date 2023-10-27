@@ -19,4 +19,8 @@ export class AuthService {
   adminRegister(data: IAdminForm): Observable<IAdminResponse> {
     return this._httpclient.post<IAdminResponse>(`${this.baseUrl}/admin/register`, data)
   }
+
+  employeeLogin(data: IAdminForm): Observable<IAdminResponse> {
+    return this._httpclient.post<IAdminResponse>(`${this.baseUrl}/employee/login`, data)
+  }
 }
