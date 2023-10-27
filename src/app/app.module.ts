@@ -8,6 +8,7 @@ import { HomeModule } from './home/home.module';
 import { SharedModule } from './shared/shared.module';
 import { RouterModule } from '@angular/router';
 import { WorkspaceModule } from './workspace/workspace.module';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [AppComponent],
@@ -19,6 +20,7 @@ import { WorkspaceModule } from './workspace/workspace.module';
     SharedModule,
     RouterModule,
     WorkspaceModule,
+    HttpClientModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
