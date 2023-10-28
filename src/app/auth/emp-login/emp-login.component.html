@@ -1,0 +1,50 @@
+<section class="">
+    <div class="flex flex-col items-center justify-center w-9/12 mx-auto pt-20">
+        <div class="rounded-xl md:mt-0 bg-sky-500 px-6 bg-opacity-5 shadow-sky-950 shadow-lg">
+            <div class="space-y-4 md:space-y-6 sm:p-8 ">
+                <h1 class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
+                    Admin Register
+                </h1>
+                <form 
+                    class="space-y-4 md:space-y-6 w-full" 
+                    (ngSubmit)="handleEmployeeLogin(employeeLoginForm)"
+                    [formGroup]="employeeLoginForm"
+                >
+                    <div>
+                        <input type="text" formControlName="email" id="email"
+                            class="border h-10 border-sky-950 outline-none text-amber-500  rounded-lg focus:placeholder:opacity-0 block p-4 w-full"
+                            placeholder="Email">
+                        <div
+                            *ngIf="employeeLoginForm.get('email')?.errors && employeeLoginForm.get('email')?.touched">
+                            <p *ngIf="employeeLoginForm.get('email')?.getError('required') && employeeLoginForm.get('email')?.touched"
+                                class="text-red-700">Email is required</p>
+                        </div>
+                    </div>
+
+                    <div>
+                        <input type="password" formControlName="password" id="password"
+                            placeholder="Password"
+                            class="border h-10 border-sky-950 outline-none text-amber-500  rounded-lg focus:placeholder:opacity-0 block p-4 w-full">
+                        <div
+                            *ngIf="employeeLoginForm.get('password')?.errors && employeeLoginForm.get('password')?.touched">
+                            <p *ngIf="employeeLoginForm.get('password')?.getError('required') && employeeLoginForm.get('password')?.touched"
+                                class="text-red-700">Password is required</p>
+                        </div>
+                    </div>
+                    <div class="relative flex items-center">
+                        <a routerLink="/org-register">
+                            <button type="submit" [disabled]="employeeLoginForm.invalid"
+                                class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                            >
+                                <i *ngIf="isLoading" class="fas fa-spinner fa-spin"></i>
+                                <span *ngIf="!isLoading">
+                                    Login
+                                </span>
+                            </button>
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
