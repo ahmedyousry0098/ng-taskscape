@@ -11,8 +11,10 @@ import { NotificationComponent } from './notification/notification.component';
 import { ProfileComponent } from './profile/profile.component';
 import { SettingsComponent } from './settings/settings.component';
 import { ProjectDetailsComponent } from './project-details/project-details.component';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { MultiSelectModule } from 'primeng/multiselect';
+import { StyleClassModule } from 'primeng/styleclass';
 
 @NgModule({
   declarations: [
@@ -32,6 +34,9 @@ import { HttpClientModule } from '@angular/common/http';
     WorkspaceRoutingModule,
     ReactiveFormsModule,
     HttpClientModule,
+    MultiSelectModule,
+    FormsModule,
+    StyleClassModule,
   ],
 })
 export class WorkspaceModule {}

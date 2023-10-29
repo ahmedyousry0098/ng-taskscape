@@ -15,11 +15,17 @@ import { EmployeeService } from 'src/services/employee.service';
 })
 export class ProjectsComponent {
   employees?: IEmployee[];
+  selectedEmployees?: IEmployee[];
+
   isSubmitted = false;
   constructor(
     private formBuilder: FormBuilder,
     private userService: EmployeeService
   ) {}
+  showModal = false;
+  toggleModal() {
+    this.showModal = !this.showModal;
+  }
   addNewProjectForm = this.formBuilder.group({
     projectName: ['', [Validators.required]],
     startDate: ['', [Validators.required]],
@@ -31,6 +37,11 @@ export class ProjectsComponent {
     this.isSubmitted = true;
     if (this.addNewProjectForm.valid) {
       console.log('formData', this.addNewProjectForm.value);
+      this.userService
+        .createNewProject(this.addNewProjectForm.value)
+        .subscribe((event: any) => {
+          console.log(event.body);
+        });
     }
   }
   addProjectErrorMsgs(inputName: any) {

@@ -1,11 +1,11 @@
 export interface IProject {
   projectName: string;
   startDate: string;
-  deadline: string;
-  description: string;
-  scrumMaster: string;
+  endDate: string;
+  projectDescription: string;
+  scrumMaster?: string;
   employee: IEmployee[];
-  organization: string;
+  organization?: string;
 }
 export interface IEmployee {
   employeeName: string;
