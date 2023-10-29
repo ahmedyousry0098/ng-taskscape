@@ -15,17 +15,23 @@ import { EmployeeService } from 'src/services/employee.service';
 })
 export class ProjectsComponent {
   employees?: IEmployee[];
+  selectedEmployees?: IEmployee[];
+
   isSubmitted = false;
   constructor(
     private formBuilder: FormBuilder,
     private userService: EmployeeService
   ) {}
+  showModal = false;
+  toggleModal() {
+    this.showModal = !this.showModal;
+  }
   addNewProjectForm = this.formBuilder.group({
     projectName: ['', [Validators.required]],
     startDate: ['', [Validators.required]],
     endDate: ['', [Validators.required]],
     projectDescription: ['', [Validators.required]],
-    employees: ['', [Validators.required]],
+    selectedEmployees: ['', [Validators.required]],
   });
   onSubmit(): void {
     this.isSubmitted = true;
