@@ -19,4 +19,16 @@ export class EmployeeService {
       }
     );
   }
+  createNewProject(formData: any): Observable<IProject> {
+    return this.HttpClient.post<IProject>(
+      'https://taskspace-rxco.onrender.com/project/create',
+      formData,
+      {
+        headers: {
+          token:
+            'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NTNlMGQ1ZmExODUwMjNlZWUzZjVjMDMiLCJlbWFpbCI6ImF5YUBnbWFpbC5jb20iLCJyb2xlIjoic2NydW1NYXN0ZXIiLCJvcmdJZCI6IjY1M2QzYjhjNTA5ZTBlN2ZmMGU3NzQ2YyIsImlhdCI6MTY5ODU2NTUzNCwiZXhwIjoxNjk4NjUxOTM0fQ.JHOzdkvqsLhEhEBFzs1hhKT5YS5f-NSDk0SoNoCuzUY',
+        },
+      }
+    );
+  }
 }

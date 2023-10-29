@@ -31,12 +31,17 @@ export class ProjectsComponent {
     startDate: ['', [Validators.required]],
     endDate: ['', [Validators.required]],
     projectDescription: ['', [Validators.required]],
-    selectedEmployees: ['', [Validators.required]],
+    employees: ['', [Validators.required]],
   });
   onSubmit(): void {
     this.isSubmitted = true;
     if (this.addNewProjectForm.valid) {
       console.log('formData', this.addNewProjectForm.value);
+      this.userService
+        .createNewProject(this.addNewProjectForm.value)
+        .subscribe((event: any) => {
+          console.log(event.body);
+        });
     }
   }
   addProjectErrorMsgs(inputName: any) {

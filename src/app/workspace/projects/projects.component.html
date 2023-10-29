@@ -193,24 +193,24 @@
                   <p-multiSelect
                     class="flex border"
                     [options]="employees"
-                    formControlName="selectedEmployees"
+                    formControlName="employees"
                     optionLabel="employeeName"
                     optionValue="_id"
                     display="chip"
                     placeholder="add collaborators to your project"
                     [class.border-red-500]="
-                      addNewProjectForm.get('selectedEmployees')?.invalid &&
-                      (addNewProjectForm.get('selectedEmployees')?.touched ||
-                        addNewProjectForm.get('selectedEmployees')?.dirty ||
+                      addNewProjectForm.get('employees')?.invalid &&
+                      (addNewProjectForm.get('employees')?.touched ||
+                        addNewProjectForm.get('employees')?.dirty ||
                         isSubmitted)
                     "
                   ></p-multiSelect>
                   <span
                     class="text-red-500"
                     *ngIf="
-                      addNewProjectForm.get('selectedEmployees')?.invalid &&
-                      (addNewProjectForm.get('selectedEmployees')?.touched ||
-                        addNewProjectForm.get('selectedEmployees')?.dirty ||
+                      addNewProjectForm.get('employees')?.invalid &&
+                      (addNewProjectForm.get('employees')?.touched ||
+                        addNewProjectForm.get('employees')?.dirty ||
                         isSubmitted)
                     "
                     >This field is required</span
