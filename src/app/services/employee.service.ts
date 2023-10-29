@@ -7,10 +7,12 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class EmployeeService {
+  baseUrl = 'https://taskspace-rxco.onrender.com';
+
   constructor(private HttpClient: HttpClient) {}
   getAllUsers(): Observable<IProject> {
     return this.HttpClient.get<IProject>(
-      'https://taskspace-rxco.onrender.com/employee/getAllEmployeeScrum/653d3b8c509e0e7ff0e7746c',
+      `${this.baseUrl}/employee/getAllEmployeeScrum/653d3b8c509e0e7ff0e7746c`,
       {
         headers: {
           token:
@@ -21,7 +23,7 @@ export class EmployeeService {
   }
   createNewProject(formData: any): Observable<IProject> {
     return this.HttpClient.post<IProject>(
-      'https://taskspace-rxco.onrender.com/project/create',
+      `${this.baseUrl}/project/create`,
       formData,
       {
         headers: {
