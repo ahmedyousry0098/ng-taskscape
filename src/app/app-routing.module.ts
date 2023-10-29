@@ -20,6 +20,7 @@ const routes: Routes = [
       import('./workspace/workspace.module').then((m) => m.WorkspaceModule),
   },
   { path: 'admin-register', component: AdminRegisterComponent },
+  { path: 'employee-login', component: EmpLoginComponent },
   { path: 'org-register', component: OrgRegitserComponent },
   { path: '**', component: NotfoundComponent },
 ];
