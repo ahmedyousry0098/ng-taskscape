@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import {
@@ -45,6 +45,22 @@ export class AuthService {
     );
   }
 
+  changePassword(
+    employeeId: string | null,
+    password: string,
+    newPassword: string,
+    headers: HttpHeaders
+  ): Observable<IEmployeeResponse> {
+    return this._httpclient.patch<IEmployeeResponse>(
+      `${this.baseUrl}/employee/changepassword/${employeeId}`,
+      {
+        newPassword,
+        password,
+      },
+      { headers }
+    );
+  }
+
   setLoggedIn(token: string) {
     localStorage.setItem('token', token);
     this.loggedIn.next(true);
@@ -66,6 +82,16 @@ export class AuthService {
     const token = localStorage.getItem('token');
     if (token) {
       return jwtDecode(token);
+    }
+    return null;
+  }
+  getUserIdFromToken(): string | null {
+    const token = localStorage.getItem('token');
+    if (token) {
+      const decodedToken: any = jwtDecode(token);
+      if (decodedToken && decodedToken._id) {
+        return decodedToken._id;
+      }
     }
     return null;
   }
