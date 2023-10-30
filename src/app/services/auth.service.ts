@@ -1,26 +1,77 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-import { IAdminForm, IAdminResponse, IOrgForm, IOrgResponse } from '../auth/interfaces/register.interface';
-import { IOrganization } from 'src/interfaces/organization.interface';
+import { BehaviorSubject, Observable } from 'rxjs';
+import {
+  IAdminForm,
+  IAdminResponse,
+  IEmployeeResponse,
+  IOrgForm,
+  IOrgResponse,
+} from '../auth/interfaces/register.interface';
+
+import { jwtDecode } from 'jwt-decode';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AuthService {
-  baseUrl = "https://taskspace-rxco.onrender.com"
+  baseUrl = 'https://taskspace-rxco.onrender.com';
 
-  constructor(private _httpclient: HttpClient) { }
+  private loggedIn = new BehaviorSubject<boolean>(false);
+  isLoggedIn = this.loggedIn.asObservable();
+
+  constructor(private _httpclient: HttpClient) {
+    this.checkLoggedIn();
+  }
 
   orgRegister(data: FormData): Observable<IOrgResponse> {
-    return this._httpclient.post<IOrgResponse>(`${this.baseUrl}/organization`, data)
-  }
-  
-  adminRegister(data: IAdminForm): Observable<IAdminResponse> {
-    return this._httpclient.post<IAdminResponse>(`${this.baseUrl}/admin/register`, data)
+    return this._httpclient.post<IOrgResponse>(
+      `${this.baseUrl}/organization`,
+      data
+    );
   }
 
-  employeeLogin(data: IAdminForm): Observable<IAdminResponse> {
-    return this._httpclient.post<IAdminResponse>(`${this.baseUrl}/employee/login`, data)
+  adminRegister(data: IAdminForm): Observable<IAdminResponse> {
+    return this._httpclient.post<IAdminResponse>(
+      `${this.baseUrl}/admin/register`,
+      data
+    );
+  }
+
+  employeeLogin(data: IAdminForm): Observable<IEmployeeResponse> {
+    return this._httpclient.post<IEmployeeResponse>(
+      `${this.baseUrl}/employee/login`,
+      data
+    );
+  }
+
+  setLoggedIn(token: string) {
+    localStorage.setItem('token', token);
+    this.loggedIn.next(true);
+  }
+  checkLoggedIn() {
+    const token = localStorage.getItem('token');
+    if (token) {
+      this.loggedIn.next(true);
+    }
+  }
+  getToken(): string | null {
+    return localStorage.getItem('token');
+  }
+
+  isAuthenticated(): boolean {
+    return this.loggedIn.value;
+  }
+  getDecodedToken(): any {
+    const token = localStorage.getItem('token');
+    if (token) {
+      return jwtDecode(token);
+    }
+    return null;
+  }
+
+  logout() {
+    localStorage.removeItem('token');
+    this.loggedIn.next(false);
   }
 }

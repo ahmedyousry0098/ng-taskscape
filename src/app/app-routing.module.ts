@@ -8,6 +8,7 @@ import { NotfoundComponent } from './shared/notfound/notfound.component';
 import { OrgRegitserComponent } from './auth/org-regitser/org-regitser.component';
 import { AdminRegisterComponent } from './auth/admin-register/admin-register.component';
 import { EmpLoginComponent } from './auth/emp-login/emp-login.component';
+import { AuthGuardService } from './services/auth-guard.service';
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -16,6 +17,7 @@ const routes: Routes = [
   {
     path: 'workspace',
     component: WorkspaceLayoutComponent,
+    canActivate: [AuthGuardService],
     loadChildren: () =>
       import('./workspace/workspace.module').then((m) => m.WorkspaceModule),
   },
