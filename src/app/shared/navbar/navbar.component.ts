@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
+import { UserProfileService } from 'src/app/services/user-profile.service';
 
 @Component({
   selector: 'app-navbar',
@@ -12,14 +13,17 @@ export class NavbarComponent {
   employeeName: string = '';
   token: string = '';
 
-  constructor(private authService: AuthService, private router: Router) {
+  constructor(
+    private authService: AuthService,
+    private router: Router,
+    private userProfile: UserProfileService
+  ) {
     this.authService.isLoggedIn.subscribe((loggedIn) => {
       this.loggedIn = loggedIn;
       if (loggedIn) {
-        const decodedToken = this.authService.getDecodedToken();
-        if (decodedToken && decodedToken.email) {
-          this.employeeName = decodedToken.email;
-        }
+        this.userProfile.getUserProfile().subscribe(({ employee }) => {
+          this.employeeName = employee.employeeName;
+        });
       }
     });
   }
