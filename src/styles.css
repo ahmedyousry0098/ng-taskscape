@@ -5,6 +5,7 @@
 @import "primeng/resources/primeng.css";
 
 @import url("https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap");
+
 body {
   font-family: "Lato", sans-serif;
 }
@@ -13,11 +14,36 @@ html,
 body {
   height: 100%;
 }
+
 body {
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 
+/* Define the scrollbar track */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Define the scrollbar thumb */
+::-webkit-scrollbar-thumb {
+  background: #3498db;
+  /* Color of the thumb */
+  border-radius: 5px;
+  /* Round the edges of the thumb */
+}
+
+/* Define the scrollbar track when not hovering */
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  /* Color of the track */
+}
+
+/* Define the scrollbar thumb when hovering */
+::-webkit-scrollbar-thumb:hover {
+  background: #2980b9;
+  /* Color of the thumb on hover */
+}
 .error.mat-snack-bar-container {
   background: #cc0000;
   color: white;
@@ -26,4 +52,39 @@ body {
 .success.mat-snack-bar-container {
   background: #00cc00;
   color: white;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+/* Define the scrollbar track */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Define the scrollbar thumb */
+::-webkit-scrollbar-thumb {
+  background: #3498db;
+  /* Color of the thumb */
+  border-radius: 5px;
+  /* Round the edges of the thumb */
+}
+
+/* Define the scrollbar track when not hovering */
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  /* Color of the track */
+}
+
+/* Define the scrollbar thumb when hovering */
+::-webkit-scrollbar-thumb:hover {
+  background: #2980b9;
+  /* Color of the thumb on hover */
 }
