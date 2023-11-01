@@ -11,11 +11,7 @@ import { ToasterService } from 'src/app/services/toaster.service';
   styleUrls: ['./org-regitser.component.css'],
 })
 export class OrgRegitserComponent {
-<<<<<<< HEAD
   constructor(private _AuthService: AuthService, private _Router: Router, private toasterService: ToasterService) { }
-=======
-  constructor(private _AuthService: AuthService, private _Router: Router) {}
->>>>>>> 7c14b566674b19347f46c448d53277f3ef8c1586
 
   isLoading: boolean = false;
   orgRegisterForm: FormGroup = new FormGroup({
@@ -64,12 +60,9 @@ export class OrgRegitserComponent {
         this._Router.navigate(['/admin-register']);
       },
       error: (err) => {
-<<<<<<< HEAD
         this.isLoading = false
         this.toasterService.error('You havn\'t entered data correctly')
-=======
         console.log(err);
->>>>>>> 7c14b566674b19347f46c448d53277f3ef8c1586
       },
       complete: () => {
         this.isLoading = false;
