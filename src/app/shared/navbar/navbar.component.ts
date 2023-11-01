@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
+import { EmployeeService } from 'src/app/services/employee.service';
 
 @Component({
   selector: 'app-navbar',
@@ -12,8 +13,14 @@ export class NavbarComponent {
   employeeName: string = '';
   token: string = '';
   imageUrl: string = '../../../assets/noavatar.jpg';
+  photoChanged: boolean = false;
 
-  constructor(private authService: AuthService, private router: Router) {
+  constructor(
+    private authService: AuthService,
+    private router: Router,
+    private employeeService: EmployeeService
+  ) {
+    this.loadEmployeePhoto();
     this.authService.isLoggedIn.subscribe((loggedIn) => {
       this.loggedIn = loggedIn;
       if (loggedIn) {
@@ -22,6 +29,25 @@ export class NavbarComponent {
           this.employeeName = decodedToken.email;
         }
       }
+    });
+  }
+  ngOnInit() {
+    this.employeeService.isPhotoChanged.subscribe((changed) => {
+      this.photoChanged = changed;
+      if (changed) {
+        this.loadEmployeePhoto();
+      }
+    });
+  }
+
+  loadEmployeePhoto() {
+    this.employeeService.getEmployeeData().subscribe({
+      next: (res) => {
+        this.imageUrl = res.employee.profile_photo.secure_url;
+      },
+      error: (err) => {
+        console.log(err);
+      },
     });
   }
   logout() {

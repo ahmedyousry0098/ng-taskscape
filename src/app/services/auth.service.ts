@@ -44,10 +44,8 @@ export class AuthService {
       data
     );
   }
-
-  setLoggedIn(token: string) {
-    localStorage.setItem('token', token);
-    this.loggedIn.next(true);
+  isAuthenticated(): boolean {
+    return this.loggedIn.value;
   }
   checkLoggedIn() {
     const token = localStorage.getItem('token');
@@ -55,13 +53,16 @@ export class AuthService {
       this.loggedIn.next(true);
     }
   }
+
+  setLoggedIn(token: string) {
+    localStorage.setItem('token', token);
+    this.loggedIn.next(true);
+  }
+
   getToken(): string | null {
     return localStorage.getItem('token');
   }
 
-  isAuthenticated(): boolean {
-    return this.loggedIn.value;
-  }
   getDecodedToken(): any {
     const token = localStorage.getItem('token');
     if (token) {

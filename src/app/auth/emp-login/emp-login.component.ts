@@ -33,6 +33,7 @@ export class EmpLoginComponent {
         const token = res.token;
         this._authService.setLoggedIn(token);
         const isFresh = res.employee.isFresh;
+
         if (isFresh) {
           this.changeFristStatus();
           this._router.navigate(['/workspace/settings']);
@@ -49,15 +50,9 @@ export class EmpLoginComponent {
   }
 
   changeFristStatus() {
-    const token = this._authService.getToken();
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-      token: `${token}`,
-    });
-    console.log(token);
     console.log(this._authService.getUserIdFromToken());
     this._employeeService
-      .changeFreshStatus(this._authService.getUserIdFromToken(), headers)
+      .changeFreshStatus(this._authService.getUserIdFromToken())
       .subscribe({
         next: (res) => {
           console.log(res);

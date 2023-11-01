@@ -15,6 +15,7 @@ export class SettingsComponent {
   error: string = '';
   employeeId: string | null;
   responseMessage: string = '';
+
   constructor(
     private _authService: AuthService,
     private _notification: NotificationService,
@@ -38,14 +39,9 @@ export class SettingsComponent {
       const currentPassword =
         this.changePasswordForm.get('currentPassword')?.value;
       const newPassword = this.changePasswordForm.get('newPassword')?.value;
-      const token = this._authService.getToken();
-      const headers = new HttpHeaders({
-        'Content-Type': 'application/json',
-        token: `${token}`,
-      });
 
       this._employeeService
-        .changePassword(this.employeeId!, currentPassword, newPassword, headers)
+        .changePassword(this.employeeId!, currentPassword, newPassword)
         .subscribe({
           next: (res) => {
             console.log(res);

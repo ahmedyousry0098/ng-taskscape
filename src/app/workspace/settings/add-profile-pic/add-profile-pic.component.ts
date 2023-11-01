@@ -1,4 +1,3 @@
-import { HttpHeaders } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from 'src/app/services/auth.service';
@@ -22,6 +21,7 @@ export class AddProfilePicComponent {
     private _notification: NotificationService
   ) {
     this.employeeId = this.authService.getUserIdFromToken();
+
     this.addPhotoForm = new FormGroup({
       photo: new FormControl('', [Validators.required]),
     });
@@ -29,9 +29,22 @@ export class AddProfilePicComponent {
   ngOnchange() {
     this.employeeId = this.authService.getUserIdFromToken();
   }
+  ngOnInit() {
+    this.loadEmployeePhoto();
+  }
+
+  loadEmployeePhoto() {
+    this.employeeService.getEmployeeData().subscribe({
+      next: (res) => {
+        this.imageUrl = res.employee.profile_photo.secure_url;
+      },
+      error: (err) => {
+        console.log(err);
+      },
+    });
+  }
 
   addPhotoForm: FormGroup | any = new FormGroup({});
-
   handleFile(event: Event) {
     const files = (event.target as HTMLInputElement).files;
     if (files && files.length > 0) {
@@ -42,28 +55,20 @@ export class AddProfilePicComponent {
 
   handleAddPhoto() {
     this.isLoading = true;
-
     const formData = new FormData();
-
     formData.append('photo', this.addPhotoForm.get('photo').value);
 
-    const token = this.authService.getToken();
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-      token: `${token}`,
+    this.employeeService.addPhoto(this.employeeId, formData).subscribe({
+      next: (res) => {
+        this.isLoading = false;
+        this.employeeService.changePhoto();
+        this._notification.showNotification(res.message, 'OK', 'success');
+      },
+      error: (err) => {
+        console.log(err);
+        this.isLoading = false;
+        this._notification.showNotification(err.error.message, 'OK', 'error');
+      },
     });
-    this.employeeService
-      .addPhoto(this.employeeId, formData, headers)
-      .subscribe({
-        next: (res) => {
-          this.isLoading = false;
-          this._notification.showNotification(res.message, 'OK', 'success');
-        },
-        error: (err) => {
-          console.log(err);
-          this.isLoading = false;
-          this._notification.showNotification(err.error.message, 'OK', 'error');
-        },
-      });
   }
 }
