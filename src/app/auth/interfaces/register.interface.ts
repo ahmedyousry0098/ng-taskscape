@@ -29,4 +29,15 @@ export interface IAdminResponse {
 export interface IEmployeeResponse {
   message: string;
   token: string;
+  employee: {
+    createdAt: string;
+    createdBy: string;
+    email: string;
+    employeeName: string;
+    isFresh: boolean;
+    lastChangePassword: string;
+    organization: string;
+    role: string;
+    _id: string;
+  };
 }

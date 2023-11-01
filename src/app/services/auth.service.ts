@@ -45,22 +45,6 @@ export class AuthService {
     );
   }
 
-  changePassword(
-    employeeId: string | null,
-    password: string,
-    newPassword: string,
-    headers: HttpHeaders
-  ): Observable<IEmployeeResponse> {
-    return this._httpclient.patch<IEmployeeResponse>(
-      `${this.baseUrl}/employee/changepassword/${employeeId}`,
-      {
-        newPassword,
-        password,
-      },
-      { headers }
-    );
-  }
-
   setLoggedIn(token: string) {
     localStorage.setItem('token', token);
     this.loggedIn.next(true);

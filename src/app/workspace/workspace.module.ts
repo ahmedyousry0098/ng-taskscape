@@ -16,6 +16,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { MultiSelectModule } from 'primeng/multiselect';
 import { StyleClassModule } from 'primeng/styleclass';
 import { NotificationMessageComponent } from './settings/notification-message/notification-message.component';
+import { AddProfilePicComponent } from './settings/add-profile-pic/add-profile-pic.component';
 
 @NgModule({
   declarations: [
@@ -29,6 +30,7 @@ import { NotificationMessageComponent } from './settings/notification-message/no
     SettingsComponent,
     ProjectDetailsComponent,
     NotificationMessageComponent,
+    AddProfilePicComponent,
   ],
   imports: [
     CommonModule,

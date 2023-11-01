@@ -2,6 +2,7 @@ import { HttpHeaders } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from 'src/app/services/auth.service';
+import { EmployeeService } from 'src/app/services/employee.service';
 import { NotificationService } from 'src/app/services/notification.service';
 
 @Component({
@@ -16,7 +17,8 @@ export class SettingsComponent {
   responseMessage: string = '';
   constructor(
     private _authService: AuthService,
-    private _notification: NotificationService
+    private _notification: NotificationService,
+    private _employeeService: EmployeeService
   ) {
     this.employeeId = this._authService.getUserIdFromToken();
   }
@@ -31,7 +33,6 @@ export class SettingsComponent {
     ]),
   });
   changePassword(changePasswordForm: FormGroup) {
-    console.log('ok');
     if (this.changePasswordForm.valid) {
       this.isLoading = true;
       const currentPassword =
@@ -42,9 +43,8 @@ export class SettingsComponent {
         'Content-Type': 'application/json',
         token: `${token}`,
       });
-      console.log(this.employeeId, 'emid');
-      console.log(headers, 'headers');
-      this._authService
+
+      this._employeeService
         .changePassword(this.employeeId!, currentPassword, newPassword, headers)
         .subscribe({
           next: (res) => {
@@ -60,7 +60,7 @@ export class SettingsComponent {
           error: (err) => {
             console.log(changePasswordForm.value);
             this.isLoading = false;
-            this.error = err.message;
+
             this._notification.showNotification(err.error.error, 'OK', 'error');
           },
         });

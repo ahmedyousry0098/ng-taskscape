@@ -11,6 +11,7 @@ export class NavbarComponent {
   loggedIn: boolean = false;
   employeeName: string = '';
   token: string = '';
+  imageUrl: string = '../../../assets/noavatar.jpg';
 
   constructor(private authService: AuthService, private router: Router) {
     this.authService.isLoggedIn.subscribe((loggedIn) => {
