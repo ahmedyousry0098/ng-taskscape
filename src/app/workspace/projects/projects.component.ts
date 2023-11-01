@@ -8,7 +8,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { AuthService } from 'src/app/services/auth.service';
-import { EmployeeService } from 'src/app/services/project.service';
+import { ProjectService } from 'src/app/services/project.service';
 @Component({
   selector: 'app-projects',
   templateUrl: './projects.component.html',
@@ -25,7 +25,7 @@ export class ProjectsComponent {
 
   constructor(
     private formBuilder: FormBuilder,
-    private projectService: EmployeeService,
+    private projectService: ProjectService,
     private auth: AuthService
   ) {}
   showModal = false;

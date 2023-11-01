@@ -1,14 +1,14 @@
-import { UserProfileService } from 'src/app/services/user-profile.service';
-import { Injectable } from '@angular/core';
+import { Inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { IEmployee, IProject } from 'src/interfaces/interfaces';
+import { IProject } from 'src/interfaces/interfaces';
 import { Observable } from 'rxjs';
 import { AuthService } from './auth.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Injectable({
   providedIn: 'root',
 })
-export class EmployeeService {
+export class ProjectService {
   baseUrl = 'https://taskspace-rxco.onrender.com';
   token: any;
   employeeOrgId?: string;
@@ -16,7 +16,7 @@ export class EmployeeService {
   constructor(
     private HttpClient: HttpClient,
     private auth: AuthService,
-    private userProfile: UserProfileService
+    private route: ActivatedRoute
   ) {}
 
   getAllUsers(): Observable<IProject> {
@@ -67,5 +67,13 @@ export class EmployeeService {
         },
       }
     );
+  }
+  getProjectDetails(id: any): Observable<any> {
+    this.token = this.auth.getToken();
+    return this.HttpClient.get<any>(`${this.baseUrl}/project/details/${id}`, {
+      headers: {
+        token: `${this.token}`,
+      },
+    });
   }
 }

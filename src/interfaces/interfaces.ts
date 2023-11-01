@@ -6,6 +6,7 @@ export interface IProject {
   scrumMaster?: string;
   employees: IEmployee[];
   organization?: string;
+  _id: string;
 }
 export interface IEmployee {
   employeeName: string;
