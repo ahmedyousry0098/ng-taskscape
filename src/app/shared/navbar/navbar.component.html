@@ -69,9 +69,13 @@
         >Employee Login</a
       >
     </div>
-    <div *ngIf="loggedIn" class="relative flex items-center me-6">
+    <a
+      routerLink="workspace/home"
+      *ngIf="loggedIn"
+      class="relative flex items-center me-6"
+    >
       Welcome, {{ employeeName }}
-    </div>
+    </a>
     <img
       *ngIf="loggedIn"
       [src]="imageUrl"
