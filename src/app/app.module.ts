@@ -25,7 +25,7 @@ import { AuthInterceptor } from './interceptors/auth.interceptor';
     WorkspaceModule,
     HttpClientModule,
     BrowserAnimationsModule,
-    MatSnackBarModule,
+    MatSnackBarModule
   ],
   providers: [
     {

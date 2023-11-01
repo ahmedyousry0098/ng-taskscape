@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
+import { ToasterService } from 'src/app/services/toaster.service';
 import { EmployeeService } from 'src/app/services/employee.service';
 
 @Component({
@@ -14,7 +15,8 @@ export class EmpLoginComponent {
   constructor(
     private _authService: AuthService,
     private _router: Router,
-    private _employeeService: EmployeeService
+    private _employeeService: EmployeeService,
+    private toasterService: ToasterService
   ) {}
 
   isLoading: boolean = false;
@@ -42,9 +44,8 @@ export class EmpLoginComponent {
         }
       },
       error: (err) => {
-        console.log(employeeLoginForm.value);
         this.isLoading = false;
-        console.log(err);
+        this.toasterService.error('You havn\'t entered data correctly')
       },
     });
   }

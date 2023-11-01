@@ -1,7 +1,7 @@
 <section class="">
     <div class="flex flex-col items-center justify-center w-9/12 mx-auto pt-20">
         <div class="rounded-xl md:mt-0 bg-sky-500 px-6 bg-opacity-5 shadow-sky-950 shadow-lg">
-            <div class="space-y-4 md:space-y-6 sm:p-8 ">
+            <div class="space-y-8 md:space-y-6 sm:p-8 ">
                 <h1 class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
                     Admin Register
                 </h1>
@@ -61,7 +61,7 @@
                     <div class="relative flex items-center">
                         <a routerLink="/org-register">
                             <button type="submit" [disabled]="adminRegisterForm.invalid"
-                                class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                                class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" (click)="registerError()"
                             >
                                 <i *ngIf="isLoading" class="fas fa-spinner fa-spin"></i>
                                 <span *ngIf="!isLoading">
