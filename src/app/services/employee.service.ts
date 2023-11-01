@@ -14,18 +14,6 @@ export class EmployeeService {
   isPhotoChanged = this.photochange.asObservable();
   constructor(private HttpClient: HttpClient) {}
 
-  getAllUsers(): Observable<IProject> {
-    return this.HttpClient.get<IProject>(
-      `${this.baseUrl}/employee/getAllEmployeeScrum/653d3b8c509e0e7ff0e7746c`
-    );
-  }
-  createNewProject(formData: any): Observable<IProject> {
-    return this.HttpClient.post<IProject>(
-      `${this.baseUrl}/project/create`,
-      formData
-    );
-  }
-
   changePassword(
     employeeId: string | null,
     password: string,

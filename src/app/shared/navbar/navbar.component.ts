@@ -23,12 +23,12 @@ export class NavbarComponent {
     this.loadEmployeePhoto();
     this.authService.isLoggedIn.subscribe((loggedIn) => {
       this.loggedIn = loggedIn;
-      if (loggedIn) {
-        const decodedToken = this.authService.getDecodedToken();
-        if (decodedToken && decodedToken.email) {
-          this.employeeName = decodedToken.email;
-        }
-      }
+      // if (loggedIn) {
+      //   const decodedToken = this.authService.getDecodedToken();
+      //   if (decodedToken && decodedToken.email) {
+      //     this.employeeName = decodedToken.email;
+      //   }
+      // }
     });
   }
   ngOnInit() {
@@ -44,6 +44,7 @@ export class NavbarComponent {
     this.employeeService.getEmployeeData().subscribe({
       next: (res) => {
         this.imageUrl = res.employee.profile_photo.secure_url;
+        this.employeeName = res.employee.employeeName;
       },
       error: (err) => {
         console.log(err);
