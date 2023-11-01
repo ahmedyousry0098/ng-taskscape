@@ -1,6 +1,6 @@
 import { WorkspaceHomeComponent } from './workspace/workspace-home/workspace-home.component';
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import { Router, RouterModule, Routes } from '@angular/router';
 import { LayoutComponent } from './home/layout/layout.component';
 import { WorkspaceLayoutComponent } from './workspace/workspace-layout/workspace-layout.component';
 import { TasksComponent } from './workspace/tasks/tasks.component';
@@ -8,7 +8,7 @@ import { NotfoundComponent } from './shared/notfound/notfound.component';
 import { OrgRegitserComponent } from './auth/org-regitser/org-regitser.component';
 import { AdminRegisterComponent } from './auth/admin-register/admin-register.component';
 import { EmpLoginComponent } from './auth/emp-login/emp-login.component';
-import { AuthGuardService } from './services/auth-guard.service';
+import { authGuard } from './guard/auth.guard';
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -17,7 +17,8 @@ const routes: Routes = [
   {
     path: 'workspace',
     component: WorkspaceLayoutComponent,
-    canActivate: [AuthGuardService],
+    canActivate: [authGuard],
+
     loadChildren: () =>
       import('./workspace/workspace.module').then((m) => m.WorkspaceModule),
   },
@@ -30,5 +31,6 @@ const routes: Routes = [
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
+  providers: [],
 })
 export class AppRoutingModule {}

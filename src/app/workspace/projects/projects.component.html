@@ -3,37 +3,26 @@
   <!-- projects container -->
   <div class="flex flex-wrap gap-3 ml-6">
     <!-- project Card -->
-    <div class="bg-gray-200 w-80 h-52 m-2 flex justify-center">
+    <div
+      class="bg-gray-200 w-80 h-52 m-2 flex justify-center"
+      *ngFor="let project of projects"
+    >
       <!-- card body -->
       <div class="flex flex-col justify-center items-center">
-        <h3 class="font-semibold text-xl">Project Name</h3>
-        <p>You have 10 tasks ToDo</p>
-        <button class="bg-slate-500 py-2 px-4 text-white rounded-md mt-2">
+        <h3 class="font-semibold text-xl">{{ project.projectName }}</h3>
+        <button
+          routerLink="details/{{ project._id }}"
+          class="bg-slate-500 hover:bg-slate-600 py-2 px-4 text-white rounded-md mt-2 me-4"
+        >
           view
         </button>
       </div>
     </div>
-    <div class="bg-teal-300 w-80 h-52 m-2 flex justify-center">
-      <!-- card body -->
-      <div class="flex flex-col justify-center items-center">
-        <h3 class="font-semibold text-xl">Project Name</h3>
-        <p>You have 10 tasks ToDo</p>
-        <button class="bg-slate-500 py-2 px-4 text-white rounded-md mt-2">
-          view
-        </button>
-      </div>
-    </div>
-    <div class="bg-blue-300 w-80 h-52 m-2 flex justify-center">
-      <!-- card body -->
-      <div class="flex flex-col justify-center items-center">
-        <h3 class="font-semibold text-xl">Project Name</h3>
-        <p>You have 10 tasks ToDo</p>
-        <button class="bg-slate-500 py-2 px-4 text-white rounded-md mt-2">
-          view
-        </button>
-      </div>
-    </div>
-    <div class="bg-green-300 w-80 h-52 m-2 flex justify-center">
+
+    <div
+      class="bg-green-300 w-80 h-52 m-2 flex justify-center"
+      *ngIf="IRole === 'scrumMaster'"
+    >
       <!-- card body -->
 
       <!-- Add project -->
@@ -134,26 +123,26 @@
                     >
                   </div>
                   <div class="flex flex-col gap-1">
-                    <label for="endDate">End Date</label>
+                    <label for="deadline">End Date</label>
                     <input
                       type="date"
-                      name="endDate"
-                      id="endDate"
-                      formControlName="endDate"
+                      name="deadline"
+                      id="deadline"
+                      formControlName="deadline"
                       class="border border-gray-600 rounded-md"
                       [class.border-red-500]="
-                        addNewProjectForm.get('endDate')?.invalid &&
-                        (addNewProjectForm.get('endDate')?.touched ||
-                          addNewProjectForm.get('endDate')?.dirty ||
+                        addNewProjectForm.get('deadline')?.invalid &&
+                        (addNewProjectForm.get('deadline')?.touched ||
+                          addNewProjectForm.get('deadline')?.dirty ||
                           isSubmitted)
                       "
                     />
                     <span
                       class="text-red-500"
                       *ngIf="
-                        addNewProjectForm.get('endDate')?.invalid &&
-                        (addNewProjectForm.get('endDate')?.touched ||
-                          addNewProjectForm.get('endDate')?.dirty ||
+                        addNewProjectForm.get('deadline')?.invalid &&
+                        (addNewProjectForm.get('deadline')?.touched ||
+                          addNewProjectForm.get('deadline')?.dirty ||
                           isSubmitted)
                       "
                       >This field is required</span
@@ -162,27 +151,27 @@
                 </div>
                 <!-- description -->
                 <div class="flex flex-col gap-1">
-                  <label for="projectDescription">Project Description</label>
+                  <label for="description">Project Description</label>
                   <textarea
-                    name="projectDescription"
-                    id="projectDescription"
+                    name="description"
+                    id="description"
                     cols="30"
                     rows="5"
-                    formControlName="projectDescription"
+                    formControlName="description"
                     class="border border-gray-600 rounded-md"
                     [class.border-red-500]="
-                      addNewProjectForm.get('projectDescription')?.invalid &&
-                      (addNewProjectForm.get('projectDescription')?.touched ||
-                        addNewProjectForm.get('projectDescription')?.dirty ||
+                      addNewProjectForm.get('description')?.invalid &&
+                      (addNewProjectForm.get('description')?.touched ||
+                        addNewProjectForm.get('description')?.dirty ||
                         isSubmitted)
                     "
                   ></textarea>
                   <span
                     class="text-red-500"
                     *ngIf="
-                      addNewProjectForm.get('projectDescription')?.invalid &&
-                      (addNewProjectForm.get('projectDescription')?.touched ||
-                        addNewProjectForm.get('projectDescription')?.dirty ||
+                      addNewProjectForm.get('description')?.invalid &&
+                      (addNewProjectForm.get('description')?.touched ||
+                        addNewProjectForm.get('description')?.dirty ||
                         isSubmitted)
                     "
                     >This field is required</span
@@ -224,6 +213,8 @@
                     type="submit"
                     class="text-white bg-blue-600 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
                   >
+                    <i *ngIf="isLoading" class="fas fa-spinner fa-spin"></i>
+
                     Add Project
                   </button>
                   <button
