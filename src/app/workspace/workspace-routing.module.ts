@@ -8,6 +8,7 @@ import { ProjectsComponent } from './projects/projects.component';
 import { ProfileComponent } from './profile/profile.component';
 import { SettingsComponent } from './settings/settings.component';
 import { ProjectDetailsComponent } from './project-details/project-details.component';
+import { AddProfilePicComponent } from './settings/add-profile-pic/add-profile-pic.component';
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'home' },
@@ -38,6 +39,10 @@ const routes: Routes = [
   {
     path: 'settings',
     component: SettingsComponent,
+  },
+  {
+    path: 'settings/changeprofilepic',
+    component: AddProfilePicComponent,
   },
 ];
 
