@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
+import { ToasterService } from 'src/app/services/toaster.service';
 
 @Component({
   selector: 'app-emp-login',
@@ -9,7 +10,7 @@ import { AuthService } from 'src/app/services/auth.service';
   styleUrls: ['./emp-login.component.css'],
 })
 export class EmpLoginComponent {
-  constructor(private _authService: AuthService, private _router: Router) {}
+  constructor(private _authService: AuthService, private _router: Router, private toasterService: ToasterService) {}
 
   isLoading: boolean = false;
   employeeLoginForm: FormGroup = new FormGroup({
@@ -28,9 +29,8 @@ export class EmpLoginComponent {
         this._router.navigate(['/workspace']);
       },
       error: (err) => {
-        console.log(employeeLoginForm.value);
         this.isLoading = false;
-        console.log(err);
+        this.toasterService.error('You havn\'t entered data correctly')
       },
     });
   }
