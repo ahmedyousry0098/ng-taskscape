@@ -76,6 +76,12 @@
     >
       Welcome, {{ employeeName }}
     </a>
+    <img
+      *ngIf="loggedIn"
+      [src]="imageUrl"
+      class="rounded-full h-10 w-10 me-6 cursor-pointer"
+      alt=""
+    />
     <div *ngIf="loggedIn" class="relative flex items-center">
       <a
         (click)="logout()"

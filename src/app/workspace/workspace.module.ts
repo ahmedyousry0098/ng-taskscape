@@ -15,6 +15,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { MultiSelectModule } from 'primeng/multiselect';
 import { StyleClassModule } from 'primeng/styleclass';
+import { NotificationMessageComponent } from './settings/notification-message/notification-message.component';
+import { AddProfilePicComponent } from './settings/add-profile-pic/add-profile-pic.component';
 
 @NgModule({
   declarations: [
@@ -27,6 +29,8 @@ import { StyleClassModule } from 'primeng/styleclass';
     ProfileComponent,
     SettingsComponent,
     ProjectDetailsComponent,
+    NotificationMessageComponent,
+    AddProfilePicComponent,
   ],
   imports: [
     CommonModule,
