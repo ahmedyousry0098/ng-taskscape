@@ -27,8 +27,10 @@ export class WorkspaceHomeComponent {
     this.authService.isLoggedIn.subscribe((loggedIn) => {
       this.loggedIn = loggedIn;
       if (loggedIn) {
+        //get userData
         this.userProfile.getUserProfile().subscribe(({ employee }) => {
           this.employeeName = employee.employeeName;
+          console.log(employee);
         });
       }
     });

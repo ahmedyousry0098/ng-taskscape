@@ -11,10 +11,10 @@ export class UserProfileService {
   baseUrl = 'https://taskspace-rxco.onrender.com';
   loggedIn: boolean = false;
   token: any;
-  constructor(private HttpClient: HttpClient, private auth: AuthService) {
-    this.token = this.auth.getToken();
-  }
+  constructor(private HttpClient: HttpClient, private auth: AuthService) {}
   getUserProfile(): Observable<any> {
+    this.token = this.auth.getToken();
+
     return this.HttpClient.get<any>(`${this.baseUrl}/employee/my-profile`, {
       headers: {
         token: `${this.token}`,

@@ -1,4 +1,4 @@
-import { IEmployee } from './../../../interfaces/interfaces';
+import { IEmployee, IProject, IRole } from './../../../interfaces/interfaces';
 import { formatPercent } from '@angular/common';
 import { Component } from '@angular/core';
 import {
@@ -7,7 +7,8 @@ import {
   FormControl,
   Validators,
 } from '@angular/forms';
-import { EmployeeService } from 'src/app/services/createProject.service';
+import { AuthService } from 'src/app/services/auth.service';
+import { EmployeeService } from 'src/app/services/project.service';
 @Component({
   selector: 'app-projects',
   templateUrl: './projects.component.html',
@@ -15,45 +16,69 @@ import { EmployeeService } from 'src/app/services/createProject.service';
 })
 export class ProjectsComponent {
   employees?: IEmployee[];
-  selectedEmployees?: IEmployee[];
-
+  IRole: IRole = this.auth.getDecodedToken().role;
+  orgId: string = this.auth.getDecodedToken().orgId;
+  scrumMaster: string = this.auth.getDecodedToken()._id;
+  projects?: IProject[];
   isSubmitted = false;
+  isLoading: boolean = false;
+
   constructor(
     private formBuilder: FormBuilder,
-    private userService: EmployeeService
+    private projectService: EmployeeService,
+    private auth: AuthService
   ) {}
   showModal = false;
   toggleModal() {
     this.showModal = !this.showModal;
   }
+
   addNewProjectForm = this.formBuilder.group({
     projectName: ['', [Validators.required]],
     startDate: ['', [Validators.required]],
-    endDate: ['', [Validators.required]],
-    projectDescription: ['', [Validators.required]],
+    deadline: ['', [Validators.required]],
+    description: ['', [Validators.required]],
     employees: ['', [Validators.required]],
+    organization: [`${this.orgId}`],
+    scrumMaster: [`${this.scrumMaster}`],
   });
   onSubmit(): void {
     this.isSubmitted = true;
+    this.isLoading = true;
     if (this.addNewProjectForm.valid) {
-      console.log('formData', this.addNewProjectForm.value);
-      this.userService
+      this.projectService
         .createNewProject(this.addNewProjectForm.value)
-        .subscribe((event: any) => {
-          console.log(event.body);
+        .subscribe({
+          next: (res) => {
+            this.isLoading = false;
+            this.getScrumMasterProjects();
+            this.toggleModal();
+          },
+          error: (err) => {
+            console.log(err);
+            this.isLoading = false;
+          },
         });
     }
   }
-  addProjectErrorMsgs(inputName: any) {
-    (this.addNewProjectForm.get(inputName)?.invalid &&
-      this.addNewProjectForm.get(inputName)?.touched) ||
-      this.addNewProjectForm.get(inputName)?.dirty ||
-      this.isSubmitted;
+
+  getScrumMasterProjects() {
+    this.projectService
+      .getAllProjectsScrum()
+      .subscribe((data) => (this.projects = data.projects));
   }
   ngOnInit() {
-    this.userService.getAllUsers().subscribe(({ employee }) => {
-      this.employees = employee;
-      console.log(this.employees);
-    });
+    this.IRole = this.auth.getDecodedToken().role;
+
+    if (this.IRole === IRole.scrumMaster) {
+      this.projectService.getAllUsers().subscribe(({ employees }) => {
+        this.employees = employees;
+        this.getScrumMasterProjects();
+      });
+    } else if (this.IRole === IRole.member) {
+      this.projectService
+        .getAllProjectsEmployee()
+        .subscribe((data) => (this.projects = data.projects));
+    }
   }
 }

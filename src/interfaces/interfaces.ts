@@ -1,19 +1,24 @@
 export interface IProject {
   projectName: string;
   startDate: string;
-  endDate: string;
-  projectDescription: string;
+  deadline: string;
+  description: string;
   scrumMaster?: string;
-  employee: IEmployee[];
+  employees: IEmployee[];
   organization?: string;
 }
 export interface IEmployee {
   employeeName: string;
   email: string;
   password: string;
-  role: 'scrumMaster' | 'member';
+  role: IRole;
   lastChangePassword: Date;
   createdBy: string;
   organization: string;
   _id: string;
+}
+
+export enum IRole {
+  scrumMaster = 'scrumMaster',
+  member = 'member',
 }
