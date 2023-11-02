@@ -17,6 +17,7 @@ import { MultiSelectModule } from 'primeng/multiselect';
 import { StyleClassModule } from 'primeng/styleclass';
 import { NotificationMessageComponent } from './settings/notification-message/notification-message.component';
 import { AddProfilePicComponent } from './settings/add-profile-pic/add-profile-pic.component';
+import { SprintComponent } from './sprint/sprint.component';
 
 @NgModule({
   declarations: [
@@ -31,6 +32,7 @@ import { AddProfilePicComponent } from './settings/add-profile-pic/add-profile-p
     ProjectDetailsComponent,
     NotificationMessageComponent,
     AddProfilePicComponent,
+    SprintComponent,
   ],
   imports: [
     CommonModule,

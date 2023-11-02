@@ -11,11 +11,9 @@ import { inject } from '@angular/core';
 export const authGuard: CanActivateFn = (): boolean | UrlTree => {
   const authService: AuthService = inject(AuthService);
   const router: Router = inject(Router);
-
   if (authService.isAuthenticated()) {
     return true;
   } else {
-    console.log('fals');
     router.navigate(['/employee-login']);
     return false;
   }
