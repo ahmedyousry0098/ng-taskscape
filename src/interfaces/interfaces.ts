@@ -17,6 +17,7 @@ export interface IEmployee {
   createdBy: string;
   organization: string;
   _id: string;
+  title: string;
 }
 
 export enum IRole {

@@ -19,7 +19,7 @@ export class SprintComponent {
   constructor(sprintService: SprintService, private formBuilder: FormBuilder) {
     this.createSprint = this.formBuilder.group({
       sprintName: [[Validators.required, Validators.minLength(5)]],
-      sprintDate: [[Validators.required, Validators.d]],
+      sprintDate: [[Validators.required, Validators]],
     });
   }
 
