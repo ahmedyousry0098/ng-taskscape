@@ -1,15 +1,121 @@
 <div class="container">
-  <div class="flex items-center gap-8 mt-4">
-    <h2 class="font-semibold m-3">{{ project }}</h2>
-    <div class="flex gap-2">
-      <div class="hover:bg-slate-400 rounded-sm p-2 cursor-pointer">
+  <div class="flex items-center justify-center gap-8 m-4">
+    <div class="font-semibold h2 text-xl">{{ projectName }}</div>
+    <div class="flex gap-2 items-center">
+      <div class="hover:bg-slate-400 rounded-sm p-1 cursor-pointer">
         <i class="fa-solid fa-pen-to-square p-1"></i>Edit
       </div>
-      <div class="hover:bg-slate-400 rounded-sm p-2 cursor-pointer">
+      <div class="hover:bg-slate-400 rounded-sm p-1 cursor-pointer">
         <i class="fa-solid fa-plus p-1"></i>Sprint
       </div>
-      <div class="hover:bg-slate-400 rounded-sm p-2 cursor-pointer">
+      <div
+        class="hover:bg-slate-400 rounded-sm p-1 cursor-pointer"
+        (click)="toggleModal()"
+      >
         <i class="fa-solid fa-people-group p-1"></i>Collaborators
+      </div>
+    </div>
+  </div>
+  <!-- //collaborators modal -->
+  <div
+    *ngIf="showModal"
+    class="overflow-x-hidden overflow-y-hidden fixed inset-0 z-50 outline-none focus:outline-none justify-center items-center flex bg-black bg-opacity-30"
+  >
+    <div class="relative w-auto mx-auto max-w-6xl h-full">
+      <!--content-->
+      <div
+        class="my-8 overflow-y-auto h-5/6 border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none"
+      >
+        <!--header-->
+        <div
+          class="flex items-start justify-between p-5 border-b border-solid border-blueGray-200 rounded-t"
+        >
+          <h3 class="text-3xl font-semibold">Edit Project Collaborators</h3>
+          <button
+            class="p-1 ml-auto bg-transparent border-0 text-black opacity-5 float-right text-3xl leading-none font-semibold outline-none focus:outline-none"
+            (click)="toggleModal()"
+          >
+            <span
+              class="bg-gray-500 text-black opacity-5 h-6 w-6 text-2xl block outline-none focus:outline-none"
+            >
+              ×
+            </span>
+          </button>
+        </div>
+        <!--body-->
+        <div class="relative p-6 flex-auto">
+          <h2>Current Project Employees</h2>
+          <div
+            *ngFor="let employee of projectEmployees"
+            class="block rounded-lg bg-white my-3 shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] dark:bg-neutral-700"
+          >
+            <div class="p-6 flex items-center justify-between gap-8">
+              <div class="flex items-center gap-2">
+                <p class="text-xl">{{ employee.employeeName }}</p>
+                <p class="text-md">title</p>
+              </div>
+              <div class="flex items-center gap-2">
+                <div
+                  (click)="
+                    delEmployee({
+                      organization: '65420334c7e384ecdba27be3',
+                      project: project._id,
+                      employee: employee._id
+                    })
+                  "
+                  class="bg-red-600 p-1 rounded-sm cursor-pointer mb-2 hover:bg-red-800"
+                >
+                  <i class="fa-solid fa-trash" style="color: #ffffff"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+          <hr />
+          <h2>All Company Employees</h2>
+          <div
+            *ngFor="let employee of employees"
+            class="block rounded-lg bg-white my-3 shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] dark:bg-neutral-700"
+          >
+            <div class="p-6 flex items-center justify-between gap-8">
+              <div class="flex items-center gap-2">
+                <p class="text-xl">{{ employee.employeeName }}</p>
+                <p class="text-md">title</p>
+              </div>
+              <div class="flex items-center gap-2">
+                <div
+                  (click)="
+                    addEmployee({
+                      organization: employee.organization,
+                      project: project._id,
+                      employees: [employee._id]
+                    })
+                  "
+                  class="bg-gray-500 p-1 rounded-sm cursor-pointer mb-2 hover:bg-gray-600"
+                >
+                  <i class="fa-solid fa-plus" style="color: #ffffff"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- buttons -->
+        <div class="flex gap-4 mb-5 ml-3">
+          <button
+            type="submit"
+            class="text-white bg-blue-600 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
+          >
+            <i *ngIf="isLoading" class="fas fa-spinner fa-spin"></i>
+
+            Save
+          </button>
+          <button
+            type="button"
+            class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600"
+            (click)="toggleModal()"
+          >
+            Decline
+          </button>
+        </div>
       </div>
     </div>
   </div>

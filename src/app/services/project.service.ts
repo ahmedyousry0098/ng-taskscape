@@ -76,4 +76,28 @@ export class ProjectService {
       },
     });
   }
+  addEmployee(data: any): Observable<any> {
+    this.token = this.auth.getToken();
+    return this.HttpClient.patch<any>(
+      `${this.baseUrl}/project/add-employee`,
+      data,
+      {
+        headers: {
+          token: `${this.token}`,
+        },
+      }
+    );
+  }
+  delEmployee(data: any): Observable<any> {
+    this.token = this.auth.getToken();
+    return this.HttpClient.patch<any>(
+      `${this.baseUrl}/project/del-employee`,
+      data,
+      {
+        headers: {
+          token: `${this.token}`,
+        },
+      }
+    );
+  }
 }
