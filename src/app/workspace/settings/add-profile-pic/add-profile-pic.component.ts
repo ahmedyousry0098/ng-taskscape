@@ -36,7 +36,14 @@ export class AddProfilePicComponent {
   loadEmployeePhoto() {
     this.employeeService.getEmployeeData().subscribe({
       next: (res) => {
-        this.imageUrl = res.employee.profile_photo.secure_url;
+        if (
+          res.employee.profile_photo &&
+          res.employee.profile_photo.secure_url
+        ) {
+          this.imageUrl = res.employee.profile_photo.secure_url;
+        } else {
+          this.imageUrl = '../../../assets/noavatar.jpg';
+        }
       },
       error: (err) => {
         console.log(err);

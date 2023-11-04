@@ -44,19 +44,27 @@ export class AuthService {
       data
     );
   }
-  isAuthenticated(): boolean {
-    return this.loggedIn.value;
+  setLoggedIn(token: string) {
+    localStorage.setItem('token', token);
+    this.loggedIn.next(true);
   }
+  isAuthenticated(): boolean {
+    const token = this.getToken();
+    if (token) {
+      const decodedToken = this.getDecodedToken();
+      const currentTime = Date.now() / 1000;
+      if (decodedToken && decodedToken.exp && decodedToken.exp > currentTime) {
+        return true;
+      }
+    }
+    return false;
+  }
+
   checkLoggedIn() {
     const token = localStorage.getItem('token');
     if (token) {
       this.loggedIn.next(true);
     }
-  }
-
-  setLoggedIn(token: string) {
-    localStorage.setItem('token', token);
-    this.loggedIn.next(true);
   }
 
   getToken(): string | null {

@@ -4,14 +4,17 @@ import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 import { ToasterService } from 'src/app/services/toaster.service';
 
-
 @Component({
   selector: 'app-org-regitser',
   templateUrl: './org-regitser.component.html',
   styleUrls: ['./org-regitser.component.css'],
 })
 export class OrgRegitserComponent {
-  constructor(private _AuthService: AuthService, private _Router: Router, private toasterService: ToasterService) { }
+  constructor(
+    private _AuthService: AuthService,
+    private _Router: Router,
+    private toasterService: ToasterService
+  ) {}
 
   isLoading: boolean = false;
   orgRegisterForm: FormGroup = new FormGroup({
@@ -60,8 +63,8 @@ export class OrgRegitserComponent {
         this._Router.navigate(['/admin-register']);
       },
       error: (err) => {
-        this.isLoading = false
-        this.toasterService.error('You havn\'t entered data correctly')
+        this.isLoading = false;
+        this.toasterService.error("You havn't entered data correctly");
         console.log(err);
       },
       complete: () => {

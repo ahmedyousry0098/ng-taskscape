@@ -17,6 +17,11 @@ import { MultiSelectModule } from 'primeng/multiselect';
 import { StyleClassModule } from 'primeng/styleclass';
 import { NotificationMessageComponent } from './settings/notification-message/notification-message.component';
 import { AddProfilePicComponent } from './settings/add-profile-pic/add-profile-pic.component';
+import { SprintComponent } from './sprint/sprint.component';
+import { SprintDetailsComponent } from './sprint/sprint-details/sprint-details.component';
+import { DateFormatPipe } from '../pipe/date-format.pipe';
+import { DropdownModule } from 'primeng/dropdown';
+import { AddsprintComponent } from './sprint/addsprint/addsprint.component';
 
 @NgModule({
   declarations: [
@@ -31,6 +36,10 @@ import { AddProfilePicComponent } from './settings/add-profile-pic/add-profile-p
     ProjectDetailsComponent,
     NotificationMessageComponent,
     AddProfilePicComponent,
+    SprintComponent,
+    SprintDetailsComponent,
+    DateFormatPipe,
+    AddsprintComponent,
   ],
   imports: [
     CommonModule,
@@ -41,6 +50,7 @@ import { AddProfilePicComponent } from './settings/add-profile-pic/add-profile-p
     MultiSelectModule,
     FormsModule,
     StyleClassModule,
+    DropdownModule,
   ],
 })
 export class WorkspaceModule {}
