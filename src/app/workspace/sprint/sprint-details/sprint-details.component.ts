@@ -19,6 +19,9 @@ export class SprintDetailsComponent {
   project: IProject[] = [];
   projectName: string = '';
   employeeNAme: string = '';
+  todoTasks: ITask[] = [];
+  doneTasks: ITask[] = [];
+  doingTasks: ITask[] = [];
   imageUrl: string = '../../../assets/noavatar.jpg';
   constructor(
     private route: ActivatedRoute,
@@ -43,6 +46,9 @@ export class SprintDetailsComponent {
       this.deadline = data.details.deadline;
       this.projectName = data.details.project.projectName;
       this.tasks = data.details.tasks;
+      this.todoTasks = this.tasks.filter((task) => task.status === 'todo');
+      this.doingTasks = this.tasks.filter((task) => task.status === 'doing');
+      this.doneTasks = this.tasks.filter((task) => task.status === 'done');
     });
   }
 }
