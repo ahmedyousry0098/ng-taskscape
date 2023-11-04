@@ -1,11 +1,8 @@
 import { Component } from '@angular/core';
-import {
-  FormBuilder,
-  FormControl,
-  FormGroup,
-  Validators,
-} from '@angular/forms';
+import { AuthService } from 'src/app/services/auth.service';
 import { SprintService } from 'src/app/services/sprint.service';
+
+import { IProjectWithSprint, IRole, ISprint } from 'src/interfaces/interfaces';
 
 @Component({
   selector: 'app-sprint',
@@ -14,16 +11,48 @@ import { SprintService } from 'src/app/services/sprint.service';
 })
 export class SprintComponent {
   isLoading: boolean = false;
-  createSprint: FormGroup;
+  projects: IProjectWithSprint[] = [];
+  IRole!: IRole;
+  sprints!: ISprint[];
+  projectId!: string | null;
+  orgId: string | null = this.authService.getDecodedToken().orgId;
+  employeeID: string | null = this.authService.getDecodedToken()._id;
+  showModal = false;
 
-  constructor(sprintService: SprintService, private formBuilder: FormBuilder) {
-    this.createSprint = this.formBuilder.group({
-      sprintName: [[Validators.required, Validators.minLength(5)]],
-      sprintDate: [[Validators.required, Validators]],
-    });
+  constructor(
+    private sprintService: SprintService,
+    private authService: AuthService
+  ) {}
+
+  ngOnInit() {
+    this.IRole = this.authService.getDecodedToken().role;
+    if (this.IRole === IRole.scrumMaster) {
+      this.getScrumProjects();
+    } else {
+      this.getEmployeeProject();
+    }
   }
 
-  handleCreateSprint() {
-    this.isLoading = true;
+  toggleModal() {
+    this.showModal = !this.showModal;
+  }
+  onToggleModal(showModal: boolean) {
+    this.showModal = showModal;
+  }
+
+  getScrumProjects() {
+    this.sprintService.getScrumProjects(this.employeeID).subscribe((data) => {
+      console.log(data, 'org');
+      this.projects = data.projects;
+
+      this.sprints = data.projects.sprints;
+    });
+  }
+  getEmployeeProject() {
+    this.sprintService.getEmployeeProject(this.employeeID).subscribe((data) => {
+      this.projects = data.projects;
+
+      this.sprints = data.projects.sprints;
+    });
   }
 }

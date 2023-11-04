@@ -1,0 +1,155 @@
+<div
+  *ngIf="showModal"
+  class="overlay"
+  (click)="onBackdropClick($event)"
+  class="overflow-x-hidden overflow-y-hidden fixed inset-0 z-50 outline-none focus:outline-none justify-center items-center flex bg-black bg-opacity-60"
+>
+  <div class="relative w-2/5 mx-auto max-w-6xl h-fit">
+    <form
+      class="p-4 space-y-6"
+      [formGroup]="createSprintForm"
+      (ngSubmit)="handleCreateSprint()"
+    >
+      <div
+        class="my-8 overflow-y-auto h-5/6 border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-sky-50 outline-none focus:outline-none"
+      >
+        <div
+          class="items-start justify-between border-b border-solid border-blueGray-200 rounded-t"
+        >
+          <h2 class="text-3xl font-semibold pt-3 ps-3">
+            Add sprint to an existing project
+          </h2>
+        </div>
+        <div class="relative p-6">
+          <div class="gap-1 w-fit py-3">
+            <label class="text-lg pb-2" for="projects">Projects</label>
+            <p-dropdown
+              class="flex border border-slate-950 rounded"
+              [options]="projects"
+              formControlName="projectId"
+              optionLabel="projectName"
+              optionValue="_id"
+              display="chip"
+              placeholder="Select a project"
+              [class.border-red-500]="
+                createSprintForm.get('projectId')?.invalid &&
+                (createSprintForm.get('projectId')?.touched ||
+                  createSprintForm.get('projectId')?.dirty)
+              "
+            >
+              ></p-dropdown
+            >
+            <span
+              class="text-red-500"
+              *ngIf="
+                createSprintForm.get('projectId')?.invalid &&
+                (createSprintForm.get('projectId')?.touched ||
+                  createSprintForm.get('projectId')?.dirty)
+              "
+              >The Project is required</span
+            >
+          </div>
+
+          <div class="flex flex-col gap-3">
+            <label class="text-lg" for="sprint_name">Sprint Name </label>
+            <input
+              type="text"
+              name="sprint_name"
+              id="sprint_name"
+              formControlName="sprint_name"
+              class="border border-gray-600 rounded-md"
+              [class.border-red-500]="
+                createSprintForm.get('sprint_name')?.invalid &&
+                (createSprintForm.get('sprint_name')?.touched ||
+                  createSprintForm.get('sprint_name')?.dirty)
+              "
+            />
+            <span
+              class="text-red-500"
+              *ngIf="
+                createSprintForm.get('sprint_name')?.invalid &&
+                (createSprintForm.get('sprint_name')?.touched ||
+                  createSprintForm.get('sprint_name')?.dirty)
+              "
+              >The Sprint Name is required and must be more than 5
+              characters...</span
+            >
+          </div>
+
+          <div class="flex justify-between gap-5 pt-5">
+            <!-- Start Date -->
+            <div class="flex flex-col gap-1">
+              <label for="start_date">Start Date</label>
+              <input
+                type="date"
+                name="start_date"
+                id="start_date"
+                formControlName="start_date"
+                class="border border-gray-600 rounded-md"
+                [class.border-red-500]="
+                  createSprintForm.get('start_date')?.invalid &&
+                  (createSprintForm.get('start_date')?.touched ||
+                    createSprintForm.get('start_date')?.dirty)
+                "
+              />
+              <span
+                class="text-red-500"
+                *ngIf="
+                  createSprintForm.get('start_date')?.invalid &&
+                  (createSprintForm.get('start_date')?.touched ||
+                    createSprintForm.get('start_date')?.dirty)
+                "
+                >The Start Date is required and greater than the current
+                date</span
+              >
+            </div>
+            <div class="flex flex-col gap-1">
+              <label for="deadline">End Date</label>
+              <input
+                type="date"
+                name="deadline"
+                id="deadline"
+                formControlName="deadline"
+                class="border border-gray-600 rounded-md"
+                [class.border-red-500]="
+                  createSprintForm.get('deadline')?.invalid &&
+                  (createSprintForm.get('deadline')?.touched ||
+                    createSprintForm.get('deadline')?.dirty)
+                "
+              />
+              <span
+                class="text-red-500"
+                *ngIf="
+                  createSprintForm.get('deadline')?.invalid &&
+                  (createSprintForm.get('deadline')?.touched ||
+                    createSprintForm.get('deadline')?.dirty)
+                "
+                >The End Date is required and greater than the current
+                date</span
+              >
+            </div>
+          </div>
+        </div>
+        <!-- buttons -->
+        <div class="flex gap-4 mb-5 ml-3">
+          <button
+            type="submit"
+            class="text-white bg-blue-600 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
+            [disabled]="createSprintForm.invalid"
+          >
+            <i *ngIf="isLoading" class="fas fa-spinner fa-spin"></i>
+
+            Save
+          </button>
+          <button
+            type="button"
+            class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600"
+            (click)="closeModal()"
+          >
+            Close
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
