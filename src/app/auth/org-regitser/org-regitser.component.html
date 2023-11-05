@@ -1,215 +1,155 @@
-<section class="">
-  <div class="flex flex-col items-center justify-center w-9/12 mx-auto pt-20">
-    <div
-      class="rounded-xl md:mt-0 xl:p-0 bg-sky-500 bg-opacity-5 shadow-sky-200 shadow-sm"
-    >
-      <div class="p-6 space-y-4 md:space-y-6">
-        <h1
-          class="text-2xl font-bold leading-tight tracking-tight text-sky-950 text-center"
-        >
-          Create Your Organization
-        </h1>
-        <form
-          class="w-full space-y-4 md:space-y-6"
-          (ngSubmit)="handleOrgRegister()"
-          [formGroup]="orgRegisterForm"
-        >
-          <div>
-            <input
-              type="text"
-              formControlName="organization_name"
-              id="organization_name"
-              class="border h-10 border-sky-950 outline-none text-amber-500 rounded-lg focus:placeholder:opacity-0 block p-4 w-full"
-              placeholder="Name"
-            />
-            <div
-              *ngIf="
+<div class="h-screen pt-0 md:flex">
+  <div
+    class="relative overflow-hidden md:flex w-1/2 bg-gradient-to-tr from-blue-800 to-purple-700 i justify-around items-center hidden">
+    <div>
+      <h1 class="text-white font-bold text-4xl font-sans">TaskSpace</h1>
+      <p class="text-white mt-1">The most popular Project Management Tool</p>
+      <button type="submit" class="block w-28 bg-white text-indigo-800 mt-4 py-2 rounded-2xl font-bold mb-2">Read
+        More</button>
+    </div>
+    <div class="absolute -bottom-32 -left-40 w-80 h-80 border-4 rounded-full border-opacity-30 border-t-8"></div>
+    <div class="absolute -bottom-40 -left-20 w-80 h-80 border-4 rounded-full border-opacity-30 border-t-8"></div>
+    <div class="absolute -top-40 -right-0 w-80 h-80 border-4 rounded-full border-opacity-30 border-t-8"></div>
+    <div class="absolute -top-20 -right-20 w-80 h-80 border-4 rounded-full border-opacity-30 border-t-8"></div>
+  </div>
+  <div class="flex md:w-1/2 justify-center py-10 items-center bg-white">
+    <form class="bg-white" (ngSubmit)="handleOrgRegister()" [formGroup]="orgRegisterForm">
+      <h1 class="text-gray-800 font-bold text-2xl mb-1">Create your Organization</h1>
+      <p class="text-sm font-normal text-gray-600 mb-7">Fill your organization info</p>
+      <div class="flex items-center border-2 py-2 px-3 rounded-2xl mb-4">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400" viewBox="0 0 20 20" fill="currentColor">
+          <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd" />
+        </svg>
+        <input class="pl-2 outline-none border-none" type="text" formControlName="organization_name"
+          id="organization_name" placeholder="Organization name" />
+        <div class="pt-3" *ngIf="
                 orgRegisterForm.get('organization_name')?.errors &&
                 orgRegisterForm.get('organization_name')?.touched
-              "
-            >
-              <p
-                *ngIf="
+              ">
+          <p *ngIf="
                   orgRegisterForm
                     .get('organization_name')
                     ?.getError('required') &&
                   orgRegisterForm.get('organization_name')?.touched
-                "
-                class="text-red-700"
-              >
-                Organization Name is required
-              </p>
-            </div>
-          </div>
-
-          <div>
-            <input
-              type="text"
-              formControlName="company"
-              placeholder="Company"
-              class="border h-10 border-sky-950 outline-none text-amber-500 rounded-lg focus:placeholder:opacity-0 block p-4 w-full"
-            />
-            <div
-              *ngIf="
+                " class="text-red-700">
+            Organization Name is required
+          </p>
+        </div>
+      </div>
+      <div class="flex items-center border-2 py-2 px-3 rounded-2xl mb-4">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400" fill="none" viewBox="0 0 24 24"
+          stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            d="M12 11c0 3.517-1.009 6.799-2.753 9.571m-3.44-2.04l.054-.09A13.916 13.916 0 008 11a4 4 0 118 0c0 1.017-.07 2.019-.203 3m-2.118 6.844A21.88 21.88 0 0015.171 17m3.839 1.132c.645-2.266.99-4.659.99-7.132A8 8 0 008 4.07M3 15.364c.64-1.319 1-2.8 1-4.364 0-1.457.39-2.823 1.07-4" />
+        </svg>
+        <input class="pl-2 outline-none border-none" type="text" formControlName="company" placeholder="Company" />
+        <div class="pt-3" *ngIf="
                 orgRegisterForm.get('company')?.errors &&
                 orgRegisterForm.get('company')?.touched
-              "
-            >
-              <p
-                *ngIf="
+              ">
+          <p *ngIf="
                   orgRegisterForm.get('company')?.getError('required') &&
                   orgRegisterForm.get('company')?.touched
-                "
-                class="text-red-700"
-              >
-                Company is required
-              </p>
-              <p
-                *ngIf="
+                " class="text-red-700">
+            Company is required
+          </p>
+          <p *ngIf="
                   orgRegisterForm.get('company')?.getError('minLength') &&
                   orgRegisterForm.get('company')?.touched
-                "
-                class="text-red-700"
-              >
-                Company minimum length is 3
-              </p>
-              <p
-                *ngIf="
+                " class="text-red-700">
+            Company minimum length is 3
+          </p>
+          <p *ngIf="
                   orgRegisterForm.get('company')?.getError('maxLength') &&
                   orgRegisterForm.get('company')?.touched
-                "
-                class="text-red-700"
-              >
-                Company maximum length is 30
-              </p>
-            </div>
-          </div>
+                " class="text-red-700">
+            Company maximum length is 30
+          </p>
+        </div>
+      </div>
+      <div class="flex items-center border-2 py-2 px-3 rounded-2xl mb-4">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400" fill="none" viewBox="0 0 24 24"
+          stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            d="M18,4.48a8.45,8.45,0,0,0-12,12l5.27,5.28a1,1,0,0,0,1.42,0L18,16.43A8.45,8.45,0,0,0,18,4.48ZM16.57,15,12,19.59,7.43,15a6.46,6.46,0,1,1,9.14,0ZM9,7.41a4.32,4.32,0,0,0,0,6.1,4.31,4.31,0,0,0,7.36-3,4.24,4.24,0,0,0-1.26-3.05A4.3,4.3,0,0,0,9,7.41Zm4.69,4.68a2.33,2.33,0,1,1,.67-1.63A2.33,2.33,0,0,1,13.64,12.09Z" />
+        </svg>
 
-          <div>
-            <input
-              type="text"
-              formControlName="headQuarters"
-              id="headQuarters"
-              placeholder="Company Location"
-              class="border h-10 border-sky-950 outline-none text-amber-500 rounded-lg focus:placeholder:opacity-0 block p-4 w-full"
-            />
-            <div
-              *ngIf="
+        <input class="pl-2 outline-none border-none" type="text" formControlName="headQuarters" id="headQuarters"
+          placeholder="Company Location" />
+
+        <div class="pt-3" *ngIf="
                 orgRegisterForm.get('headQuarters')?.errors &&
                 orgRegisterForm.get('headQuarters')?.touched
-              "
-            >
-              <p
-                *ngIf="
+              ">
+          <p *ngIf="
                   orgRegisterForm.get('headQuarters')?.getError('required') &&
                   orgRegisterForm.get('headQuarters')?.touched
-                "
-                class="text-red-700"
-              >
-                Head Quarters is required
-              </p>
-              <p
-                *ngIf="
+                " class="text-red-700">
+            Head Quarters is required
+          </p>
+          <p *ngIf="
                   orgRegisterForm.get('headQuarters')?.getError('minlength') &&
                   orgRegisterForm.get('headQuarters')?.touched
-                "
-                class="text-red-700"
-              >
-                Head Quarters minimum length is 2
-              </p>
-              <p
-                *ngIf="
+                " class="text-red-700">
+            Head Quarters minimum length is 2
+          </p>
+          <p *ngIf="
                   orgRegisterForm.get('headQuarters')?.getError('maxlength') &&
                   orgRegisterForm.get('headQuarters')?.touched
-                "
-                class="text-red-700"
-              >
-                Head Quarters maximum length is 20
-              </p>
-            </div>
-          </div>
-
-          <div>
-            <input
-              readonly
-              type="text"
-              formControlName="industry"
-              id="industry"
-              placeholder="Company Industry"
-              class="border h-10 border-sky-950 outline-none text-amber-500 rounded-lg focus:placeholder:opacity-0 block p-4 w-full"
-            />
-          </div>
-          <div>
-            <textarea
-              type="text"
-              formControlName="description"
-              id="description"
-              placeholder="Company Description"
-              class="border h-15 border-sky-950 outline-none text-amber-500 rounded-lg focus:placeholder:opacity-0 block p-4 w-full"
-            ></textarea>
-            <div
-              *ngIf="
+                " class="text-red-700">
+            Head Quarters maximum length is 20
+          </p>
+        </div>
+      </div>
+      <div class="flex items-center border-2 py-2 px-3 rounded-2xl mb-4">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400 mt-1" viewBox="0 0 20 20"
+          fill="currentColor">
+          <path fill-rule="evenodd"
+            d="M6.5 1A1.5 1.5 0 0 0 5 2.5V3H1.5A1.5 1.5 0 0 0 0 4.5v8A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5v-8A1.5 1.5 0 0 0 14.5 3H11v-.5A1.5 1.5 0 0 0 9.5 1h-3zm0 1h3a.5.5 0 0 1 .5.5V3H6v-.5a.5.5 0 0 1 .5-.5zm1.886 6.914L15 7.151V12.5a.5.5 0 0 1-.5.5h-13a.5.5 0 0 1-.5-.5V7.15l6.614 1.764a1.5 1.5 0 0 0 .772 0zM1.5 4h13a.5.5 0 0 1 .5.5v1.616L8.129 7.948a.5.5 0 0 1-.258 0L1 6.116V4.5a.5.5 0 0 1 .5-.5z"
+            clip-rule="evenodd" />
+        </svg>
+        <input class="pl-2 outline-none border-none" readonly type="text" formControlName="industry" id="industry" />
+      </div>
+      <div class="flex items-center border-2 py-2 px-3 rounded-2xl">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400 mt-1" viewBox="0 0 20 20"
+          fill="currentColor">
+          <path fill-rule="evenodd"
+            d="M6.5 1A1.5 1.5 0 0 0 5 2.5V3H1.5A1.5 1.5 0 0 0 0 4.5v8A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5v-8A1.5 1.5 0 0 0 14.5 3H11v-.5A1.5 1.5 0 0 0 9.5 1h-3zm0 1h3a.5.5 0 0 1 .5.5V3H6v-.5a.5.5 0 0 1 .5-.5zm1.886 6.914L15 7.151V12.5a.5.5 0 0 1-.5.5h-13a.5.5 0 0 1-.5-.5V7.15l6.614 1.764a1.5 1.5 0 0 0 .772 0zM1.5 4h13a.5.5 0 0 1 .5.5v1.616L8.129 7.948a.5.5 0 0 1-.258 0L1 6.116V4.5a.5.5 0 0 1 .5-.5z"
+            clip-rule="evenodd" />
+        </svg>
+        <textarea class="pl-2 outline-none border-none h-20" type="text" formControlName="description" id="description"
+          placeholder="Company Description"></textarea>
+        <div class="pt-3" *ngIf="
                 orgRegisterForm.get('description')?.errors &&
                 orgRegisterForm.get('description')?.touched
-              "
-            >
-              <p
-                *ngIf="
+              ">
+          <p *ngIf="
                   orgRegisterForm.get('description')?.getError('required') &&
                   orgRegisterForm.get('description')?.touched
-                "
-                class="text-red-700"
-              >
-                Description is required
-              </p>
-              <p
-                *ngIf="
+                " class="text-red-700">
+            Description is required
+          </p>
+          <p *ngIf="
                   orgRegisterForm.get('description')?.getError('minlength') &&
                   orgRegisterForm.get('description')?.touched
-                "
-                class="text-red-700"
-              >
-                Description minimum length is 3
-              </p>
-              <p
-                *ngIf="
+                " class="text-red-700">
+            Description minimum length is 3
+          </p>
+          <p *ngIf="
                   orgRegisterForm.get('description')?.getError('maxlength') &&
                   orgRegisterForm.get('description')?.touched
-                "
-                class="text-red-700"
-              >
-                Description maximum length is 300
-              </p>
-            </div>
-          </div>
-          <div>
-            <label
-              for="logo"
-              class="mr-2 mb-2 text-sm font-medium text-gray-900 dark:text-white"
-              >Logo</label
-            >
-            <input
-              type="file"
-              id="logo"
-              name="logo"
-              accept=".jpg, .jpeg, .png"
-              (change)="handleFile($event)"
-            />
-          </div>
-          <div class="relative flex items-center">
-            <a class="mx-auto" routerLink="/org-register">
-              <button
-                type="submit"
-                [disabled]="orgRegisterForm.invalid"
-                class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded cursor-pointer"
-              >
-                <i *ngIf="isLoading" class="fas fa-spinner fa-spin"></i>
-                <span *ngIf="!isLoading"> Create Organization </span>
-              </button></a
-            >
-          </div>
-        </form>
+                " class="text-red-700">
+            Description maximum length is 300
+          </p>
+        </div>
       </div>
-    </div>
+      <a class="mx-auto" routerLink="/org-register">
+        <button type="submit"
+          class="block w-full bg-blue-500 hover:bg-blue-700 mt-4 py-2 rounded-2xl text-white font-semibold mb-2">
+          <i *ngIf="isLoading" class="fas fa-spinner fa-spin"></i>
+          <span *ngIf="!isLoading"> Create Organization </span>
+        </button>
+      </a>
+    </form>
   </div>
-</section>
+</div>
