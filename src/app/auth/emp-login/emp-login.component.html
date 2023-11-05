@@ -1,25 +1,23 @@
 <section class="">
-    <div class="flex flex-col items-center justify-center w-9/12 mx-auto pt-20">
-        <div class="rounded-xl md:mt-0 bg-sky-500 px-6 bg-opacity-5 shadow-sky-950 shadow-lg">
+    <div class="flex flex-col items-center justify-center mx-auto pt-20">
+        <div class="rounded-xl md:mt-0 bg-sky-500 bg-opacity-5 shadow-sky-950 shadow-lg">
             <div class="space-y-4 md:space-y-6 sm:p-8 ">
-                <h1 class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
+                <h1 class="text-xl text-center font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
                     Employee Login
                 </h1>
-                <form class="space-y-4 md:space-y-6 w-full" (ngSubmit)="handleEmployeeLogin(employeeLoginForm)"
+                <form class="p-4 md:space-y-6 w-full " (ngSubmit)="handleEmployeeLogin(employeeLoginForm)"
                     [formGroup]="employeeLoginForm">
-                    <div>
+                    <mat-form-field>
+                        <mat-label>Email</mat-label>
                         <input type="text" formControlName="email" id="email"
-                            class="border h-10 border-sky-950 outline-none text-amber-500  rounded-lg focus:placeholder:opacity-0 block p-4 w-full"
-                            placeholder="Email">
+                            class="border h-10 border-sky-950 outline-none text-amber-500  rounded-lg focus:placeholder:opacity-0 block p-6 w-full" matInput placeholder="Ex. Pizza" value="Sushi">
                         <div *ngIf="employeeLoginForm.get('email')?.errors && employeeLoginForm.get('email')?.touched">
-                            <p *ngIf="employeeLoginForm.get('email')?.getError('required') && employeeLoginForm.get('email')?.touched"
-                                class="text-red-700">Email is required</p>
                         </div>
-                    </div>
+                    </mat-form-field>
 
                     <div>
                         <input type="password" formControlName="password" id="password" placeholdera="Password"
-                            class="border h-10 border-sky-950 outline-none text-amber-500  rounded-lg focus:placeholder:opacity-0 block p-4 w-full">
+                            class="border h-10 border-sky-950 outline-none text-amber-500  rounded-lg focus:placeholder:opacity-0 block p-6 w-full">
                         <div
                             *ngIf="employeeLoginForm.get('password')?.errors && employeeLoginForm.get('password')?.touched">
                             <p *ngIf="employeeLoginForm.get('password')?.getError('required') && employeeLoginForm.get('password')?.touched"
