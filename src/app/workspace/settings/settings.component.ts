@@ -4,6 +4,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from 'src/app/services/auth.service';
 import { EmployeeService } from 'src/app/services/employee.service';
 import { NotificationService } from 'src/app/services/notification.service';
+import { ToasterService } from 'src/app/services/toaster.service';
 
 @Component({
   selector: 'app-settings',
@@ -19,7 +20,8 @@ export class SettingsComponent {
   constructor(
     private _authService: AuthService,
     private _notification: NotificationService,
-    private _employeeService: EmployeeService
+    private _employeeService: EmployeeService,
+    private toster: ToasterService
   ) {
     this.employeeId = this._authService.getUserIdFromToken();
   }
@@ -52,6 +54,7 @@ export class SettingsComponent {
             this.changePasswordForm.reset();
             this.responseMessage = res.message;
             this._notification.showNotification(res.message, 'OK', 'success');
+            this.toster.succcess(res.message);
           },
           error: (err) => {
             console.log(changePasswordForm.value);

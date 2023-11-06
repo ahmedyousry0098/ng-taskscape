@@ -1,0 +1,236 @@
+<div
+  *ngIf="showModal"
+  class="overlay"
+  (click)="onBackdropClick($event)"
+  class="overflow-x-hidden overflow-y-hidden fixed inset-0 z-50 outline-none focus:outline-none justify-center items-center flex bg-black bg-opacity-60"
+>
+  <div class="relative w-7/12 mx-auto max-w-6xl h-fit">
+    <form
+      class="p-4 space-y-6"
+      [formGroup]="createTaskForm"
+      (ngSubmit)="handleCreateTask()"
+    >
+      <div
+        class="my-8 overflow-y-auto h-5/6 border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-gray-200 outline-none focus:outline-none"
+      >
+        <div
+          class="items-start justify-between border-b border-solid border-blueGray-200 rounded-t bg-slate-500"
+        >
+          <h1 class="text-3xl font-bold pt-3 ps-3 text-zinc-100">Add Task</h1>
+        </div>
+        <div class="relative p-6">
+          <div class="flex justify-between">
+            <div class="gap-3 w-fit py-2">
+              <label class="text-lg pb-3" for="projects">Projects:</label>
+              <p-dropdown
+                class="flex border border-slate-950 rounded w-fit"
+                [options]="projects"
+                formControlName="projectId"
+                optionLabel="projectName"
+                optionValue="_id"
+                display="chip"
+                placeholder="Select a project"
+                (onChange)="updateAvailableSprints()"
+                [class.border-red-500]="
+                  createTaskForm.get('projectId')?.invalid &&
+                  (createTaskForm.get('projectId')?.touched ||
+                    createTaskForm.get('projectId')?.dirty)
+                "
+              >
+                ></p-dropdown
+              >
+
+              <span
+                class="text-red-500"
+                *ngIf="
+                  createTaskForm.get('projectId')?.invalid &&
+                  (createTaskForm.get('projectId')?.touched ||
+                    createTaskForm.get('projectId')?.dirty)
+                "
+                >You must add the task to a exist project</span
+              >
+            </div>
+            <div class="gap-3 w-fit py-2">
+              <label class="text-lg pb-3" for="sprints">Sprints:</label>
+              <p-dropdown
+                class="flex border border-slate-950 rounded w-fit"
+                [options]="sprints"
+                formControlName="sprintId"
+                optionLabel="sprint_name"
+                optionValue="_id"
+                display="chip"
+                placeholder="Select a sprint"
+                [class.border-red-500]="
+                  createTaskForm.get('sprintId')?.invalid &&
+                  (createTaskForm.get('sprintId')?.touched ||
+                    createTaskForm.get('sprintId')?.dirty)
+                "
+              >
+                ></p-dropdown
+              >
+              <span
+                class="text-red-500"
+                *ngIf="
+                  createTaskForm.get('sprintId')?.invalid &&
+                  (createTaskForm.get('sprintId')?.touched ||
+                    createTaskForm.get('sprintId')?.dirty)
+                "
+                >You must add the task to a exist sprint</span
+              >
+            </div>
+            <div class="gap-3 w-fit py-2">
+              <label class="text-lg pb-3" for="employee">Employee:</label>
+              <p-dropdown
+                class="flex border border-slate-950 rounded w-fit"
+                [options]="employees"
+                formControlName="assignTo"
+                optionLabel="employeeName"
+                optionValue="_id"
+                display="chip"
+                placeholder="Select a employee"
+                [class.border-red-500]="
+                  createTaskForm.get('assignTo')?.invalid &&
+                  (createTaskForm.get('assignTo')?.touched ||
+                    createTaskForm.get('assignTo')?.dirty)
+                "
+              >
+                ></p-dropdown
+              >
+              <span
+                class="text-red-500"
+                *ngIf="
+                  createTaskForm.get('assignTo')?.invalid &&
+                  (createTaskForm.get('assignTo')?.touched ||
+                    createTaskForm.get('assignTo')?.dirty)
+                "
+                >You must add the task to a exist sprint</span
+              >
+            </div>
+          </div>
+          <div class="flex flex-col w-full gap-1 py-2">
+            <label class="text-lg" for="taskName">Sprint Name: </label>
+            <input
+              type="text"
+              name="taskName"
+              id="taskName"
+              formControlName="taskName"
+              class="border border-gray-600 rounded-md"
+              [class.border-red-500]="
+                createTaskForm.get('taskName')?.invalid &&
+                (createTaskForm.get('taskName')?.touched ||
+                  createTaskForm.get('taskName')?.dirty)
+              "
+            />
+            <span
+              class="text-red-500"
+              *ngIf="
+                createTaskForm.get('taskName')?.invalid &&
+                (createTaskForm.get('taskName')?.touched ||
+                  createTaskForm.get('taskName')?.dirty)
+              "
+              >The task must has a title and be more than 5 characters...</span
+            >
+          </div>
+          <div class="flex flex-col gap-1 py-2">
+            <label class="text-lg" for="description">Task Description:</label>
+            <textarea
+              name="description"
+              id="description"
+              cols="30"
+              rows="5"
+              formControlName="description"
+              class="border border-gray-600 rounded-md"
+              [class.border-red-500]="
+                createTaskForm.get('description')?.invalid &&
+                (createTaskForm.get('description')?.touched ||
+                  createTaskForm.get('description')?.dirty)
+              "
+            ></textarea>
+            <span
+              class="text-red-500"
+              *ngIf="
+                createTaskForm.get('description')?.invalid &&
+                (createTaskForm.get('description')?.touched ||
+                  createTaskForm.get('description')?.dirty)
+              "
+              >This field is required</span
+            >
+          </div>
+
+          <div class="flex justify-between gap-3 py-2">
+            <!-- Start Date -->
+            <div class="flex flex-col">
+              <label class="text-lg" for="start_date">Start Date:</label>
+              <input
+                type="date"
+                name="start_date"
+                id="start_date"
+                formControlName="start_date"
+                class="border border-gray-600 rounded-md"
+                [class.border-red-500]="
+                  createTaskForm.get('start_date')?.invalid &&
+                  (createTaskForm.get('start_date')?.touched ||
+                    createTaskForm.get('start_date')?.dirty)
+                "
+              />
+              <span
+                class="text-red-500"
+                *ngIf="
+                  createTaskForm.get('start_date')?.invalid &&
+                  (createTaskForm.get('start_date')?.touched ||
+                    createTaskForm.get('start_date')?.dirty)
+                "
+                >The Start Date is required and greater than the current
+                date</span
+              >
+            </div>
+            <div class="flex flex-col">
+              <label class="text-lg" for="deadline">Deadline:</label>
+              <input
+                type="date"
+                name="deadline"
+                id="deadline"
+                formControlName="deadline"
+                class="border border-gray-600 rounded-md"
+                [class.border-red-500]="
+                  createTaskForm.get('deadline')?.invalid &&
+                  (createTaskForm.get('deadline')?.touched ||
+                    createTaskForm.get('deadline')?.dirty)
+                "
+              />
+              <span
+                class="text-red-500"
+                *ngIf="
+                  createTaskForm.get('deadline')?.invalid &&
+                  (createTaskForm.get('deadline')?.touched ||
+                    createTaskForm.get('deadline')?.dirty)
+                "
+                >The dedline is required and greater than the current date</span
+              >
+            </div>
+          </div>
+        </div>
+        <!-- buttons -->
+        <div class="flex gap-4 mb-5 ml-7">
+          <button
+            type="submit"
+            class="text-white bg-gradient-to-r from-cyan-500 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-cyan-300 dark:focus:ring-cyan-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 w-20"
+            [disabled]="createTaskForm.invalid"
+          >
+            <i *ngIf="isLoading" class="fas fa-spinner fa-spin"></i>
+
+            Add
+          </button>
+
+          <button
+            type="button"
+            class="text-white bg-gradient-to-r from-red-200 via-red-400 to-red-500 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2"
+            (click)="closeModal()"
+          >
+            Close
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
