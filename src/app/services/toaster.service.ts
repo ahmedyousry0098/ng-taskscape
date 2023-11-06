@@ -15,4 +15,12 @@ export class ToasterService {
       horizontalPosition: 'left'      
     })
   }
+
+  success(message: string) {
+    this.matsnackbar.open(message, 'close', {
+      duration: 3000,
+      verticalPosition: 'top',
+      horizontalPosition: 'left'      
+    })
+  }
 }
