@@ -49,21 +49,21 @@
                     type="date"
                     name="startDate"
                     id="startDate"
-                    formControlName="startDate"
+                    formControlName="start_date"
                     class="border border-gray-600 rounded-md"
                     [class.border-red-500]="
-                      editProjectForm.get('startDate')?.invalid &&
-                      (editProjectForm.get('startDate')?.touched ||
-                        editProjectForm.get('startDate')?.dirty ||
+                      editProjectForm.get('start_date')?.invalid &&
+                      (editProjectForm.get('start_date')?.touched ||
+                        editProjectForm.get('start_date')?.dirty ||
                         isSubmitted)
                     "
                   />
                   <span
                     class="text-red-500"
                     *ngIf="
-                      editProjectForm.get('startDate')?.invalid &&
-                      (editProjectForm.get('startDate')?.touched ||
-                        editProjectForm.get('startDate')?.dirty ||
+                      editProjectForm.get('start_date')?.invalid &&
+                      (editProjectForm.get('start_date')?.touched ||
+                        editProjectForm.get('start_date')?.dirty ||
                         isSubmitted)
                     "
                     >This field is invalid</span
