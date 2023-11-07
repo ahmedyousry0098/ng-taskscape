@@ -45,7 +45,7 @@ export class AuthService {
     );
   }
   setLoggedIn(token: string) {
-    localStorage.setItem('token', token);
+    localStorage.setItem('token', token)
     this.loggedIn.next(true);
   }
   isAuthenticated(): boolean {
@@ -91,6 +91,7 @@ export class AuthService {
 
   logout() {
     localStorage.removeItem('token');
+    window.location.reload()
     this.loggedIn.next(false);
   }
 }

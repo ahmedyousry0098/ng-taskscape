@@ -162,4 +162,8 @@ export class ProjectDetailsComponent {
   //   this.getEmpNotInProjectOnly();
   //   this.getProjectDetails();
   // }
+  onmultiselectchange(x: any) {
+    console.log({x}, ';');
+    
+  }
 }

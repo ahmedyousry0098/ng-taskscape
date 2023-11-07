@@ -9,10 +9,15 @@ import { OrgRegitserComponent } from './auth/org-regitser/org-regitser.component
 import { AdminRegisterComponent } from './auth/admin-register/admin-register.component';
 import { EmpLoginComponent } from './auth/emp-login/emp-login.component';
 import { authGuard } from './guard/auth.guard';
+import { landingGuard } from './guard/landing.guard';
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
-  { path: 'home', component: LayoutComponent },
+  { 
+    path: 'home', 
+    component: LayoutComponent,
+    canActivate: [landingGuard]
+  },
 
   {
     path: 'workspace',
@@ -23,7 +28,7 @@ const routes: Routes = [
       import('./workspace/workspace.module').then((m) => m.WorkspaceModule),
   },
   { path: 'admin-register', component: AdminRegisterComponent },
-  { path: 'employee-login', component: EmpLoginComponent },
+  { path: 'employee-login', component: EmpLoginComponent, canActivate: [landingGuard] },
   { path: 'org-register', component: OrgRegitserComponent },
   { path: '**', component: NotfoundComponent },
 ];

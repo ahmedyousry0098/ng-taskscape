@@ -1,18 +1,25 @@
 <app-header></app-header>
 
 <section
-  class="container mx-auto px-4 lg:px-28 mb-10 mt-20 md:mb-16 md:mt-8 sm:mb-24 sm:mt-0 lg:mt-28"
+  class="container mx-auto px-4"
 >
-  <h2 class="text-4xl mt-8 md:mt-20 text-center">Drive efficiency across all departments</h2>
-  <p class="text-center text-lg mt-4 md:mt-8 leading-8 mb-8 md:w-3/4 md:mx-auto lg:w-1/2 lg:mx-auto">
-    <span class="text-blue-800">TaskSpace</span> streamlines work processes for
-    maximum efficiency, empowering teams across all departments to collaborate,
-    manage projects, drive strategic initiatives, and achieve goals.
-  </p>
+  <div class="shadow-md mb-10">
+    <h2 class="text-4xl mt-8 md:mt-20 text-center">
+      Drive efficiency across all departments
+    </h2>
+    <div class="flex justify-center">
+      <p class="text-center text-lg mt-4 md:mt-8 leading-8 mb-8 md:w-3/4 md:mx-auto lg:w-1/2 lg:mx-auto">
+        <span class="text-blue-500">Taskscape</span> 
+        streamlines work processes for
+        maximum efficiency, empowering teams across all departments to collaborate,
+        manage projects, drive strategic initiatives, and achieve goals.
+      </p>
+    </div>
+  </div>
   <div
-    class="md:flex md:items-center lg:grid lg:grid-cols-2 md:grid-cols-2 sm:flex sm:flex-col"
+    class="flex items-center lg:grid lg:grid-cols-2 md:grid-cols-2 sm:flex sm:flex-col"
   >
-    <div class="pt-20">
+    <div class="pt-20 flex flex-col justify-center items-center">
       <h2 class="text-3xl mb-9">Improve visibility and alignment</h2>
       <p class="w-11/12 text-gray-700 text-xl pb-12">
         Create a single source of truth and align your teams and departments by
@@ -20,11 +27,14 @@
       </p>
       <p class="w-11/12 text-gray-700 text-xl pb-12">
         Adapt workflows, change views, and tailor your workspaces to reflect
-        your teams’ needs and preferences while maintaining 360° visualization.
+        your teams' needs and preferences while maintaining 360° visualization.
       </p>
-      <a class="bg-blue-500 hover:bg-blue-700 text-white font-bold p-3 rounded"
-        >Create New Organization</a
+      <a 
+        class="bg-blue-500 hover:bg-blue-700 text-white font-bold p-3 rounded"
+        routerLink="/org-register"
       >
+        Create Organization
+      </a>
     </div>
     <div class="ml-30 mt-4">
       <figure class="max-w-2xl">
@@ -39,13 +49,15 @@
 </section>
 
 <section
-  class="container mx-auto px-4 lg:px-28"
+  class="container mx-auto px-4 lg:px-28 mt-10"
 >
-  <h2 class="text-4xl mt-20">Transform the way you work</h2>
-  <p class="text-lg w-1/2 mt-8 leading-8 mb-18">
-    Empower teams and departments to do the best work of their lives with 360°
-    visibility, true cross-functional collaboration, and powerful automation.
-  </p>
+  <div class="flex flex-col w-full items-center justify-center">
+    <h2 class="text-4xl mt-20">Transform the way you work</h2>
+    <p class="text-lg mx-auto text-center w-1/2 mt-8 leading-8 mb-18">
+      Empower teams and departments to do the best work of their lives with 360°
+      visibility, true cross-functional collaboration, and powerful automation.
+    </p>
+  </div>
   <div
     class="lg:grid lg:grid-cols-4 md:grid md:grid-cols-2 sm:flex sm:flex-col gap-4"
   >

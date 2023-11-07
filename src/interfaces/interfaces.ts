@@ -40,7 +40,7 @@ export interface ISprint {
 }
 
 export interface IProjectWithSprint extends IProject {
-  sprints: ISprint[];
+  
 }
 
 export interface ITask {
