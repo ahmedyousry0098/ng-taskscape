@@ -47,4 +47,10 @@ export class EmployeeService {
   changePhoto() {
     this.photochange.next(true);
   }
+
+  getAllEmployeeInOrg(orgId: string): Observable<any> {
+    return this.HttpClient.get(
+      `${this.baseUrl}/employee/getAllEmployees/${orgId}`
+    );
+  }
 }

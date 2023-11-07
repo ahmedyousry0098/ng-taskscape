@@ -22,6 +22,9 @@ import { SprintDetailsComponent } from './sprint/sprint-details/sprint-details.c
 import { DateFormatPipe } from '../pipe/date-format.pipe';
 import { DropdownModule } from 'primeng/dropdown';
 import { AddsprintComponent } from './sprint/addsprint/addsprint.component';
+import { CreatetaskComponent } from './tasks/createtask/createtask.component';
+import { TaskDetailsComponent } from './tasks/task-details/task-details.component';
+import { ModalModule } from 'ngx-bootstrap/modal'; // Import ModalModule
 
 @NgModule({
   declarations: [
@@ -40,6 +43,8 @@ import { AddsprintComponent } from './sprint/addsprint/addsprint.component';
     SprintDetailsComponent,
     DateFormatPipe,
     AddsprintComponent,
+    CreatetaskComponent,
+    TaskDetailsComponent,
   ],
   imports: [
     CommonModule,
@@ -51,6 +56,7 @@ import { AddsprintComponent } from './sprint/addsprint/addsprint.component';
     FormsModule,
     StyleClassModule,
     DropdownModule,
+    ModalModule.forRoot(),
   ],
 })
 export class WorkspaceModule {}
