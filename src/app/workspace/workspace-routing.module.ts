@@ -7,10 +7,10 @@ import { NotificationComponent } from './notification/notification.component';
 import { ProjectsComponent } from './projects/projects.component';
 import { ProfileComponent } from './profile/profile.component';
 import { SettingsComponent } from './settings/settings.component';
-import { ProjectDetailsComponent } from './project-details/project-details.component';
 import { AddProfilePicComponent } from './settings/add-profile-pic/add-profile-pic.component';
 import { SprintComponent } from './sprint/sprint.component';
 import { SprintDetailsComponent } from './sprint/sprint-details/sprint-details.component';
+import { ProjectDetailComponent } from './project-detail/project-detail.component';
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'home' },
@@ -31,8 +31,8 @@ const routes: Routes = [
     component: ProjectsComponent,
   },
   {
-    path: 'projects/details/:id',
-    component: ProjectDetailsComponent,
+    path: 'projects/detail/:id',
+    component: ProjectDetailComponent,
   },
   {
     path: 'profile',

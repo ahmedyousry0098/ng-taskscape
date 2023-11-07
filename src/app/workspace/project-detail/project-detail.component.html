@@ -1,0 +1,220 @@
+<div class="min-h-screen p-6 bg-gray-100">
+  <div class="container max-w-screen-xl mx-auto">
+    <div>
+      <h2 class="font-semibold text-xl text-gray-600">Project Details</h2>
+
+      <div class="bg-white rounded shadow-lg p-4 px-4 md:p-8 mb-6">
+        <div class="grid gap-4 gap-y-2 text-sm grid-cols-1 lg:grid-cols-3">
+          <div class="text-gray-600">
+            <p class="font-medium text-lg">About Project</p>
+          </div>
+          <form
+            class="lg:col-span-2"
+            [formGroup]="editProjectForm"
+            (ngSubmit)="onSubmit()"
+          >
+            <div class="grid gap-4 gap-y-2 text-sm grid-cols-1 md:grid-cols-5">
+              <div class="md:col-span-5">
+                <label for="projectName">Project Name</label>
+                <input
+                  type="text"
+                  name="projectName"
+                  id="projectName"
+                  formControlName="projectName"
+                  class="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
+                  [class.border-red-500]="
+                    editProjectForm.get('projectName')?.invalid &&
+                    (editProjectForm.get('projectName')?.touched ||
+                      editProjectForm.get('projectName')?.dirty ||
+                      isSubmitted)
+                  "
+                />
+
+                <span
+                  class="text-red-500"
+                  *ngIf="
+                    editProjectForm.get('projectName')?.invalid &&
+                    (editProjectForm.get('projectName')?.touched ||
+                      editProjectForm.get('projectName')?.dirty ||
+                      isSubmitted)
+                  "
+                  >This field is invalid</span
+                >
+              </div>
+              <!-- Start Date -->
+              <div class="md:col-span-5 flex justify-between gap-5">
+                <div class="flex flex-col gap-1">
+                  <label for="startDate">Start Date</label>
+                  <input
+                    type="date"
+                    name="startDate"
+                    id="startDate"
+                    formControlName="startDate"
+                    class="border border-gray-600 rounded-md"
+                    [class.border-red-500]="
+                      editProjectForm.get('startDate')?.invalid &&
+                      (editProjectForm.get('startDate')?.touched ||
+                        editProjectForm.get('startDate')?.dirty ||
+                        isSubmitted)
+                    "
+                  />
+                  <span
+                    class="text-red-500"
+                    *ngIf="
+                      editProjectForm.get('startDate')?.invalid &&
+                      (editProjectForm.get('startDate')?.touched ||
+                        editProjectForm.get('startDate')?.dirty ||
+                        isSubmitted)
+                    "
+                    >This field is invalid</span
+                  >
+                </div>
+                <div class="flex flex-col gap-1">
+                  <label for="deadline">End Date</label>
+                  <input
+                    type="date"
+                    name="deadline"
+                    id="deadline"
+                    formControlName="deadline"
+                    class="border border-gray-600 rounded-md"
+                    [class.border-red-500]="
+                      editProjectForm.get('deadline')?.invalid &&
+                      (editProjectForm.get('deadline')?.touched ||
+                        editProjectForm.get('deadline')?.dirty ||
+                        isSubmitted)
+                    "
+                  />
+                  <span
+                    class="text-red-500"
+                    *ngIf="
+                      editProjectForm.get('deadline')?.invalid &&
+                      (editProjectForm.get('deadline')?.touched ||
+                        editProjectForm.get('deadline')?.dirty ||
+                        isSubmitted)
+                    "
+                    >This field is invalid</span
+                  >
+                </div>
+                <div class="flex flex-col gap-1">
+                  <label for="projectDuration">Project Duration</label>
+                  <input
+                    type="text"
+                    name="projectDuration"
+                    id="projectDuration"
+                    formControlName="projectDuration"
+                    class="border border-gray-600 rounded-md"
+                  />
+                </div>
+              </div>
+              <div class="md:col-span-5">
+                <label for="projectDescription">Project Description</label>
+                <input
+                  type="text"
+                  name="projectDescription"
+                  id="projectDescription"
+                  formControlName="description"
+                  class="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
+                  [class.border-red-500]="
+                    editProjectForm.get('projectDescription')?.invalid &&
+                    (editProjectForm.get('projectDescription')?.touched ||
+                      editProjectForm.get('projectDescription')?.dirty ||
+                      isSubmitted)
+                  "
+                />
+                <span
+                  class="text-red-500"
+                  *ngIf="
+                    editProjectForm.get('projectDescription')?.invalid &&
+                    (editProjectForm.get('projectDescription')?.touched ||
+                      editProjectForm.get('projectDescription')?.dirty ||
+                      isSubmitted)
+                  "
+                  >This field is invalid</span
+                >
+              </div>
+              <div
+                *ngIf="employeeRole === 'scrumMaster'"
+                class="md:col-span-5 flex flex-col gap-1"
+              >
+                <label for="employees">Collaborators</label>
+                <p-multiSelect
+                  class="flex border"
+                  [options]="allEmployees"
+                  [(ngModel)]="checkedEmployees"
+                  formControlName="employees"
+                  optionLabel="employeeName"
+                  optionValue="_id"
+                  display="chip"
+                  placeholder="add collaborators to your project"
+                  (onChange)="
+                    updateEmployees({
+                      employees: checkedEmployees
+                    })
+                  "
+                  [class.border-red-500]="
+                    editProjectForm.get('employees')?.invalid &&
+                    (editProjectForm.get('employees')?.touched ||
+                      editProjectForm.get('employees')?.dirty ||
+                      isSubmitted ||
+                      noEmployeesArray)
+                  "
+                ></p-multiSelect>
+                <span
+                  class="text-red-500"
+                  *ngIf="
+                    (editProjectForm.get('employees')?.invalid &&
+                      (editProjectForm.get('employees')?.touched ||
+                        editProjectForm.get('employees')?.dirty ||
+                        isSubmitted)) ||
+                    noEmployeesArray
+                  "
+                  >This field can't be empty</span
+                >
+              </div>
+
+              <div
+                *ngIf="employeeRole === 'member'"
+                class="md:col-span-5 border border-gray-600 rounded-md"
+              >
+                <h2 class="px-1">Current Project Employees</h2>
+
+                <ul class="flex flex-col px-2">
+                  <li
+                    *ngFor="let employee of projectEmployees"
+                    class="flex items-center gap-2"
+                  >
+                    <p class="text-lg">{{ employee.employeeName }}</p>
+                    <p class="text-md">{{ employee.title }}</p>
+                  </li>
+                </ul>
+              </div>
+              <div class="md:col-span-5">
+                <label for="sprintsCount">Sprints Count</label>
+                <input
+                  type="text"
+                  name="sprintsCount"
+                  id="sprintsCount"
+                  formControlName="sprintsCount"
+                  class="border border-gray-600 rounded-md"
+                />
+              </div>
+              <div
+                *ngIf="employeeRole === 'scrumMaster'"
+                class="md:col-span-5 text-right"
+              >
+                <div class="inline-flex items-end">
+                  <button
+                    type="submit"
+                    class="text-white bg-blue-600 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
+                  >
+                    Edit
+                  </button>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

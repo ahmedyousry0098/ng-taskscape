@@ -100,4 +100,16 @@ export class ProjectService {
       }
     );
   }
+  updateProject(data: any, id: any): Observable<any> {
+    this.token = this.auth.getToken();
+    return this.HttpClient.put<any>(
+      `${this.baseUrl}/project/update/${id}`,
+      data,
+      {
+        headers: {
+          token: `${this.token}`,
+        },
+      }
+    );
+  }
 }

@@ -22,6 +22,8 @@ import { SprintDetailsComponent } from './sprint/sprint-details/sprint-details.c
 import { DateFormatPipe } from '../pipe/date-format.pipe';
 import { DropdownModule } from 'primeng/dropdown';
 import { AddsprintComponent } from './sprint/addsprint/addsprint.component';
+import { ProjectDetailComponent } from './project-detail/project-detail.component';
+import { DatePipe } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -40,6 +42,7 @@ import { AddsprintComponent } from './sprint/addsprint/addsprint.component';
     SprintDetailsComponent,
     DateFormatPipe,
     AddsprintComponent,
+    ProjectDetailComponent,
   ],
   imports: [
     CommonModule,
@@ -52,5 +55,6 @@ import { AddsprintComponent } from './sprint/addsprint/addsprint.component';
     StyleClassModule,
     DropdownModule,
   ],
+  providers: [DatePipe],
 })
 export class WorkspaceModule {}

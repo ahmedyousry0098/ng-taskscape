@@ -7,7 +7,7 @@ export interface IProject {
   employees: IEmployee[];
   organization?: string;
   _id: string;
-  sprints: [];
+  sprints: ISprint[];
 }
 export interface IEmployee {
   employeeName: string;
