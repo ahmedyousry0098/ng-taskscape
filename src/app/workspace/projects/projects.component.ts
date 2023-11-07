@@ -9,6 +9,10 @@ import {
 } from '@angular/forms';
 import { AuthService } from 'src/app/services/auth.service';
 import { ProjectService } from 'src/app/services/project.service';
+import {
+  dateGreaterThanNowAndStart,
+  dateGreaterThanNowValidator,
+} from 'src/app/validators/customValidators';
 @Component({
   selector: 'app-projects',
   templateUrl: './projects.component.html',
@@ -38,10 +42,20 @@ export class ProjectsComponent {
     }
   }
   addNewProjectForm = this.formBuilder.group({
-    projectName: ['', [Validators.required]],
-    startDate: ['', [Validators.required]],
-    deadline: ['', [Validators.required]],
-    description: ['', [Validators.required]],
+    projectName: ['', [Validators.minLength(3), Validators.required]],
+    start_date: [
+      new Date(),
+      [Validators.required, dateGreaterThanNowValidator],
+    ],
+    deadline: [
+      new Date(),
+      [
+        Validators.required,
+        dateGreaterThanNowValidator,
+        dateGreaterThanNowAndStart,
+      ],
+    ],
+    description: ['', [Validators.minLength(5), Validators.required]],
     employees: ['', [Validators.required]],
     organization: [`${this.orgId}`],
     scrumMaster: [`${this.scrumMaster}`],
@@ -50,8 +64,26 @@ export class ProjectsComponent {
     this.isSubmitted = true;
     this.isLoading = true;
     if (this.addNewProjectForm.valid) {
+      const {
+        projectName,
+        description,
+        start_date,
+        deadline,
+        employees,
+        organization,
+        scrumMaster,
+      } = this.addNewProjectForm.value;
+
       this.projectService
-        .createNewProject(this.addNewProjectForm.value)
+        .createNewProject({
+          projectName: projectName,
+          description: description,
+          startDate: start_date,
+          deadline: deadline,
+          employees: employees,
+          organization: organization,
+          scrumMaster: scrumMaster,
+        })
         .subscribe({
           next: (res) => {
             this.isLoading = false;

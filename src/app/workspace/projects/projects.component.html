@@ -103,21 +103,21 @@
                       type="date"
                       name="startDate"
                       id="startDate"
-                      formControlName="startDate"
+                      formControlName="start_date"
                       class="border border-gray-600 rounded-md"
                       [class.border-red-500]="
-                        addNewProjectForm.get('startDate')?.invalid &&
-                        (addNewProjectForm.get('startDate')?.touched ||
-                          addNewProjectForm.get('startDate')?.dirty ||
+                        addNewProjectForm.get('start_date')?.invalid &&
+                        (addNewProjectForm.get('start_date')?.touched ||
+                          addNewProjectForm.get('start_date')?.dirty ||
                           isSubmitted)
                       "
                     />
                     <span
                       class="text-red-500"
                       *ngIf="
-                        addNewProjectForm.get('startDate')?.invalid &&
-                        (addNewProjectForm.get('startDate')?.touched ||
-                          addNewProjectForm.get('startDate')?.dirty ||
+                        addNewProjectForm.get('start_date')?.invalid &&
+                        (addNewProjectForm.get('start_date')?.touched ||
+                          addNewProjectForm.get('start_date')?.dirty ||
                           isSubmitted)
                       "
                       >This field is required</span
