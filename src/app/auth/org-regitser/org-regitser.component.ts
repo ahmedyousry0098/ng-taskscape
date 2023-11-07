@@ -35,7 +35,7 @@ export class OrgRegitserComponent {
       Validators.minLength(3),
       Validators.maxLength(300),
     ]),
-    // logo: new FormControl(),
+    logo: new FormControl('', [Validators.required]),
   });
 
   handleFile(event: Event) {
