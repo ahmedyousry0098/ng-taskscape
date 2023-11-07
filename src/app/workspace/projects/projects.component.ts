@@ -32,7 +32,11 @@ export class ProjectsComponent {
   toggleModal() {
     this.showModal = !this.showModal;
   }
-
+  onBackdropClick(event: Event): void {
+    if (event.target === event.currentTarget) {
+      this.toggleModal();
+    }
+  }
   addNewProjectForm = this.formBuilder.group({
     projectName: ['', [Validators.required]],
     startDate: ['', [Validators.required]],

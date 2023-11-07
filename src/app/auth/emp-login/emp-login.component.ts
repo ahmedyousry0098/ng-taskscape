@@ -45,6 +45,8 @@ export class EmpLoginComponent {
       },
       error: (err) => {
         this.isLoading = false;
+        console.log(err);
+        
         this.toasterService.error('You havn\'t entered data correctly')
       },
     });

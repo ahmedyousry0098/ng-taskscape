@@ -1,4 +1,7 @@
 import { Component } from '@angular/core';
+import { IoService } from '../../services/io.service';
+import {BehaviorSubject} from 'rxjs'
+import { INotification } from 'src/interfaces/notification.interface';
 
 @Component({
   selector: 'app-notification',
@@ -6,5 +9,14 @@ import { Component } from '@angular/core';
   styleUrls: ['./notification.component.css']
 })
 export class NotificationComponent {
-
+  constructor(private _IoService: IoService) {}
+  
+  notifications: INotification[]|null = null
+  ngOnInit() {
+    this._IoService.fetchNotifications()
+    this._IoService.getNotifications().subscribe((myNotifications) => {
+      this.notifications = myNotifications
+      this._IoService.readNotifications()
+    })
+  }
 }

@@ -12,6 +12,7 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { AuthInterceptor } from './interceptors/auth.interceptor';
+import { ModalModule } from 'ngx-bootstrap/modal'; // Import ModalModule
 
 @NgModule({
   declarations: [AppComponent],
@@ -26,6 +27,7 @@ import { AuthInterceptor } from './interceptors/auth.interceptor';
     HttpClientModule,
     BrowserAnimationsModule,
     MatSnackBarModule,
+    ModalModule.forRoot(),
   ],
   providers: [
     {

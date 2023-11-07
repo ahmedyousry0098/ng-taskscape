@@ -10,7 +10,6 @@ import { RouterModule } from '@angular/router';
 import { NotificationComponent } from './notification/notification.component';
 import { ProfileComponent } from './profile/profile.component';
 import { SettingsComponent } from './settings/settings.component';
-import { ProjectDetailsComponent } from './project-details/project-details.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { MultiSelectModule } from 'primeng/multiselect';
@@ -24,6 +23,9 @@ import { DropdownModule } from 'primeng/dropdown';
 import { AddsprintComponent } from './sprint/addsprint/addsprint.component';
 import { ProjectDetailComponent } from './project-detail/project-detail.component';
 import { DatePipe } from '@angular/common';
+import { CreatetaskComponent } from './tasks/createtask/createtask.component';
+import { TaskDetailsComponent } from './tasks/task-details/task-details.component';
+import { ModalModule } from 'ngx-bootstrap/modal'; // Import ModalModule
 
 @NgModule({
   declarations: [
@@ -35,7 +37,6 @@ import { DatePipe } from '@angular/common';
     NotificationComponent,
     ProfileComponent,
     SettingsComponent,
-    ProjectDetailsComponent,
     NotificationMessageComponent,
     AddProfilePicComponent,
     SprintComponent,
@@ -43,6 +44,8 @@ import { DatePipe } from '@angular/common';
     DateFormatPipe,
     AddsprintComponent,
     ProjectDetailComponent,
+    CreatetaskComponent,
+    TaskDetailsComponent,
   ],
   imports: [
     CommonModule,
@@ -54,6 +57,7 @@ import { DatePipe } from '@angular/common';
     FormsModule,
     StyleClassModule,
     DropdownModule,
+    ModalModule.forRoot(),
   ],
   providers: [DatePipe],
 })

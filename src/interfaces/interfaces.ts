@@ -19,6 +19,8 @@ export interface IEmployee {
   organization: string;
   _id: string;
   title: string;
+  employmentType: string;
+  experience: string;
   profile_photo: {
     secure_url: string | null;
     public_id: string | null;
@@ -38,7 +40,7 @@ export interface ISprint {
 }
 
 export interface IProjectWithSprint extends IProject {
-  sprints: ISprint[];
+  
 }
 
 export interface ITask {
@@ -59,4 +61,20 @@ export enum IStatus {
 
 export interface ITaskWithEmployee extends ITask {
   assignToEmployee: IEmployee;
+}
+
+export interface IProjectWithSprintsAndEmployee extends IProjectWithSprint {
+  employees: IEmployee[];
+}
+
+export interface ITaskDetailed {
+  taskName: string;
+  description: string;
+  startDate: string;
+  deadline: string;
+  status: IStatus;
+  scrumMaster: string;
+  project: IProject;
+  assignTo: IEmployee;
+  sprint: ISprint;
 }
