@@ -10,7 +10,6 @@ import { RouterModule } from '@angular/router';
 import { NotificationComponent } from './notification/notification.component';
 import { ProfileComponent } from './profile/profile.component';
 import { SettingsComponent } from './settings/settings.component';
-import { ProjectDetailsComponent } from './project-details/project-details.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { MultiSelectModule } from 'primeng/multiselect';
@@ -22,6 +21,8 @@ import { SprintDetailsComponent } from './sprint/sprint-details/sprint-details.c
 import { DateFormatPipe } from '../pipe/date-format.pipe';
 import { DropdownModule } from 'primeng/dropdown';
 import { AddsprintComponent } from './sprint/addsprint/addsprint.component';
+import { ProjectDetailComponent } from './project-detail/project-detail.component';
+import { DatePipe } from '@angular/common';
 import { CreatetaskComponent } from './tasks/createtask/createtask.component';
 import { TaskDetailsComponent } from './tasks/task-details/task-details.component';
 import { ModalModule } from 'ngx-bootstrap/modal'; // Import ModalModule
@@ -36,13 +37,13 @@ import { ModalModule } from 'ngx-bootstrap/modal'; // Import ModalModule
     NotificationComponent,
     ProfileComponent,
     SettingsComponent,
-    ProjectDetailsComponent,
     NotificationMessageComponent,
     AddProfilePicComponent,
     SprintComponent,
     SprintDetailsComponent,
     DateFormatPipe,
     AddsprintComponent,
+    ProjectDetailComponent,
     CreatetaskComponent,
     TaskDetailsComponent,
   ],
@@ -58,5 +59,6 @@ import { ModalModule } from 'ngx-bootstrap/modal'; // Import ModalModule
     DropdownModule,
     ModalModule.forRoot(),
   ],
+  providers: [DatePipe],
 })
 export class WorkspaceModule {}
