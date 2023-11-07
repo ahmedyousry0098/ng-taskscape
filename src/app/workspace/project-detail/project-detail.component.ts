@@ -10,6 +10,10 @@ import {
 import { AuthService } from 'src/app/services/auth.service';
 import { IEmployee, IRole } from 'src/interfaces/interfaces';
 import { DatePipe } from '@angular/common';
+import {
+  dateGreaterThanNowAndStart,
+  dateGreaterThanNowValidator,
+} from 'src/app/validators/customValidators';
 
 @Component({
   selector: 'app-project-detail',
@@ -42,12 +46,22 @@ export class ProjectDetailComponent {
       [Validators.minLength(3), Validators.required],
     ],
     employees: [{ value: '', disabled: this.isMember() }, Validators.required],
-    startDate: [{ value: '', disabled: this.isMember() }],
-    deadline: [{ value: '', disabled: this.isMember() }],
+    start_date: [
+      new Date(),
+      [Validators.required, dateGreaterThanNowValidator],
+    ],
+    deadline: [
+      new Date(),
+      [
+        Validators.required,
+        dateGreaterThanNowValidator,
+        dateGreaterThanNowAndStart,
+      ],
+    ],
     projectDuration: [{ value: '', disabled: true }],
     description: [
       { value: '', disabled: this.isMember() },
-      [Validators.minLength(3), Validators.required],
+      [Validators.minLength(5), Validators.required],
     ],
     sprintsCount: [{ value: '', disabled: true }],
   });
@@ -66,7 +80,10 @@ export class ProjectDetailComponent {
           this.editProjectForm.setValue({
             projectName: details.projectName,
             description: details.description,
-            startDate: this.datePipe.transform(details.startDate, 'yyyy-MM-dd'),
+            start_date: this.datePipe.transform(
+              details.startDate,
+              'yyyy-MM-dd'
+            ),
             deadline: this.datePipe.transform(details.deadline, 'yyyy-MM-dd'),
             projectDuration: difInTime / (1000 * 3600 * 24),
             sprintsCount: details.sprints.length,
@@ -180,13 +197,13 @@ export class ProjectDetailComponent {
     this.isSubmitted = true;
     console.log(this.editProjectForm);
     if (this.editProjectForm.valid) {
-      const { projectName, description, startDate, deadline } =
+      const { projectName, description, start_date, deadline } =
         this.editProjectForm.value;
       this.updateProject({
-        projectName: this.editProjectForm.value.projectName,
-        description: this.editProjectForm.value.description,
-        startDate: this.editProjectForm.value.startDate,
-        deadline: this.editProjectForm.value.deadline,
+        projectName: projectName,
+        description: description,
+        startDate: start_date,
+        deadline: deadline,
       });
     }
   }
