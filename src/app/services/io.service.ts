@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { io } from "socket.io-client";
-import {DEV_ENV} from '../environment/environment'
+import {DEV_ENV, PROD_ENV} from '../environment/environment'
 import { INotification } from 'src/interfaces/notification.interface';
 import { ToasterService } from './toaster.service';
 import { AuthService } from './auth.service';
@@ -13,8 +13,8 @@ export class IoService {
 
   user_Id = this._AuthService.getDecodedToken()
   public message$: BehaviorSubject<string> = new BehaviorSubject('');
-  public notifications$ = new BehaviorSubject<INotification[]>([])
-  public Io = io(`${DEV_ENV.BaseURL}`)
+  public notifications$ = new BehaviorSubject<INotification[]|null>(null)
+  public Io = io(`${PROD_ENV.BaseURL}`)
   constructor(
     private _Toaster: ToasterService,
     private _AuthService: AuthService
@@ -27,7 +27,7 @@ export class IoService {
   }
   
   stablishSocketId() {
-    const token = localStorage.getItem('token')
+    const token = this._AuthService.getToken()
     this.Io.emit('updateSocketId', {token})
   }
 
@@ -48,6 +48,7 @@ export class IoService {
   listenToPushNew() {
     this.Io.on('pushNew', ({msg}) => {
       this._Toaster.success(msg)
+      this.fetchNotifications()
     })
   }
 }

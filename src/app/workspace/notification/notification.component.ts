@@ -10,12 +10,13 @@ import { INotification } from 'src/interfaces/notification.interface';
 })
 export class NotificationComponent {
   constructor(private _IoService: IoService) {}
-
-  notifications: INotification[] = []
+  
+  notifications: INotification[]|null = null
   ngOnInit() {
     this._IoService.fetchNotifications()
     this._IoService.getNotifications().subscribe((myNotifications) => {
       this.notifications = myNotifications
+      this._IoService.readNotifications()
     })
   }
 }

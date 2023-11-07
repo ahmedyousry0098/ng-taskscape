@@ -1,4 +1,4 @@
-<nav class="bg-transparent h-auto lg:py-4">
+<nav class=" h-auto py-4 shadow-md w-full sticky top-0">
   <div class="container mx-auto px-4 lg:px-28">
     <div class="flex items-center justify-between">
       <button
@@ -9,6 +9,7 @@
         aria-controls="navbarSupportedContent1"
         aria-expanded="false"
         aria-label="Toggle navigation"
+        *ngIf="loggedIn"
       >
         <span class="h-7 w-7">
           <svg
@@ -28,15 +29,24 @@
 
       <!-- Collapsible navigation container -->
       <div
-        class="hidden flex-grow lg:flex justify-center"
+        class="flex-grow lg:flex justify-center"
         id="navbarSupportedContent1"
         data-te-collapse-item
       >
         <!-- Logo -->
         <div class="mr-3">
-          <a class="text-2xl text-blue-800" [routerLink]="['/home']"
-            >TaskSpace</a
+          <a 
+            *ngIf="loggedIn"
+            class="text-2xl text-blue-500" [routerLink]="['/workspace']"
           >
+            Taskscape
+          </a>
+          <a 
+            *ngIf="!loggedIn"
+            class="text-2xl text-blue-500" [routerLink]="['/home']"
+          >
+            Taskscape
+          </a>
         </div>
 
         <!-- Left navigation links -->
@@ -59,16 +69,16 @@
         </ul>
       </div>
 
-      <div *ngIf="!loggedIn" class="flex items-center">
+      <div *ngIf="!loggedIn" class="flex items-center md:flex-row">
         <a
-          class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-3 rounded mr-2 lg:py-2 lg:px-4"
-          routerLink="/org-register"
-          >Create Organization</a
-        >
-        <a
-          class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-3 rounded lg:py-2 lg:px-4"
+          class="border text-blue-500 border-blue-500 mb-1 mr-2 text-center hover:bg-blue-700 hover:text-white duration-300 py-2 px-3 rounded lg:py-2 lg:px-4"
           routerLink="/employee-login"
           >Login as employee</a
+        >
+        <a
+          class="bg-blue-500 mb-1 text-center hover:bg-blue-700 text-white duration-300 py-2 px-3 rounded lg:py-2 lg:px-4"
+          routerLink="/org-register"
+          >Create Organization</a
         >
       </div>
 
@@ -82,11 +92,13 @@
           class="rounded-full h-10 w-10 me-6 cursor-pointer"
           alt=""
       /></a>
-      <div *ngIf="loggedIn" class="flex items-center">
+      <div *ngIf="loggedIn" class="flex items-center cursor-pointer">
         <a
           (click)="logout()"
-          class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-3 rounded lg:py-2 lg:px-4"
-          >Logout</a
+          class="bg-blue-500 hover:bg-blue-700 text-white py-2 px-3 rounded lg:py-2 lg:px-4"
+        >
+          Logout
+        </a
         >
       </div>
     </div>

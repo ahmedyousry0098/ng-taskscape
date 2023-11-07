@@ -1,4 +1,4 @@
 nav{
-    background-color: transparent !important;
-    
+    background-color: white;
+    z-index: 100 !important;
 }

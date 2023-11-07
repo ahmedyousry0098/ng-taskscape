@@ -8,7 +8,7 @@ import { IoService } from 'src/app/services/io.service';
 })
 export class WorkspaceLayoutComponent {
   constructor(private _IoService: IoService) {}
-
+  
   ngOnInit() {
     this._IoService.stablishSocketId()
     this._IoService.listenToPushNew()

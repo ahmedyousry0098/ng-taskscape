@@ -2,6 +2,7 @@ import { UserProfileService } from './../../services/user-profile.service';
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
+import { IoService } from 'src/app/services/io.service';
 
 @Component({
   selector: 'app-workspace-home',
@@ -16,8 +17,8 @@ export class WorkspaceHomeComponent {
 
   constructor(
     private authService: AuthService,
-    private userProfile: UserProfileService
-  ) {}
+    private userProfile: UserProfileService,
+  ) { }
   //tasks taps switching
   toggleTabs($tabNumber: number) {
     this.openTab = $tabNumber;
