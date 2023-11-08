@@ -1,0 +1,11 @@
+.icon {
+  position: absolute;
+  right: 5%;
+  top: 50%;
+}
+
+textarea:focus,
+textarea:active {
+  outline: none;
+  border: 1px gray solid;
+}

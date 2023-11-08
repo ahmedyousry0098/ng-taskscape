@@ -1,4 +1,4 @@
-import { AbstractControl, ValidationErrors } from '@angular/forms';
+import { AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms';
 
 export function dateGreaterThanNowValidator(
   control: AbstractControl
@@ -30,4 +30,28 @@ export function dateGreaterThanNowAndStart(
   }
 
   return null;
+}
+
+export function dateGreaterThanNowAndStartCustom(startDate: Date): ValidatorFn {
+  return (control: AbstractControl): ValidationErrors | null => {
+    const selectedDate = new Date(control.value);
+    const currentDate = new Date();
+
+    if (selectedDate <= currentDate || selectedDate <= startDate) {
+      return { dateError: true };
+    }
+
+    return null;
+  };
+}
+
+export function taskNameValidator(): ValidatorFn {
+  return (control: AbstractControl): { [key: string]: any } | null => {
+    const validPattern = /^[A-Z][A-Za-z0-9\s]*$/;
+    if (!validPattern.test(control.value)) {
+      return { taskNameInvalid: true };
+    }
+
+    return null;
+  };
 }

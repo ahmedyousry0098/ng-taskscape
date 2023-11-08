@@ -68,6 +68,7 @@ export interface IProjectWithSprintsAndEmployee extends IProjectWithSprint {
 }
 
 export interface ITaskDetailed {
+  _id: string;
   taskName: string;
   description: string;
   startDate: string;
@@ -77,4 +78,34 @@ export interface ITaskDetailed {
   project: IProject;
   assignTo: IEmployee;
   sprint: ISprint;
+}
+
+export interface ITaskUpdate {
+  _id: string;
+  taskName: string;
+  description: string;
+  deadline: string;
+  status: string;
+  assignTo: IEmployee;
+}
+
+export interface IComment {
+  text: string;
+}
+export interface IAutehr {
+  profile_photo: {
+    secure_url: string | null;
+    public_id: string | null;
+  };
+  _id: string;
+  employeeName: string;
+  email: string;
+  role: IRole;
+}
+export interface IComments extends IComment {
+  _id: string;
+  assignToTask: string;
+  auther: IAutehr;
+  date: string;
+  createdAt: string;
 }

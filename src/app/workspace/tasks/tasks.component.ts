@@ -47,8 +47,16 @@ export class TasksComponent {
           this.updateTaskLists();
         }
       });
+      this.taskService.tasks$.subscribe((updatedTasks) => {
+        this.tasks = updatedTasks;
+        this.updateTaskLists();
+      });
     } else {
       this.getTasksOfEmployee();
+      this.taskService.tasks$.subscribe((updatedTasks) => {
+        this.tasks = updatedTasks;
+        this.updateTaskListsMember();
+      });
     }
   }
 
@@ -86,6 +94,12 @@ export class TasksComponent {
   }
   updateTaskLists() {
     this.taskService.getScrumTasks(this.employeeID).subscribe((data) => {
+      this.tasks = data.tasks;
+      this.todoTasks = this.tasks.filter((task) => task.status === 'todo');
+    });
+  }
+  updateTaskListsMember() {
+    this.taskService.getEmployeeTasks(this.employeeID).subscribe((data) => {
       this.tasks = data.tasks;
       this.todoTasks = this.tasks.filter((task) => task.status === 'todo');
     });

@@ -108,7 +108,7 @@
             </div>
           </div>
           <div class="flex flex-col w-full gap-1 py-2">
-            <label class="text-lg" for="taskName">Sprint Name: </label>
+            <label class="text-lg" for="taskName">Task Name: </label>
             <input
               type="text"
               name="taskName"
@@ -128,7 +128,8 @@
                 (createTaskForm.get('taskName')?.touched ||
                   createTaskForm.get('taskName')?.dirty)
               "
-              >The task must has a title and be more than 5 characters...</span
+              >The task must has a title, start with capital letter and be more
+              than 5 letters..</span
             >
           </div>
           <div class="flex flex-col gap-1 py-2">
