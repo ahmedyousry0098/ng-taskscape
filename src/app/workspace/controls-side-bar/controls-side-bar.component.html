@@ -13,10 +13,12 @@
       <li>
         <a
           routerLink="home"
-          class="flex items-center p-2 text-gray-900 rounded-lg hover:bg-gray-100 group"
+          [routerLinkActive]="['text-white', 'bg-blue-700']"
+          class="side-bar-item"
         >
           <i
-            class="fa-solid fa-house fa-lg text-blue-500 p-1 p-1 group-hover:text-blue-700"
+            [routerLinkActive]="['text-white']"
+            class="fa-solid fa-house fa-lg side-bar-icon"
           ></i>
 
           <span class="ml-3 hidden lg:block">Home</span>
@@ -25,10 +27,12 @@
       <li>
         <a
           routerLink="notification"
-          class="flex items-center p-2 text-gray-900 rounded-lg hover:bg-gray-100 group"
+          [routerLinkActive]="['text-white', 'bg-blue-700']"
+          class="side-bar-item"
         >
           <i
-            class="fa-solid fa-bell fa-lg text-blue-500 p-1 group-hover:text-blue-700"
+            [routerLinkActive]="['text-white']"
+            class="fa-solid fa-bell fa-lg side-bar-icon"
           ></i>
 
           <span class="ml-3 hidden lg:block">Notification</span>
@@ -37,10 +41,12 @@
       <li>
         <a
           routerLink="projects"
-          class="flex items-center p-2 text-gray-900 rounded-lg hover:bg-gray-100 group"
+          [routerLinkActive]="['text-white', 'bg-blue-700']"
+          class="side-bar-item"
         >
           <i
-            class="fa-solid fa-folder-open fa-lg text-blue-500 p-1 group-hover:text-blue-700"
+            [routerLinkActive]="['text-white']"
+            class="fa-solid fa-folder-open fa-lg side-bar-icon"
           ></i>
 
           <span class="ml-3 hidden lg:block">Projects</span>
@@ -49,10 +55,12 @@
       <li>
         <a
           routerLink="sprint"
-          class="flex items-center p-2 text-gray-900 rounded-lg hover:bg-gray-100 group"
+          [routerLinkActive]="['text-white', 'bg-blue-700']"
+          class="side-bar-item"
         >
           <i
-            class="fa-solid fa-arrows-split-up-and-left fa-rotate-90 fa-lg text-blue-500 p-1 group-hover:text-blue-700"
+            [routerLinkActive]="['text-white']"
+            class="fa-solid fa-arrows-split-up-and-left fa-rotate-90 fa-lg side-bar-icon"
           ></i>
 
           <span class="ml-3 ms-2 hidden lg:block">Sprints</span>
@@ -61,10 +69,12 @@
       <li>
         <a
           routerLink="tasks"
-          class="flex items-center p-2 text-gray-900 rounded-lg hover:bg-gray-100 group"
+          [routerLinkActive]="['text-white', 'bg-blue-700']"
+          class="side-bar-item"
         >
           <i
-            class="fa-solid fa-list-check fa-lg text-blue-500 p-1 group-hover:text-blue-700"
+            [routerLinkActive]="['text-white']"
+            class="fa-solid fa-list-check fa-lg side-bar-icon"
           ></i>
 
           <span class="ml-3 hidden lg:block">Tasks</span>
@@ -74,11 +84,10 @@
       <li>
         <a
           routerLink="settings"
-          class="flex items-center p-2 text-gray-900 rounded-lg hover:bg-gray-100 group"
+          [routerLinkActive]="['text-white', 'bg-blue-700']"
+          class="side-bar-item"
         >
-          <i
-            class="fa-solid fa-gear fa-lg text-blue-500 p-1 group-hover:text-blue-700"
-          ></i>
+          <i class="fa-solid fa-gear fa-lg side-bar-icon"></i>
 
           <span class="ml-3 hidden lg:block">Settings</span>
         </a>
