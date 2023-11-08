@@ -1,4 +1,4 @@
-<button
+<!-- <button
   data-drawer-target="default-sidebar"
   data-drawer-toggle="default-sidebar"
   aria-controls="default-sidebar"
@@ -6,85 +6,90 @@
   class="inline-flex items-center p-2 mt-2 ml-3 text-sm text-gray-500 rounded-lg sm:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
 >
   <i class="fa-solid fa-arrow-right-from-bracket"></i>
-</button>
-<aside id="default-sidebar" class="z-40 w-64 h-screen sm:translate-x-0">
-  <div class="h-full px-3 py-4 overflow-y-auto bg-gray-50 dark:bg-gray-800">
+</button> -->
+<aside class="lg:w-48 h-screen">
+  <div class="h-full px-3 py-4 overflow-y-auto border-r-2 lg:bg-inherit">
     <ul class="space-y-2 font-medium">
       <li>
         <a
           routerLink="home"
-          class="flex items-center p-2 text-gray-900 rounded-lg hover:bg-gray-100 group"
+          [routerLinkActive]="['text-white', 'bg-blue-700']"
+          class="side-bar-item"
         >
           <i
-            class="fa-solid fa-house fa-lg text-blue-500 group-hover:text-blue-700"
+            [routerLinkActive]="['text-white']"
+            class="fa-solid fa-house fa-lg side-bar-icon"
           ></i>
 
-          <span class="ml-3">Home</span>
+          <span class="ml-3 hidden lg:block">Home</span>
         </a>
       </li>
       <li>
         <a
           routerLink="notification"
-          class="flex items-center p-2 text-gray-900 rounded-lg hover:bg-gray-100 group"
+          [routerLinkActive]="['text-white', 'bg-blue-700']"
+          class="side-bar-item"
         >
           <i
-            class="fa-solid fa-bell fa-lg text-blue-500 group-hover:text-blue-700"
+            [routerLinkActive]="['text-white']"
+            class="fa-solid fa-bell fa-lg side-bar-icon"
           ></i>
 
-          <span class="ml-3">Notification</span>
+          <span class="ml-3 hidden lg:block">Notification</span>
         </a>
       </li>
       <li>
         <a
           routerLink="projects"
-          class="flex items-center p-2 text-gray-900 rounded-lg hover:bg-gray-100 group"
+          [routerLinkActive]="['text-white', 'bg-blue-700']"
+          class="side-bar-item"
         >
           <i
-            class="fa-solid fa-folder-open fa-lg text-blue-500 group-hover:text-blue-700"
+            [routerLinkActive]="['text-white']"
+            class="fa-solid fa-folder-open fa-lg side-bar-icon"
           ></i>
 
-          <span class="ml-3">Projects</span>
+          <span class="ml-3 hidden lg:block">Projects</span>
         </a>
       </li>
       <li>
         <a
           routerLink="sprint"
-          class="flex items-center p-2 text-gray-900 rounded-lg hover:bg-gray-100 group"
+          [routerLinkActive]="['text-white', 'bg-blue-700']"
+          class="side-bar-item"
         >
-          <!-- <i
-            class="fa-solid fa-user fa-lg text-blue-500 group-hover:text-blue-700"
-          ></i> -->
-          <img
-            src="../../../assets/icons8-sprint-iteration-50.png"
-            class="h-6 ms-0"
-          />
+          <i
+            [routerLinkActive]="['text-white']"
+            class="fa-solid fa-arrows-split-up-and-left fa-rotate-90 fa-lg side-bar-icon"
+          ></i>
 
-          <span class="ml-3 ms-2">Sprints</span>
+          <span class="ml-3 ms-2 hidden lg:block">Sprints</span>
         </a>
       </li>
       <li>
         <a
           routerLink="tasks"
-          class="flex items-center p-2 text-gray-900 rounded-lg hover:bg-gray-100 group"
+          [routerLinkActive]="['text-white', 'bg-blue-700']"
+          class="side-bar-item"
         >
           <i
-            class="fa-solid fa-list-check fa-lg text-blue-500 group-hover:text-blue-700"
+            [routerLinkActive]="['text-white']"
+            class="fa-solid fa-list-check fa-lg side-bar-icon"
           ></i>
 
-          <span class="ml-3">Tasks</span>
+          <span class="ml-3 hidden lg:block">Tasks</span>
         </a>
       </li>
 
       <li>
         <a
           routerLink="settings"
-          class="flex items-center p-2 text-gray-900 rounded-lg hover:bg-gray-100 group"
+          [routerLinkActive]="['text-white', 'bg-blue-700']"
+          class="side-bar-item"
         >
-          <i
-            class="fa-solid fa-gear fa-lg text-blue-500 group-hover:text-blue-700"
-          ></i>
+          <i class="fa-solid fa-gear fa-lg side-bar-icon"></i>
 
-          <span class="ml-3">Settings</span>
+          <span class="ml-3 hidden lg:block">Settings</span>
         </a>
       </li>
     </ul>
