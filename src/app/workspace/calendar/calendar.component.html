@@ -28,8 +28,10 @@
       Next
     </button>
   </div>
-  <div class="text-center font-semibold text-lg mt-2">
-    <p>{{ viewDate | calendarDate : view + "ViewTitle" : "en" }}</p>
+  <div class="flex flex-col">
+    <p class="text-center font-semibold text-lg">
+      {{ viewDate | calendarDate : view + "ViewTitle" : "en" }}
+    </p>
   </div>
   <div class="flex">
     <button
@@ -56,7 +58,7 @@
   </div>
 </div>
 <br />
-<div [ngSwitch]="view">
+<div [ngSwitch]="view" class="w-auto">
   <mwl-calendar-month-view
     *ngSwitchCase="CalendarView.Month"
     [viewDate]="viewDate"
