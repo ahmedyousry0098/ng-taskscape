@@ -25,7 +25,11 @@ import { ProjectDetailComponent } from './project-detail/project-detail.componen
 import { DatePipe } from '@angular/common';
 import { CreatetaskComponent } from './tasks/createtask/createtask.component';
 import { TaskDetailsComponent } from './tasks/task-details/task-details.component';
-import { ModalModule } from 'ngx-bootstrap/modal'; // Import ModalModule
+import { ModalModule } from 'ngx-bootstrap/modal';
+import { ConfirmationChangeStatusComponent } from './tasks/confirmation-change-status/confirmation-change-status.component';
+import { MatDialogModule } from '@angular/material/dialog';
+import { CommentsComponent } from './tasks/comments/comments.component';
+import { RelativeTimePipe } from '../pipe/relative-time.pipe';
 
 @NgModule({
   declarations: [
@@ -46,6 +50,9 @@ import { ModalModule } from 'ngx-bootstrap/modal'; // Import ModalModule
     ProjectDetailComponent,
     CreatetaskComponent,
     TaskDetailsComponent,
+    ConfirmationChangeStatusComponent,
+    CommentsComponent,
+    RelativeTimePipe,
   ],
   imports: [
     CommonModule,
@@ -58,6 +65,7 @@ import { ModalModule } from 'ngx-bootstrap/modal'; // Import ModalModule
     StyleClassModule,
     DropdownModule,
     ModalModule.forRoot(),
+    MatDialogModule,
   ],
   providers: [DatePipe],
 })

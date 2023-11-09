@@ -1,87 +1,219 @@
 <div
+  *ngIf="!showModalDetails"
   (click)="onBackdropClick($event)"
-  class="overflow-x-hidden overflow-y-hidden fixed inset-0 z-50 outline-none focus:outline-none justify-center items-center flex bg-black bg-opacity-10 overlay h-full"
+  class="overflow-x-hidden fixed inset-0 z-50 outline-none focus:outline-none justify-center items-center flex bg-black bg-opacity-60"
 >
-  <div class="relative w-7/12 mx-auto max-w-6xl h-full">
+  <div class="relative w-7/12 mx-auto max-w-6xl">
     <div class="p-4 space-y-6">
       <div
-        class="my-8 overflow-y-auto h-5/6 border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-slate-300 outline-none focus:outline-none"
+        class="my-8 h-5/6 border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-slate-300 outline-none focus:outline-none"
       >
         <div
-          class="items-start justify-between border-b border-solid border-blueGray-200 rounded-t bg-slate-800"
+          class="flex justify-between items-center border-b border-solid border-blueGray-200 rounded-t bg-slate-800"
         >
           <h1 class="text-3xl font-bold pt-3 ps-3 text-zinc-100">
             {{ task.taskName }}
           </h1>
+          <div class="pr-3 cursor-pointer" (click)="closeModal()">
+            <i class="fa-solid fa-xmark fa-2xlg scale-150 text-white"></i>
+          </div>
         </div>
         <div class="flex flex-row justify-between bg-slate-600">
           <!-- Left -->
+
           <div class="flex flex-col pt-5 pl-10 pr-10 w-2/3">
             <div class="m-3 flex justify-between">
               <span
-                class="text-red-400 uppercase border p-2 bg-white rounded-xl font-semibold"
+                class="text-red-400 uppercase border p-2 bg-white rounded-xl font-semibold cursor-pointer"
                 [ngStyle]="{
-                  'background-color': task.status === 'todo' ? 'white' : 'black'
+                  'background-color': task.status === 'todo' ? 'white' : 'gray'
                 }"
+                (click)="
+                  task.status !== 'todo'
+                    ? openConfirmationDialog(task, 'todo')
+                    : null
+                "
                 >todo</span
               >
 
               <span
-                class="text-sky-400 uppercase border p-2 bg-white rounded-xl font-semibold"
+                class="text-sky-400 uppercase border p-2 bg-white rounded-xl font-semibold cursor-pointer"
                 [ngStyle]="{
                   'background-color': task.status === 'doing' ? 'white' : 'gray'
                 }"
+                (click)="
+                  task.status !== 'doing'
+                    ? openConfirmationDialog(task, 'doing')
+                    : null
+                "
                 >doing</span
               >
               <span
-                class="text-green-400 uppercase border p-2 bg-white rounded-xl font-semibold"
+                class="text-green-400 uppercase border p-2 bg-white rounded-xl font-semibold cursor-pointer"
                 [ngStyle]="{
                   'background-color': task.status === 'done' ? 'white' : 'gray'
                 }"
+                (click)="
+                  task.status !== 'done'
+                    ? openConfirmationDialog(task, 'done')
+                    : null
+                "
                 >done</span
               >
             </div>
-            <div class="mt-2">
-              <div class="">
-                <p class="text-lg text-slate-100 mb-0">Description:</p>
-                <div class="">
-                  <textarea
-                    name=""
-                    id=""
-                    cols="50"
-                    rows="4"
-                    class="bg-slate-200 rounded-lg w-full"
-                    >{{ task.description }}</textarea
-                  >
+            <div class="">
+              <div>
+                <div class="mt-2" *ngIf="!editing">
+                  <p class="text-lg text-slate-100 mb-0">Description:</p>
+                  <div class="border rounded-lg w-full h-fit bg-slate-200 p-2">
+                    <p>{{ task.description }}</p>
+                  </div>
+
+                  <div class="mt-5 flex justify-between">
+                    <p class="text-lg text-slate-100 pr-1">
+                      Start Date:
+                      <span
+                        class="text-black text-sm border rounded-lg p-2 bg-slate-200"
+                      >
+                        {{ task.startDate | dateFormat : "dd/MM/yyy" }}</span
+                      >
+                    </p>
+                    <p class="text-lg text-slate-100 pr-1">
+                      Deadline:
+                      <span
+                        class="text-black text-sm border rounded-lg p-2 bg-slate-200"
+                      >
+                        {{ task.deadline | dateFormat : "dd/MM/yyy" }}</span
+                      >
+                    </p>
+                  </div>
                 </div>
+                <form [formGroup]="updateTaskForm" (ngSubmit)="finishEditing()">
+                  <div class="mt-2" *ngIf="editing">
+                    <label class="text-lg text-slate-100 mb-0" for="taskName"
+                      >Task Name: </label
+                    ><br />
+                    <textarea
+                      cols="30"
+                      rows="1"
+                      name="taskName"
+                      id="taskName"
+                      formControlName="taskName"
+                      class="bg-slate-200 rounded-lg w-full"
+                      [class.border-red-500]="
+                        updateTaskForm.get('taskName')?.invalid &&
+                        updateTaskForm.get('taskName')?.dirty
+                      "
+                    ></textarea>
+                    <span
+                      class="text-red-500"
+                      *ngIf="
+                        updateTaskForm.get('taskName')?.invalid &&
+                        updateTaskForm.get('taskName')?.dirty
+                      "
+                      >The task must has a title, start with capital letter and
+                      be more than 5 letters...</span
+                    >
+                    <p class="text-lg text-slate-100 mb-0">Description:</p>
+
+                    <textarea
+                      name="description"
+                      id="description"
+                      cols="30"
+                      rows="5"
+                      class="bg-slate-200 rounded-lg w-full"
+                      formControlName="description"
+                      [class.border-red-500]="
+                        updateTaskForm.get('description')?.invalid &&
+                        updateTaskForm.get('description')?.dirty
+                      "
+                    ></textarea>
+                    <span
+                      class="text-red-500"
+                      *ngIf="
+                        updateTaskForm.get('description')?.invalid &&
+                        updateTaskForm.get('description')?.dirty
+                      "
+                      >This field is required</span
+                    >
+
+                    <div class="mt-5 flex justify-between">
+                      <p class="text-lg text-slate-100 pr-1 w-1/2">
+                        Start Date:
+                        <span
+                          class="text-black text-sm border rounded-lg p-2 bg-slate-200"
+                        >
+                          {{ task.startDate | dateFormat : "dd/MM/yyy" }}</span
+                        >
+                      </p>
+
+                      <p class="text-lg text-slate-100 pr-1 w-1/2">
+                        Deadline:
+                        <span class=""
+                          ><input
+                            type="date"
+                            name="deadline"
+                            id="deadline"
+                            formControlName="deadline"
+                            [value]="task.deadline"
+                            class="text-black text-sm border rounded-lg p-2 bg-slate-200"
+                            [class.border-red-500]="
+                              updateTaskForm.get('deadline')?.invalid &&
+                              updateTaskForm.get('deadline')?.dirty
+                            "
+                          />
+                          <br />
+                          <span
+                            class="text-red-500 font-light h-fit"
+                            *ngIf="
+                              updateTaskForm.get('deadline')?.invalid &&
+                              updateTaskForm.get('deadline')?.dirty
+                            "
+                            >The dedline is required and greater than the
+                            current date</span
+                          >
+                        </span>
+                      </p>
+                    </div>
+                  </div>
+                  <div class="flex justify-end items-end mt-4">
+                    <button
+                      class="inline-block rounded bg-slate-800 w-40 h-10 px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#3b71ca] transition duration-150 ease-in-out hover:bg-slate-800 -600 hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:bg-slate-800 -600 focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:outline-none focus:ring-0 active:bg-slate-800 -700 active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)]"
+                      type="button"
+                      (click)="startEditing()"
+                      *ngIf="IRole === 'scrumMaster' && !editing && !isLoading"
+                      hidden="editing || isLoading"
+                      (click)="toggleEditing()"
+                    >
+                      update
+                    </button>
+
+                    <button
+                      class="inline-block rounded bg-slate-800 w-40 h-10 px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#3b71ca] transition duration-150 ease-in-out hover:bg-slate-800 -600 hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:bg-slate-800 -600 focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:outline-none focus:ring-0 active:bg-slate-800 -700 active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)]"
+                      type="button"
+                      (click)="finishEditing()"
+                      *ngIf="isEditing && IRole === 'scrumMaster'"
+                      [disabled]="isLoading"
+                    >
+                      <i *ngIf="isLoading" class="fas fa-spinner fa-spin"></i>
+                      Save
+                    </button>
+                  </div>
+                </form>
               </div>
-            </div>
-            <div class="mt-5 flex justify-between">
-              <p class="text-lg text-slate-100 pr-1">
-                Start Date:
-                <span
-                  class="text-black text-sm border rounded-lg p-2 bg-slate-200"
-                >
-                  {{ task.startDate | dateFormat : "dd/MM/yyy" }}</span
-                >
-              </p>
-              <p class="text-lg text-slate-100 pr-1">
-                Deadline:
-                <span
-                  class="text-black text-sm border rounded-lg p-2 bg-slate-200"
-                >
-                  {{ task.deadline | dateFormat : "dd/MM/yyy" }}</span
-                >
-              </p>
+
+              <hr class="h-px my-8 bg-gray-200 border-0 dark:bg-gray-700" />
+              <app-comments taskId="{{ task._id }}"></app-comments>
             </div>
           </div>
 
           <!-- Right -->
+
           <div
             class="flex pb-10 pl-10 pr-10 pt-5 flex-col w-1/3 border-l-4 border-x-slate-200"
           >
             <!-- Empolyee -->
-            <div class="">
+            <div class="" *ngIf="IRole === 'scrumMaster'">
               <div
                 class="w-230 p-3 max-w-sm bg-white-700 border border-gray-200 rounded-lg shadow dark:bg-gray-200 dark:border-gray-700 bg-slate-200 mb-5"
               >
@@ -89,8 +221,12 @@
                   <div class="flex flex-col items-center">
                     <img
                       class="w-16 h-16 mb-3 rounded-full shadow-lg"
-                      [src]="task.assignTo.profile_photo.secure_url"
-                      alt="../../../assets/noavatar.jpg"
+                      [src]="
+                        (task.assignTo.profile_photo
+                          ? task.assignTo.profile_photo.secure_url
+                          : imageURL) || imageURL
+                      "
+                      alt="{{ task.assignTo.employeeName }}"
                     />
                     <h3
                       class="mb-1 text-xl font-bold text-gray-900 dark:text-white"

@@ -1,5 +1,6 @@
 <!-- <div class="container w-screen justify-center flex flex-col py-5"></div> -->
-<div class="container m-5 p-2">
+
+<div class="container w-screen overflow-y-scroll">
   <h1 class="px-5">Tasks</h1>
 
   <div class="px-5 pb-5">
@@ -28,7 +29,7 @@
           *ngIf="todoTasks && todoTasks.length > 0; else noTodoTasks"
         >
           <div
-            class="flex flex-col p-2 my-3 bg-red-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700"
+            class="flex flex-col p-2 my-3 bg-red-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 cursor-pointer"
             *ngFor="let task of todoTasks"
             (click)="openTaskDetails(task)"
           >
@@ -59,26 +60,10 @@
                 >
                 </span>
               </div>
-              <!-- <div class="flex flex-col">
-                <span>
-                  <span class="text-gray-500">Assign To:</span>
-                  {{ task.assignTo.employeeName }}
-                </span>
-              </div>
-              <img
-                [src]="
-                  (task.assignTo &&
-                    task.assignTo.profile_photo &&
-                    task.assignTo.profile_photo.secure_url) ||
-                  imageUrl
-                "
-                class="rounded-full h-8 w-8"
-                alt=""
-              /> -->
             </div>
           </div>
         </ng-container>
-        <ng-template #noTodoTasks>
+        <ng-template #noTodoTasks class="my-2 p-2 m-5 bg-slate-100 h-fit w-60">
           <h3 class="ps-3 pt-5 text-red-800">
             There are no tasks in this status.
           </h3>
@@ -91,33 +76,37 @@
           *ngIf="doingTasks && doingTasks.length > 0; else noTodoingTasks"
         >
           <div
-            class="flex flex-col p-2 my-3 bg-blue-200 border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700"
+            class="flex flex-col p-2 my-3 bg-blue-200 border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 cursor-pointer"
             *ngFor="let task of doingTasks"
+            (click)="openTaskDetails(task)"
           >
             <p class="font-semibold">
               {{ task.taskName }}
             </p>
 
-            <div
-              class="flex space-x-5 items-center"
-              *ngIf="IRole === 'scrumMaster'"
-            >
-              <div class="flex flex-col">
-                <span>
-                  <span class="text-gray-500">Assign To:</span>
-                  {{ task.assignTo.employeeName }}
+            <div class="" *ngIf="IRole === 'scrumMaster'">
+              <div
+                data-te-chip-init
+                data-te-ripple-init
+                class="[word-wrap: break-word] my-[3px] mr-4 flex h-[42px] cursor-pointer items-center justify-between rounded-[21px] bg-[#eceff1] px-[12px] py-0 text-[13px] font-normal normal-case leading-loose text-[#4f4f4f] shadow-none transition-[opacity] duration-300 ease-linear hover:!shadow-none active:bg-[#cacfd1] dark:bg-neutral-600 dark:text-neutral-200"
+              >
+                <img
+                  class="my-0 -ml-[12px] mr-[8px] h-12 w-12 rounded-[100%]"
+                  [src]="
+                    (task.assignTo &&
+                      task.assignTo.profile_photo &&
+                      task.assignTo.profile_photo.secure_url) ||
+                    imageUrl
+                  "
+                  alt="Contact Person"
+                />
+                {{ task.assignTo.employeeName }}
+                <span
+                  data-te-chip-close
+                  class="float-right w-4 cursor-pointer pl-[8px] text-[16px] text-[#afafaf] opacity-[.53] transition-all duration-200 ease-in-out hover:text-[#8b8b8b] dark:text-neutral-400 dark:hover:text-neutral-100"
+                >
                 </span>
               </div>
-              <img
-                [src]="
-                  (task.assignTo &&
-                    task.assignTo.profile_photo &&
-                    task.assignTo.profile_photo.secure_url) ||
-                  imageUrl
-                "
-                class="rounded-full h-8 w-8"
-                alt=""
-              />
             </div>
           </div>
         </ng-container>
@@ -133,33 +122,37 @@
           *ngIf="doneTasks && doneTasks.length > 0; else noDoneTasks"
         >
           <div
-            class="flex flex-col p-2 my-3 bg-green-200 border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700"
+            class="flex flex-col p-2 my-3 bg-green-200 border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 cursor-pointer"
             *ngFor="let task of doneTasks"
+            (click)="openTaskDetails(task)"
           >
             <p class="font-semibold">
               {{ task.taskName }}
             </p>
 
-            <div
-              class="flex space-x-5 items-center"
-              *ngIf="IRole === 'scrumMaster'"
-            >
-              <div class="flex flex-col">
-                <span>
-                  <span class="text-gray-500">Assign To:</span>
-                  {{ task.assignTo.employeeName }}
+            <div class="" *ngIf="IRole === 'scrumMaster'">
+              <div
+                data-te-chip-init
+                data-te-ripple-init
+                class="[word-wrap: break-word] my-[3px] mr-4 flex h-[42px] cursor-pointer items-center justify-between rounded-[21px] bg-[#eceff1] px-[12px] py-0 text-[13px] font-normal normal-case leading-loose text-[#4f4f4f] shadow-none transition-[opacity] duration-300 ease-linear hover:!shadow-none active:bg-[#cacfd1] dark:bg-neutral-600 dark:text-neutral-200"
+              >
+                <img
+                  class="my-0 -ml-[12px] mr-[8px] h-12 w-12 rounded-[100%]"
+                  [src]="
+                    (task.assignTo &&
+                      task.assignTo.profile_photo &&
+                      task.assignTo.profile_photo.secure_url) ||
+                    imageUrl
+                  "
+                  alt="Contact Person"
+                />
+                {{ task.assignTo.employeeName }}
+                <span
+                  data-te-chip-close
+                  class="float-right w-4 cursor-pointer pl-[8px] text-[16px] text-[#afafaf] opacity-[.53] transition-all duration-200 ease-in-out hover:text-[#8b8b8b] dark:text-neutral-400 dark:hover:text-neutral-100"
+                >
                 </span>
               </div>
-              <img
-                [src]="
-                  (task.assignTo &&
-                    task.assignTo.profile_photo &&
-                    task.assignTo.profile_photo.secure_url) ||
-                  imageUrl
-                "
-                class="rounded-full h-8 w-8"
-                alt=""
-              />
             </div>
           </div>
         </ng-container>
