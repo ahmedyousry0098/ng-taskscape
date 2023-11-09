@@ -26,6 +26,9 @@ import { DatePipe } from '@angular/common';
 import { CreatetaskComponent } from './tasks/createtask/createtask.component';
 import { TaskDetailsComponent } from './tasks/task-details/task-details.component';
 import { ModalModule } from 'ngx-bootstrap/modal';
+import { CalendarComponent } from './calendar/calendar.component'; // Import ModalModule
+import { CalendarModule, DateAdapter } from 'angular-calendar';
+import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 import { ConfirmationChangeStatusComponent } from './tasks/confirmation-change-status/confirmation-change-status.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { CommentsComponent } from './tasks/comments/comments.component';
@@ -50,9 +53,13 @@ import { RelativeTimePipe } from '../pipe/relative-time.pipe';
     ProjectDetailComponent,
     CreatetaskComponent,
     TaskDetailsComponent,
+ workspace
+    CalendarComponent,
+
     ConfirmationChangeStatusComponent,
     CommentsComponent,
     RelativeTimePipe,
+ main
   ],
   imports: [
     CommonModule,
@@ -65,7 +72,14 @@ import { RelativeTimePipe } from '../pipe/relative-time.pipe';
     StyleClassModule,
     DropdownModule,
     ModalModule.forRoot(),
+    workspace
+    CalendarModule.forRoot({
+      provide: DateAdapter,
+      useFactory: adapterFactory,
+    }),
+
     MatDialogModule,
+main
   ],
   providers: [DatePipe],
 })
