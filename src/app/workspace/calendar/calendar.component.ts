@@ -1,3 +1,4 @@
+import { IRole } from './../../../interfaces/interfaces';
 import {
   Component,
   ChangeDetectionStrategy,
@@ -24,6 +25,9 @@ import {
   CalendarView,
 } from 'angular-calendar';
 import { EventColor } from 'calendar-utils';
+import { TaskService } from 'src/app/services/task.service';
+import { AuthService } from 'src/app/services/auth.service';
+import { ITaskDetailed } from 'src/interfaces/interfaces';
 
 const colors: Record<string, EventColor> = {
   red: {
@@ -59,6 +63,17 @@ const colors: Record<string, EventColor> = {
   ],
 })
 export class CalendarComponent {
+  constructor(
+    private taskService: TaskService,
+    private authService: AuthService
+  ) {} // private modal: NgbModal
+  employeeID: string = this.authService.getDecodedToken()._id;
+  tasks: ITaskDetailed[] = [];
+  todoTasks: ITaskDetailed[] = [];
+  doneTasks: ITaskDetailed[] = [];
+  doingTasks: ITaskDetailed[] = [];
+  IRole!: IRole;
+
   // @ViewChild('modalContent', { static: true }) modalContent: TemplateRef<any>;
 
   view: CalendarView = CalendarView.Month;
@@ -72,71 +87,60 @@ export class CalendarComponent {
   //   event: CalendarEvent;
   // };
 
-  actions: CalendarEventAction[] = [
-    {
-      label: '<i class="fas fa-fw fa-pencil-alt"></i>',
-      a11yLabel: 'Edit',
-      onClick: ({ event }: { event: CalendarEvent }): void => {
-        this.handleEvent('Edited', event);
-      },
-    },
-    {
-      label: '<i class="fas fa-fw fa-trash-alt"></i>',
-      a11yLabel: 'Delete',
-      onClick: ({ event }: { event: CalendarEvent }): void => {
-        this.events = this.events.filter((iEvent) => iEvent !== event);
-        this.handleEvent('Deleted', event);
-      },
-    },
-  ];
+  // actions: CalendarEventAction[] = [
+  //   {
+  //     label: '<i class="fas fa-fw fa-pencil-alt"></i>',
+  //     a11yLabel: 'Edit',
+  //     onClick: ({ event }: { event: CalendarEvent }): void => {
+  //       this.handleEvent('Edited', event);
+  //     },
+  //   },
+  //   {
+  //     label: '<i class="fas fa-fw fa-trash-alt"></i>',
+  //     a11yLabel: 'Delete',
+  //     onClick: ({ event }: { event: CalendarEvent }): void => {
+  //       this.events = this.events.filter((iEvent) => iEvent !== event);
+  //       this.handleEvent('Deleted', event);
+  //     },
+  //   },
+  // ];
 
   refresh = new Subject<void>();
-
-  events: CalendarEvent[] = [
-    {
-      start: subDays(startOfDay(new Date()), 1),
-      end: addDays(new Date(), 1),
-      title: 'A 3 day event',
-      color: { ...colors['red'] },
-      actions: this.actions,
-      allDay: true,
-      resizable: {
-        beforeStart: true,
-        afterEnd: true,
-      },
-      draggable: true,
-    },
-    {
-      start: startOfDay(new Date()),
-      title: 'An event with no end date',
-      color: { ...colors['yellow'] },
-      actions: this.actions,
-    },
-    {
-      start: subDays(endOfMonth(new Date()), 3),
-      end: addDays(endOfMonth(new Date()), 3),
-      title: 'A long event that spans 2 months',
-      color: { ...colors['blue'] },
-      allDay: true,
-    },
-    {
-      start: addHours(startOfDay(new Date()), 2),
-      end: addHours(new Date(), 2),
-      title: 'A draggable and resizable event',
-      color: { ...colors['yellow'] },
-      actions: this.actions,
-      resizable: {
-        beforeStart: true,
-        afterEnd: true,
-      },
-      draggable: true,
-    },
-  ];
+  events: CalendarEvent[] = [];
 
   activeDayIsOpen: boolean = true;
 
-  constructor() {} // private modal: NgbModal
+  //getting employee Tasks
+  getTasksOfEmployee() {
+    this.taskService
+      .getEmployeeTasks(this.employeeID)
+      .subscribe(({ tasks }) => {
+        this.tasks = tasks;
 
+        this.tasks.forEach((task) => {
+          return this.events.push({
+            title: task.taskName,
+            start: new Date(task.startDate),
+            end: new Date(task.deadline),
+          });
+        });
+        this.refresh.next();
+      });
+  }
+  getTasksOfScrum() {
+    this.taskService.getScrumTasks(this.employeeID).subscribe(({ tasks }) => {
+      this.tasks = tasks;
+
+      this.tasks.forEach((task) =>
+        this.events.push({
+          title: task.taskName,
+          start: new Date(task.startDate),
+          end: new Date(task.deadline),
+        })
+      );
+      this.refresh.next();
+    });
+  }
   dayClicked({ date, events }: { date: Date; events: CalendarEvent[] }): void {
     if (isSameMonth(date, this.viewDate)) {
       if (
@@ -166,7 +170,7 @@ export class CalendarComponent {
       }
       return iEvent;
     });
-    this.handleEvent('Dropped or resized', event);
+    // this.handleEvent('Dropped or resized', event);
   }
 
   handleEvent(action: string, event: CalendarEvent): void {
@@ -174,26 +178,26 @@ export class CalendarComponent {
     // this.modal.open(this.modalContent, { size: 'lg' });
   }
 
-  addEvent(): void {
-    this.events = [
-      ...this.events,
-      {
-        title: 'New event',
-        start: startOfDay(new Date()),
-        end: endOfDay(new Date()),
-        color: colors['red'],
-        draggable: true,
-        resizable: {
-          beforeStart: true,
-          afterEnd: true,
-        },
-      },
-    ];
-  }
+  // addEvent(): void {
+  //   this.events = [
+  //     ...this.events,
+  //     {
+  //       title: 'New event',
+  //       start: startOfDay(new Date()),
+  //       end: endOfDay(new Date()),
+  //       color: colors['red'],
+  //       draggable: true,
+  //       resizable: {
+  //         beforeStart: true,
+  //         afterEnd: true,
+  //       },
+  //     },
+  //   ];
+  // }
 
-  deleteEvent(eventToDelete: CalendarEvent) {
-    this.events = this.events.filter((event) => event !== eventToDelete);
-  }
+  // deleteEvent(eventToDelete: CalendarEvent) {
+  //   this.events = this.events.filter((event) => event !== eventToDelete);
+  // }
 
   setView(view: CalendarView) {
     this.view = view;
@@ -201,5 +205,13 @@ export class CalendarComponent {
 
   closeOpenMonthViewDay() {
     this.activeDayIsOpen = false;
+  }
+  ngOnInit() {
+    this.IRole = this.authService.getDecodedToken().role;
+    if (this.IRole === IRole.scrumMaster) {
+      this.getTasksOfScrum();
+    } else {
+      this.getTasksOfEmployee();
+    }
   }
 }
