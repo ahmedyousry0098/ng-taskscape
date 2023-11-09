@@ -24,7 +24,7 @@ initTE({ Collapse, Ripple });
   styleUrls: ['./task-details.component.css'],
 })
 export class TaskDetailsComponent {
-  showModalDetails: boolean = true;
+  showModalDetails: boolean = false;
   @Input() task!: ITaskDetailed;
   isLoading: boolean = false;
   IRole!: IRole;
@@ -101,9 +101,11 @@ export class TaskDetailsComponent {
   }
 
   updateTaskStatusScrum(taskId: string, newStatus: string) {
+    console.log(taskId, newStatus);
     this.taskService.updateStatusForScrum(taskId, newStatus).subscribe({
       next: (res) => {
         this.taskService.updateTasks(res.updatedTasks);
+        console.log(res);
       },
       error: (err) => {
         console.log(err);

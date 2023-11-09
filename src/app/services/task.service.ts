@@ -11,6 +11,7 @@ export class TaskService {
   newTask$ = this.newTaskSubject.asObservable();
   private tasksSubject = new BehaviorSubject<ITaskDetailed[]>([]);
   tasks$ = this.tasksSubject.asObservable();
+
   baseUrl = 'https://taskspace-rxco.onrender.com';
 
   constructor(private HttpClient: HttpClient) {}
@@ -48,9 +49,10 @@ export class TaskService {
     this.tasksSubject.next(updatedTasks);
   }
 
-  updateStatusForScrum(taskId: string, data: string): Observable<any> {
+  updateStatusForScrum(taskId: string, newStatus: string): Observable<any> {
+    console.log(taskId, newStatus, 'ser');
     return this.HttpClient.patch(`${this.baseUrl}/task/updatetask/${taskId}`, {
-      data,
+      status: newStatus,
     });
   }
 
