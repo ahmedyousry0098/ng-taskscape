@@ -33,6 +33,7 @@ import { ConfirmationChangeStatusComponent } from './tasks/confirmation-change-s
 import { MatDialogModule } from '@angular/material/dialog';
 import { CommentsComponent } from './tasks/comments/comments.component';
 import { RelativeTimePipe } from '../pipe/relative-time.pipe';
+import { DragDropModule } from '@angular/cdk/drag-drop';
 
 @NgModule({
   declarations: [
@@ -76,6 +77,7 @@ import { RelativeTimePipe } from '../pipe/relative-time.pipe';
     }),
 
     MatDialogModule,
+    DragDropModule,
   ],
   providers: [DatePipe],
 })

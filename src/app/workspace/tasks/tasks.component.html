@@ -23,8 +23,16 @@
   </div>
   <div class="flex flex-row w-fit">
     <ng-container *ngIf="tasks && tasks.length > 0; else noTasks">
-      <div class="my-2 p-2 m-5 bg-slate-100 h-fit w-60">
-        <h2 class="ps-4">To do Tasks</h2>
+      <div
+        class="my-2 p-2 m-5 bg-slate-100 h-fit w-60"
+        cdkDropList
+        (cdkDropListDropped)="onDrop($event, 'todo')"
+        [cdkDropListData]="todoTasks"
+        #todoList="cdkDropList"
+        [cdkDropListConnectedTo]="[doingList, doneList]"
+      >
+        <h2 class="ps-4">To do Tasks ({{ todoTasks.length }})</h2>
+
         <ng-container
           *ngIf="todoTasks && todoTasks.length > 0; else noTodoTasks"
         >
@@ -32,10 +40,10 @@
             class="flex flex-col p-2 my-3 bg-red-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 cursor-pointer"
             *ngFor="let task of todoTasks"
             (click)="openTaskDetails(task)"
+            cdkDrag
+            [cdkDragData]="task"
           >
-            <p class="font-semibold">
-              {{ task.taskName }}
-            </p>
+            <p class="font-semibold">{{ task.taskName }}</p>
 
             <div class="" *ngIf="IRole === 'scrumMaster'">
               <div
@@ -70,8 +78,15 @@
         </ng-template>
       </div>
 
-      <div class="my-2 p-2 m-5 bg-slate-100 h-fit w-60">
-        <h2 class="ps-4">In progress Tasks</h2>
+      <div
+        class="my-2 p-2 m-5 bg-slate-100 h-fit w-60"
+        cdkDropList
+        (cdkDropListDropped)="onDrop($event, 'doing')"
+        [cdkDropListData]="doingTasks"
+        #doingList="cdkDropList"
+        [cdkDropListConnectedTo]="[todoList, doneList]"
+      >
+        <h2 class="ps-4">In progress Tasks ({{ doingTasks.length }})</h2>
         <ng-container
           *ngIf="doingTasks && doingTasks.length > 0; else noTodoingTasks"
         >
@@ -79,6 +94,8 @@
             class="flex flex-col p-2 my-3 bg-blue-200 border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 cursor-pointer"
             *ngFor="let task of doingTasks"
             (click)="openTaskDetails(task)"
+            cdkDrag
+            [cdkDragData]="task"
           >
             <p class="font-semibold">
               {{ task.taskName }}
@@ -116,8 +133,15 @@
           </h3>
         </ng-template>
       </div>
-      <div class="my-2 p-2 m-5 bg-slate-100 h-fit w-60">
-        <h2 class="ps-4">Done Tasks</h2>
+      <div
+        class="my-2 p-2 m-5 bg-slate-100 h-fit w-60"
+        cdkDropList
+        (cdkDropListDropped)="onDrop($event, 'done')"
+        [cdkDropListData]="doneTasks"
+        #doneList="cdkDropList"
+        [cdkDropListConnectedTo]="[doingList, todoList]"
+      >
+        <h2 class="ps-4">Done Tasks ({{ doneTasks.length }})</h2>
         <ng-container
           *ngIf="doneTasks && doneTasks.length > 0; else noDoneTasks"
         >
@@ -125,6 +149,8 @@
             class="flex flex-col p-2 my-3 bg-green-200 border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 cursor-pointer"
             *ngFor="let task of doneTasks"
             (click)="openTaskDetails(task)"
+            cdkDrag
+            [cdkDragData]="task"
           >
             <p class="font-semibold">
               {{ task.taskName }}

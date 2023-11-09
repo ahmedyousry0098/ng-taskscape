@@ -50,7 +50,6 @@ export class TaskService {
   }
 
   updateStatusForScrum(taskId: string, newStatus: string): Observable<any> {
-    console.log(taskId, newStatus, 'ser');
     return this.HttpClient.patch(`${this.baseUrl}/task/updatetask/${taskId}`, {
       status: newStatus,
     });

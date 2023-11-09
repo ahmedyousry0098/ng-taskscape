@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CommentService } from 'src/app/services/comment.service';
 import { EmployeeService } from 'src/app/services/employee.service';
@@ -11,6 +11,8 @@ import { IComment, IComments, IRole } from 'src/interfaces/interfaces';
 })
 export class CommentsComponent {
   @Input() taskId!: string;
+  @Output() commentCountChanged: EventEmitter<number> =
+    new EventEmitter<number>();
   isLoading: boolean = false;
   IRole!: IRole;
   imageUrl = '../../../assets/noavatar.jpg';
@@ -30,7 +32,6 @@ export class CommentsComponent {
     private employeeService: EmployeeService
   ) {}
   ngOnInit() {
-    console.log(this.taskId);
     this.loadEmployeePhoto();
     this.getTaskComments();
   }
@@ -66,7 +67,6 @@ export class CommentsComponent {
     this.commentService.addTaskComment(this.taskId, comment!).subscribe({
       next: (res) => {
         this.isLoading = false;
-        console.log(res);
         this.getTaskComments();
         this.addCommentForm.reset();
       },
@@ -80,8 +80,7 @@ export class CommentsComponent {
       next: (res) => {
         this.comments = res.comments;
         this.reverseComments();
-
-        console.log(this.comments);
+        this.commentCountChanged.emit(this.comments.length);
       },
       error: (err) => {
         console.log(err);
@@ -116,7 +115,6 @@ export class CommentsComponent {
       .subscribe({
         next: (res) => {
           this.isLoading = false;
-          console.log(res);
           const updatedComment = this.comments.find(
             (comment) => comment._id === this.commentId
           );

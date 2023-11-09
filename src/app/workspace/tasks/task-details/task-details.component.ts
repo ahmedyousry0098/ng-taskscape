@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import {
   IRole,
   IStatus,
@@ -26,6 +26,11 @@ initTE({ Collapse, Ripple });
 export class TaskDetailsComponent {
   showModalDetails: boolean = false;
   @Input() task!: ITaskDetailed;
+  @Output() commentCountChanged: EventEmitter<{
+    taskId: string;
+    count: number;
+  }> = new EventEmitter<{ taskId: string; count: number }>();
+
   isLoading: boolean = false;
   IRole!: IRole;
   newStatus!: string;
@@ -105,7 +110,6 @@ export class TaskDetailsComponent {
     this.taskService.updateStatusForScrum(taskId, newStatus).subscribe({
       next: (res) => {
         this.taskService.updateTasks(res.updatedTasks);
-        console.log(res);
       },
       error: (err) => {
         console.log(err);
@@ -117,7 +121,6 @@ export class TaskDetailsComponent {
     this.taskService.updateStatusForMember(taskId, newStatus).subscribe({
       next: (res) => {
         this.taskService.updateTasks(res.updatedTasks);
-        console.log(res);
       },
       error: (err) => {
         console.log(err);
@@ -158,5 +161,8 @@ export class TaskDetailsComponent {
           },
         });
     }
+  }
+  handleCommentCountChanged(count: number) {
+    this.commentCountChanged.emit({ taskId: this.task._id, count: count });
   }
 }
