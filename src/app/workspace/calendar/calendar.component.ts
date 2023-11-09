@@ -124,19 +124,21 @@ export class CalendarComponent {
             end: new Date(task.deadline),
           });
         });
+        this.refresh.next();
       });
   }
   getTasksOfScrum() {
     this.taskService.getScrumTasks(this.employeeID).subscribe(({ tasks }) => {
       this.tasks = tasks;
 
-      this.tasks.forEach((task) => {
-        return this.events.push({
+      this.tasks.forEach((task) =>
+        this.events.push({
           title: task.taskName,
           start: new Date(task.startDate),
           end: new Date(task.deadline),
-        });
-      });
+        })
+      );
+      this.refresh.next();
     });
   }
   dayClicked({ date, events }: { date: Date; events: CalendarEvent[] }): void {
@@ -206,7 +208,6 @@ export class CalendarComponent {
   }
   ngOnInit() {
     this.IRole = this.authService.getDecodedToken().role;
-    console.log(this.events);
     if (this.IRole === IRole.scrumMaster) {
       this.getTasksOfScrum();
     } else {
