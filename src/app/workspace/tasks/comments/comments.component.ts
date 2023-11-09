@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CommentService } from 'src/app/services/comment.service';
 import { EmployeeService } from 'src/app/services/employee.service';
@@ -11,6 +11,8 @@ import { IComment, IComments, IRole } from 'src/interfaces/interfaces';
 })
 export class CommentsComponent {
   @Input() taskId!: string;
+  @Output() commentCountChanged: EventEmitter<number> =
+    new EventEmitter<number>();
   isLoading: boolean = false;
   IRole!: IRole;
   imageUrl = '../../../assets/noavatar.jpg';
@@ -78,6 +80,7 @@ export class CommentsComponent {
       next: (res) => {
         this.comments = res.comments;
         this.reverseComments();
+        this.commentCountChanged.emit(this.comments.length);
       },
       error: (err) => {
         console.log(err);

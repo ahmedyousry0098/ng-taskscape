@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import {
   IRole,
   IStatus,
@@ -26,6 +26,11 @@ initTE({ Collapse, Ripple });
 export class TaskDetailsComponent {
   showModalDetails: boolean = false;
   @Input() task!: ITaskDetailed;
+  @Output() commentCountChanged: EventEmitter<{
+    taskId: string;
+    count: number;
+  }> = new EventEmitter<{ taskId: string; count: number }>();
+
   isLoading: boolean = false;
   IRole!: IRole;
   newStatus!: string;
@@ -50,8 +55,6 @@ export class TaskDetailsComponent {
   ngOnInit() {
     this.IRole = this.authService.getDecodedToken().role;
     initTE({ Collapse, Ripple });
-
-    console.log(this.task.status);
     const taskStartDate = new Date(this.task.startDate);
     this.updateTaskForm = this.formBuilder.group({
       taskName: [
@@ -158,5 +161,8 @@ export class TaskDetailsComponent {
           },
         });
     }
+  }
+  handleCommentCountChanged(count: number) {
+    this.commentCountChanged.emit({ taskId: this.task._id, count: count });
   }
 }

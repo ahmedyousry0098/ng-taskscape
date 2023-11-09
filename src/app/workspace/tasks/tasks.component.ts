@@ -37,6 +37,8 @@ export class TasksComponent {
   imageUrl: string = '../../../assets/noavatar.jpg';
   modalRef: BsModalRef | undefined;
   taskId: string = '';
+  commentCounts: { [taskId: string]: number } = {};
+  countcomment: { taskId: string; count: number } = { taskId: '', count: 0 };
 
   constructor(
     private taskService: TaskService,
@@ -77,9 +79,13 @@ export class TasksComponent {
   openTaskDetails(task: ITaskDetailed) {
     const initialState = {
       task: task,
+      commentCounts: this.commentCounts,
     };
     this.modalRef = this.modalService.show(TaskDetailsComponent, {
       initialState,
+    });
+    this.modalRef.content.commentCountChanged.subscribe((count: number) => {
+      this.commentCounts[task._id] = count;
     });
   }
 
@@ -102,7 +108,6 @@ export class TasksComponent {
   updateTaskLists() {
     this.taskService.getScrumTasks(this.employeeID).subscribe((data) => {
       this.tasks = data.tasks;
-      console.log(this.tasks);
       this.todoTasks = this.tasks.filter((task) => task.status === 'todo');
       this.doingTasks = this.tasks.filter((task) => task.status === 'doing');
       this.doneTasks = this.tasks.filter((task) => task.status === 'done');

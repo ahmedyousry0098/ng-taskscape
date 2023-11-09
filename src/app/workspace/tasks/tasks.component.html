@@ -43,9 +43,7 @@
             cdkDrag
             [cdkDragData]="task"
           >
-            <p class="font-semibold">
-              {{ task.taskName }}
-            </p>
+            <p class="font-semibold">{{ task.taskName }}</p>
 
             <div class="" *ngIf="IRole === 'scrumMaster'">
               <div
