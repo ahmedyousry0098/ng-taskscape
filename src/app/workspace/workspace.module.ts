@@ -53,13 +53,11 @@ import { RelativeTimePipe } from '../pipe/relative-time.pipe';
     ProjectDetailComponent,
     CreatetaskComponent,
     TaskDetailsComponent,
- workspace
     CalendarComponent,
 
     ConfirmationChangeStatusComponent,
     CommentsComponent,
     RelativeTimePipe,
- main
   ],
   imports: [
     CommonModule,
@@ -72,14 +70,12 @@ import { RelativeTimePipe } from '../pipe/relative-time.pipe';
     StyleClassModule,
     DropdownModule,
     ModalModule.forRoot(),
-    workspace
     CalendarModule.forRoot({
       provide: DateAdapter,
       useFactory: adapterFactory,
     }),
 
     MatDialogModule,
-main
   ],
   providers: [DatePipe],
 })
