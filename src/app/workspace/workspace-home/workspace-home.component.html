@@ -1,185 +1,193 @@
-<div class="ml-4 mt-4">
-  <p class="font-semibold text-lg">Welcome {{ employeeName }}!</p>
-  <p>You have 10 tasks to do today</p>
+<div class="flex gap-5 w-full">
+  <div class="ml-4 mt-4">
+    <p class="font-semibold text-lg">Welcome {{ employeeName }}!</p>
+    <p>You have 10 tasks to do today</p>
 
-  <h3 class="mt-12">My Work</h3>
-  <div class="container max-w-6xl">
-    <div class="flex flex-wrap">
-      <div class="w-full">
-        <ul
-          class="flex -mb-4 list-none flex-wrap pt-3 pb-4 flex-row divide-x divide-gray-200"
-        >
-          <li
-            class="last:mr-0 flex-auto text-center inline-block bg-gray-50 hover:bg-gray-100 focus:outline-none"
+    <h3 class="mt-12">My Work</h3>
+    <div class="container max-w-6xl">
+      <div class="flex flex-wrap">
+        <div class="w-full">
+          <ul
+            class="flex -mb-4 list-none flex-wrap pt-3 pb-4 flex-row divide-x divide-gray-200"
           >
-            <a
-              class="text-xs font-bold uppercase px-5 py-3 rounded block leading-normal"
-              (click)="toggleTabs(1)"
-              [ngClass]="{
-                'text-black': openTab !== 1,
-                'text-blue-700 bg-white': openTab === 1
-              }"
+            <li
+              class="last:mr-0 flex-auto text-center inline-block bg-gray-50 hover:bg-gray-100 focus:outline-none"
             >
-              Todo
-            </a>
-          </li>
-          <li
-            class="last:mr-0 flex-auto text-center inline-block bg-gray-50 hover:bg-gray-100 focus:outline-none"
+              <a
+                class="text-xs font-bold uppercase px-5 py-3 rounded block leading-normal"
+                (click)="toggleTabs(1)"
+                [ngClass]="{
+                  'text-black': openTab !== 1,
+                  'text-blue-700 bg-white': openTab === 1
+                }"
+              >
+                Todo
+              </a>
+            </li>
+            <li
+              class="last:mr-0 flex-auto text-center inline-block bg-gray-50 hover:bg-gray-100 focus:outline-none"
+            >
+              <a
+                class="text-xs font-bold uppercase px-5 py-3 rounded block leading-normal"
+                (click)="toggleTabs(2)"
+                [ngClass]="{
+                  'text-black': openTab !== 2,
+                  'text-blue-700 bg-white': openTab === 2
+                }"
+              >
+                Done
+              </a>
+            </li>
+            <li
+              class="last:mr-0 flex-auto text-center inline-block bg-gray-50 hover:bg-gray-100 focus:outline-none"
+            >
+              <a
+                class="text-xs font-bold uppercase px-5 py-3 rounded block leading-normal"
+                (click)="toggleTabs(3)"
+                [ngClass]="{
+                  'text-black': openTab !== 3,
+                  'text-blue-700 bg-white': openTab === 3
+                }"
+              >
+                Overdue
+              </a>
+            </li>
+          </ul>
+          <div
+            class="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 border rounded"
           >
-            <a
-              class="text-xs font-bold uppercase px-5 py-3 rounded block leading-normal"
-              (click)="toggleTabs(2)"
-              [ngClass]="{
-                'text-black': openTab !== 2,
-                'text-blue-700 bg-white': openTab === 2
-              }"
-            >
-              Done
-            </a>
-          </li>
-          <li
-            class="last:mr-0 flex-auto text-center inline-block bg-gray-50 hover:bg-gray-100 focus:outline-none"
-          >
-            <a
-              class="text-xs font-bold uppercase px-5 py-3 rounded block leading-normal"
-              (click)="toggleTabs(3)"
-              [ngClass]="{
-                'text-black': openTab !== 3,
-                'text-blue-700 bg-white': openTab === 3
-              }"
-            >
-              Overdue
-            </a>
-          </li>
-        </ul>
-        <div
-          class="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 border rounded"
-        >
-          <div class="px-4 py-5 flex-auto">
-            <div class="tab-content tab-space">
-              <div [ngClass]="{ hidden: openTab !== 1, block: openTab === 1 }">
+            <div class="px-4 py-5 flex-auto">
+              <div class="tab-content tab-space">
                 <div
-                  class="max-w-4xl flex gap-7 align-content-center p-6 my-3 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700"
+                  [ngClass]="{ hidden: openTab !== 1, block: openTab === 1 }"
                 >
-                  <h5>Project Name</h5>
-                  <p>Task title</p>
-                  <p>Due Date</p>
-                  <p>status</p>
-                  <div class="flex">
-                    <button
-                      class="bg-blue-600 hover:bg-blue-700 text-white p-1 rounded-md me-2"
-                    >
-                      More
-                    </button>
-                    <button
-                      class="bg-green-500 hover:bg-green-600 text-white p-1 rounded-md"
-                    >
-                      Done
-                    </button>
+                  <div
+                    class="max-w-4xl flex gap-7 align-content-center p-6 my-3 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700"
+                  >
+                    <h5>Project Name</h5>
+                    <p>Task title</p>
+                    <p>Due Date</p>
+                    <p>status</p>
+                    <div class="flex">
+                      <button
+                        class="bg-blue-600 hover:bg-blue-700 text-white p-1 rounded-md me-2"
+                      >
+                        More
+                      </button>
+                      <button
+                        class="bg-green-500 hover:bg-green-600 text-white p-1 rounded-md"
+                      >
+                        Done
+                      </button>
+                    </div>
+                  </div>
+                  <div
+                    class="max-w-4xl flex gap-7 p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700"
+                  >
+                    <h5>Project Name</h5>
+                    <p>Task title</p>
+                    <p>Due Date</p>
+                    <p>status</p>
+                    <div class="flex">
+                      <button
+                        class="bg-blue-600 hover:bg-blue-700 text-white p-1 rounded-md me-2"
+                      >
+                        More
+                      </button>
+                      <button
+                        class="bg-green-500 hover:bg-green-600 text-white p-1 rounded-md"
+                      >
+                        Done
+                      </button>
+                    </div>
                   </div>
                 </div>
                 <div
-                  class="max-w-4xl flex gap-7 p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700"
+                  [ngClass]="{ hidden: openTab !== 2, block: openTab === 2 }"
                 >
-                  <h5>Project Name</h5>
-                  <p>Task title</p>
-                  <p>Due Date</p>
-                  <p>status</p>
-                  <div class="flex">
-                    <button
-                      class="bg-blue-600 hover:bg-blue-700 text-white p-1 rounded-md me-2"
-                    >
-                      More
-                    </button>
-                    <button
-                      class="bg-green-500 hover:bg-green-600 text-white p-1 rounded-md"
-                    >
-                      Done
-                    </button>
+                  <div
+                    class="max-w-4xl flex gap-7 align-content-center p-6 my-3 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700"
+                  >
+                    <h5>Project Name</h5>
+                    <p>Task title</p>
+                    <p>Due Date</p>
+                    <p>status</p>
+                    <div class="flex">
+                      <button
+                        class="bg-blue-600 hover:bg-blue-700 text-white p-1 rounded-md me-2"
+                      >
+                        More
+                      </button>
+                      <button
+                        class="bg-green-500 hover:bg-green-600 text-white p-1 rounded-md"
+                      >
+                        Done
+                      </button>
+                    </div>
                   </div>
-                </div>
-              </div>
-              <div [ngClass]="{ hidden: openTab !== 2, block: openTab === 2 }">
-                <div
-                  class="max-w-4xl flex gap-7 align-content-center p-6 my-3 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700"
-                >
-                  <h5>Project Name</h5>
-                  <p>Task title</p>
-                  <p>Due Date</p>
-                  <p>status</p>
-                  <div class="flex">
-                    <button
-                      class="bg-blue-600 hover:bg-blue-700 text-white p-1 rounded-md me-2"
-                    >
-                      More
-                    </button>
-                    <button
-                      class="bg-green-500 hover:bg-green-600 text-white p-1 rounded-md"
-                    >
-                      Done
-                    </button>
-                  </div>
-                </div>
-                <div
-                  class="max-w-4xl flex gap-7 p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700"
-                >
-                  <h5>Project Name</h5>
-                  <p>Task title</p>
-                  <p>Due Date</p>
-                  <p>status</p>
-                  <div class="flex">
-                    <button
-                      class="bg-blue-600 hover:bg-blue-700 text-white p-1 rounded-md me-2"
-                    >
-                      More
-                    </button>
-                    <button
-                      class="bg-green-500 hover:bg-green-600 text-white p-1 rounded-md"
-                    >
-                      Done
-                    </button>
-                  </div>
-                </div>
-              </div>
-              <div [ngClass]="{ hidden: openTab !== 3, block: openTab === 3 }">
-                <div
-                  class="max-w-4xl flex gap-7 align-content-center p-6 my-3 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700"
-                >
-                  <h5>Project Name</h5>
-                  <p>Task title</p>
-                  <p>Due Date</p>
-                  <p>status</p>
-                  <div class="flex">
-                    <button
-                      class="bg-blue-600 hover:bg-blue-700 text-white p-1 rounded-md me-2"
-                    >
-                      More
-                    </button>
-                    <button
-                      class="bg-green-500 hover:bg-green-600 text-white p-1 rounded-md"
-                    >
-                      Done
-                    </button>
+                  <div
+                    class="max-w-4xl flex gap-7 p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700"
+                  >
+                    <h5>Project Name</h5>
+                    <p>Task title</p>
+                    <p>Due Date</p>
+                    <p>status</p>
+                    <div class="flex">
+                      <button
+                        class="bg-blue-600 hover:bg-blue-700 text-white p-1 rounded-md me-2"
+                      >
+                        More
+                      </button>
+                      <button
+                        class="bg-green-500 hover:bg-green-600 text-white p-1 rounded-md"
+                      >
+                        Done
+                      </button>
+                    </div>
                   </div>
                 </div>
                 <div
-                  class="max-w-4xl flex gap-7 p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700"
+                  [ngClass]="{ hidden: openTab !== 3, block: openTab === 3 }"
                 >
-                  <h5>Project Name</h5>
-                  <p>Task title</p>
-                  <p>Due Date</p>
-                  <p>status</p>
-                  <div class="flex">
-                    <button
-                      class="bg-blue-600 hover:bg-blue-700 text-white p-1 rounded-md me-2"
-                    >
-                      More
-                    </button>
-                    <button
-                      class="bg-green-500 hover:bg-green-600 text-white p-1 rounded-md"
-                    >
-                      Done
-                    </button>
+                  <div
+                    class="max-w-4xl flex gap-7 align-content-center p-6 my-3 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700"
+                  >
+                    <h5>Project Name</h5>
+                    <p>Task title</p>
+                    <p>Due Date</p>
+                    <p>status</p>
+                    <div class="flex">
+                      <button
+                        class="bg-blue-600 hover:bg-blue-700 text-white p-1 rounded-md me-2"
+                      >
+                        More
+                      </button>
+                      <button
+                        class="bg-green-500 hover:bg-green-600 text-white p-1 rounded-md"
+                      >
+                        Done
+                      </button>
+                    </div>
+                  </div>
+                  <div
+                    class="max-w-4xl flex gap-7 p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700"
+                  >
+                    <h5>Project Name</h5>
+                    <p>Task title</p>
+                    <p>Due Date</p>
+                    <p>status</p>
+                    <div class="flex">
+                      <button
+                        class="bg-blue-600 hover:bg-blue-700 text-white p-1 rounded-md me-2"
+                      >
+                        More
+                      </button>
+                      <button
+                        class="bg-green-500 hover:bg-green-600 text-white p-1 rounded-md"
+                      >
+                        Done
+                      </button>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -189,4 +197,5 @@
       </div>
     </div>
   </div>
+  <app-calendar></app-calendar>
 </div>

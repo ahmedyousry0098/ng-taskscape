@@ -16,10 +16,16 @@
             "outputPath": "dist/front-taskspace",
             "index": "src/index.html",
             "main": "src/main.ts",
-            "polyfills": ["zone.js"],
+            "polyfills": [
+              "zone.js"
+            ],
             "tsConfig": "tsconfig.app.json",
-            "assets": ["src/favicon.ico", "src/assets"],
+            "assets": [
+              "src/favicon.ico",
+              "src/assets"
+            ],
             "styles": [
+              "node_modules/angular-calendar/css/angular-calendar.css",
               "@angular/material/prebuilt-themes/pink-bluegrey.css",
               "@angular/material/prebuilt-themes/indigo-pink.css",
               "node_modules/@fortawesome/fontawesome-free/css/all.min.css",
@@ -77,10 +83,17 @@
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
-            "polyfills": ["zone.js", "zone.js/testing"],
+            "polyfills": [
+              "zone.js",
+              "zone.js/testing"
+            ],
             "tsConfig": "tsconfig.spec.json",
-            "assets": ["src/favicon.ico", "src/assets"],
+            "assets": [
+              "src/favicon.ico",
+              "src/assets"
+            ],
             "styles": [
+              "node_modules/angular-calendar/css/angular-calendar.css",
               "@angular/material/prebuilt-themes/pink-bluegrey.css",
               "@angular/material/prebuilt-themes/indigo-pink.css",
               "src/styles.css"

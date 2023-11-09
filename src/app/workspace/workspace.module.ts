@@ -25,7 +25,10 @@ import { ProjectDetailComponent } from './project-detail/project-detail.componen
 import { DatePipe } from '@angular/common';
 import { CreatetaskComponent } from './tasks/createtask/createtask.component';
 import { TaskDetailsComponent } from './tasks/task-details/task-details.component';
-import { ModalModule } from 'ngx-bootstrap/modal'; // Import ModalModule
+import { ModalModule } from 'ngx-bootstrap/modal';
+import { CalendarComponent } from './calendar/calendar.component'; // Import ModalModule
+import { CalendarModule, DateAdapter } from 'angular-calendar';
+import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 
 @NgModule({
   declarations: [
@@ -46,6 +49,7 @@ import { ModalModule } from 'ngx-bootstrap/modal'; // Import ModalModule
     ProjectDetailComponent,
     CreatetaskComponent,
     TaskDetailsComponent,
+    CalendarComponent,
   ],
   imports: [
     CommonModule,
@@ -58,6 +62,10 @@ import { ModalModule } from 'ngx-bootstrap/modal'; // Import ModalModule
     StyleClassModule,
     DropdownModule,
     ModalModule.forRoot(),
+    CalendarModule.forRoot({
+      provide: DateAdapter,
+      useFactory: adapterFactory,
+    }),
   ],
   providers: [DatePipe],
 })
