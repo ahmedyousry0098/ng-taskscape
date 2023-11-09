@@ -39,9 +39,7 @@ export interface ISprint {
   _id: string;
 }
 
-export interface IProjectWithSprint extends IProject {
-  
-}
+export interface IProjectWithSprint extends IProject {}
 
 export interface ITask {
   taskName: string;

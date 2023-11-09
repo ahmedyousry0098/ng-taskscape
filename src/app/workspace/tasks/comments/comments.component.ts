@@ -30,7 +30,6 @@ export class CommentsComponent {
     private employeeService: EmployeeService
   ) {}
   ngOnInit() {
-    console.log(this.taskId);
     this.loadEmployeePhoto();
     this.getTaskComments();
   }
@@ -66,7 +65,6 @@ export class CommentsComponent {
     this.commentService.addTaskComment(this.taskId, comment!).subscribe({
       next: (res) => {
         this.isLoading = false;
-        console.log(res);
         this.getTaskComments();
         this.addCommentForm.reset();
       },
@@ -80,8 +78,6 @@ export class CommentsComponent {
       next: (res) => {
         this.comments = res.comments;
         this.reverseComments();
-
-        console.log(this.comments);
       },
       error: (err) => {
         console.log(err);
@@ -116,7 +112,6 @@ export class CommentsComponent {
       .subscribe({
         next: (res) => {
           this.isLoading = false;
-          console.log(res);
           const updatedComment = this.comments.find(
             (comment) => comment._id === this.commentId
           );

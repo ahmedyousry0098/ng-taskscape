@@ -6,10 +6,16 @@ import {
   IProject,
   IRole,
   ISprint,
+  ITask,
   ITaskDetailed,
 } from 'src/interfaces/interfaces';
 import { TaskDetailsComponent } from './task-details/task-details.component';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
+import {
+  CdkDragDrop,
+  moveItemInArray,
+  transferArrayItem,
+} from '@angular/cdk/drag-drop';
 
 @Component({
   selector: 'app-tasks',
@@ -30,6 +36,7 @@ export class TasksComponent {
   doingTasks: ITaskDetailed[] = [];
   imageUrl: string = '../../../assets/noavatar.jpg';
   modalRef: BsModalRef | undefined;
+  taskId: string = '';
 
   constructor(
     private taskService: TaskService,
@@ -95,6 +102,7 @@ export class TasksComponent {
   updateTaskLists() {
     this.taskService.getScrumTasks(this.employeeID).subscribe((data) => {
       this.tasks = data.tasks;
+      console.log(this.tasks);
       this.todoTasks = this.tasks.filter((task) => task.status === 'todo');
       this.doingTasks = this.tasks.filter((task) => task.status === 'doing');
       this.doneTasks = this.tasks.filter((task) => task.status === 'done');
@@ -106,6 +114,55 @@ export class TasksComponent {
       this.todoTasks = this.tasks.filter((task) => task.status === 'todo');
       this.doingTasks = this.tasks.filter((task) => task.status === 'doing');
       this.doneTasks = this.tasks.filter((task) => task.status === 'done');
+    });
+  }
+  onDrop(event: CdkDragDrop<ITaskDetailed[]>, newStatus: string) {
+    if (event.previousContainer === event.container) {
+      moveItemInArray(
+        event.container.data,
+        event.previousIndex,
+        event.currentIndex
+      );
+    } else {
+      transferArrayItem(
+        event.previousContainer.data,
+        event.container.data,
+        event.previousIndex,
+        event.currentIndex
+      );
+
+      const taskToMove: ITaskDetailed = event.item.data;
+      this.moveTaskToNewStatus(taskToMove, newStatus);
+    }
+  }
+
+  moveTaskToNewStatus(task: ITaskDetailed, newStatus: string) {
+    this.taskId = task._id;
+    if (this.IRole === IRole.scrumMaster) {
+      this.updateTaskStatusScrum(this.taskId, newStatus);
+    } else {
+      this.updateTaskStatusMember(this.taskId, newStatus);
+    }
+  }
+
+  updateTaskStatusScrum(taskId: string, newStatus: string) {
+    this.taskService.updateStatusForScrum(taskId, newStatus).subscribe({
+      next: (res) => {
+        this.taskService.updateTasks([res.updatedTasks]);
+      },
+      error: (err) => {
+        console.log(err);
+      },
+    });
+  }
+  updateTaskStatusMember(taskId: string, newStatus: string) {
+    this.taskService.updateStatusForMember(taskId, newStatus).subscribe({
+      next: (res) => {
+        this.taskService.updateTasks([res.updatedTasks]);
+      },
+      error: (err) => {
+        console.log(err);
+      },
     });
   }
 }

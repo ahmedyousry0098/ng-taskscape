@@ -50,6 +50,8 @@ export class TaskDetailsComponent {
   ngOnInit() {
     this.IRole = this.authService.getDecodedToken().role;
     initTE({ Collapse, Ripple });
+
+    console.log(this.task.status);
     const taskStartDate = new Date(this.task.startDate);
     this.updateTaskForm = this.formBuilder.group({
       taskName: [
@@ -105,7 +107,6 @@ export class TaskDetailsComponent {
     this.taskService.updateStatusForScrum(taskId, newStatus).subscribe({
       next: (res) => {
         this.taskService.updateTasks(res.updatedTasks);
-        console.log(res);
       },
       error: (err) => {
         console.log(err);
@@ -117,7 +118,6 @@ export class TaskDetailsComponent {
     this.taskService.updateStatusForMember(taskId, newStatus).subscribe({
       next: (res) => {
         this.taskService.updateTasks(res.updatedTasks);
-        console.log(res);
       },
       error: (err) => {
         console.log(err);
