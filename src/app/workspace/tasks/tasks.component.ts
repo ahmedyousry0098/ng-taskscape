@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectorRef, Component, NgZone } from '@angular/core';
 import { AuthService } from 'src/app/services/auth.service';
 import { TaskService } from 'src/app/services/task.service';
 import {
@@ -6,7 +6,6 @@ import {
   IProject,
   IRole,
   ISprint,
-  ITask,
   ITaskDetailed,
 } from 'src/interfaces/interfaces';
 import { TaskDetailsComponent } from './task-details/task-details.component';
@@ -16,6 +15,8 @@ import {
   moveItemInArray,
   transferArrayItem,
 } from '@angular/cdk/drag-drop';
+import { CommentService } from 'src/app/services/comment.service';
+import { forkJoin } from 'rxjs';
 
 @Component({
   selector: 'app-tasks',
@@ -37,14 +38,28 @@ export class TasksComponent {
   imageUrl: string = '../../../assets/noavatar.jpg';
   modalRef: BsModalRef | undefined;
   taskId: string = '';
-  commentCounts: { [taskId: string]: number } = {};
-  countcomment: { taskId: string; count: number } = { taskId: '', count: 0 };
-
+  commentCounts!: any;
+  comments!: string[];
   constructor(
     private taskService: TaskService,
     private authService: AuthService,
-    private modalService: BsModalService
+    private modalService: BsModalService,
+    private commentService: CommentService,
+    private cdr: ChangeDetectorRef
   ) {}
+  private getCommentCounts() {
+    const commentRequests = this.tasks.map((task) =>
+      this.commentService.getComments(task._id)
+    );
+
+    forkJoin(commentRequests).subscribe((responses) => {
+      responses.forEach((res, index) => {
+        this.tasks[index].commentCount = res.comments.length;
+      });
+
+      this.cdr.detectChanges();
+    });
+  }
 
   ngOnInit() {
     this.IRole = this.authService.getDecodedToken().role;
@@ -79,19 +94,16 @@ export class TasksComponent {
   openTaskDetails(task: ITaskDetailed) {
     const initialState = {
       task: task,
-      commentCounts: this.commentCounts,
     };
     this.modalRef = this.modalService.show(TaskDetailsComponent, {
       initialState,
-    });
-    this.modalRef.content.commentCountChanged.subscribe((count: number) => {
-      this.commentCounts[task._id] = count;
     });
   }
 
   getTasksOfEmployee() {
     this.taskService.getEmployeeTasks(this.employeeID).subscribe((data) => {
       this.tasks = data.tasks;
+      this.getCommentCounts();
       this.todoTasks = this.tasks.filter((task) => task.status === 'todo');
       this.doingTasks = this.tasks.filter((task) => task.status === 'doing');
       this.doneTasks = this.tasks.filter((task) => task.status === 'done');
@@ -100,6 +112,8 @@ export class TasksComponent {
   getTasksOfScrum() {
     this.taskService.getScrumTasks(this.employeeID).subscribe((data) => {
       this.tasks = data.tasks;
+      this.getCommentCounts();
+
       this.todoTasks = this.tasks.filter((task) => task.status === 'todo');
       this.doingTasks = this.tasks.filter((task) => task.status === 'doing');
       this.doneTasks = this.tasks.filter((task) => task.status === 'done');
@@ -108,6 +122,7 @@ export class TasksComponent {
   updateTaskLists() {
     this.taskService.getScrumTasks(this.employeeID).subscribe((data) => {
       this.tasks = data.tasks;
+      this.getCommentCounts();
       this.todoTasks = this.tasks.filter((task) => task.status === 'todo');
       this.doingTasks = this.tasks.filter((task) => task.status === 'doing');
       this.doneTasks = this.tasks.filter((task) => task.status === 'done');
@@ -116,6 +131,7 @@ export class TasksComponent {
   updateTaskListsMember() {
     this.taskService.getEmployeeTasks(this.employeeID).subscribe((data) => {
       this.tasks = data.tasks;
+      this.getCommentCounts();
       this.todoTasks = this.tasks.filter((task) => task.status === 'todo');
       this.doingTasks = this.tasks.filter((task) => task.status === 'doing');
       this.doneTasks = this.tasks.filter((task) => task.status === 'done');

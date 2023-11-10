@@ -76,6 +76,7 @@ export interface ITaskDetailed {
   project: IProject;
   assignTo: IEmployee;
   sprint: ISprint;
+  commentCount?: number;
 }
 
 export interface ITaskUpdate {

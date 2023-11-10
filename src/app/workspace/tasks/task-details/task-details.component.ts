@@ -16,6 +16,7 @@ import {
   dateGreaterThanNowAndStartCustom,
   dateGreaterThanNowValidator,
 } from 'src/app/validators/customValidators';
+import { BsModalRef } from 'ngx-bootstrap/modal';
 
 initTE({ Collapse, Ripple });
 @Component({
@@ -26,10 +27,6 @@ initTE({ Collapse, Ripple });
 export class TaskDetailsComponent {
   showModalDetails: boolean = false;
   @Input() task!: ITaskDetailed;
-  @Output() commentCountChanged: EventEmitter<{
-    taskId: string;
-    count: number;
-  }> = new EventEmitter<{ taskId: string; count: number }>();
 
   isLoading: boolean = false;
   IRole!: IRole;
@@ -45,12 +42,14 @@ export class TaskDetailsComponent {
   assignToObj!: {};
   projectObj!: {};
   sprintObj!: {};
+  commentCounts: { [taskId: string]: number } = {};
 
   constructor(
     private dialog: MatDialog,
     private taskService: TaskService,
     private authService: AuthService,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    public bsModalRef: BsModalRef
   ) {}
   ngOnInit() {
     this.IRole = this.authService.getDecodedToken().role;
@@ -161,8 +160,5 @@ export class TaskDetailsComponent {
           },
         });
     }
-  }
-  handleCommentCountChanged(count: number) {
-    this.commentCountChanged.emit({ taskId: this.task._id, count: count });
   }
 }
