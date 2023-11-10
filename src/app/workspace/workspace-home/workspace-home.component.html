@@ -1,7 +1,11 @@
-<div class="grid grid-cols-2 gap-20">
-  <div class="ml-4 mt-4">
+<div class="flex lg-gap-40 flex-wrap mt-4 gap-10">
+  <div class="ml-4">
     <p class="font-semibold text-lg">Welcome {{ employeeName }}!</p>
-    <p>You have 10 tasks to do today</p>
+    <p>
+      You have {{ todayToDoTasks.length }}
+      <span *ngIf="employeeRole === 'scrumMaster'">for follow up</span>
+      <span *ngIf="employeeRole === 'member'">in your calendar</span>
+    </p>
 
     <h3 class="mt-12">My Work</h3>
     <div class="container max-w-6xl">
@@ -54,140 +58,83 @@
             </li>
           </ul>
           <div
-            class="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 border rounded"
+            class="relative flex flex-col min-w-0 break-words bg-blue-100 mb-6 border rounded"
           >
-            <div class="px-4 py-5 flex-auto">
+            <div class="px-4 py-5 flex-auto w-[36rem]">
               <div class="tab-content tab-space">
                 <div
                   [ngClass]="{ hidden: openTab !== 1, block: openTab === 1 }"
                 >
-                  <div
-                    class="max-w-4xl flex gap-7 align-content-center p-6 my-3 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700"
-                  >
-                    <h5>Project Name</h5>
-                    <p>Task title</p>
-                    <p>Due Date</p>
-                    <p>status</p>
-                    <div class="flex">
-                      <button
-                        class="bg-blue-600 hover:bg-blue-700 text-white p-1 rounded-md me-2"
-                      >
-                        More
-                      </button>
-                      <button
-                        class="bg-green-500 hover:bg-green-600 text-white p-1 rounded-md"
-                      >
-                        Done
-                      </button>
-                    </div>
+                  <div class="w-full grid grid-cols-5 gap-4 text-center px-6">
+                    <p>Project</p>
+                    <p>Sprint</p>
+                    <p>Task Title</p>
+                    <p>Start Date</p>
+                    <p>Deadline</p>
                   </div>
                   <div
-                    class="max-w-4xl flex gap-7 p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700"
+                    class="w-full grid grid-cols-5 gap-4 text-center p-6 my-3 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700"
+                    *ngFor="let toDoTask of todayToDoTasks"
                   >
-                    <h5>Project Name</h5>
-                    <p>Task title</p>
-                    <p>Due Date</p>
-                    <p>status</p>
-                    <div class="flex">
-                      <button
-                        class="bg-blue-600 hover:bg-blue-700 text-white p-1 rounded-md me-2"
-                      >
-                        More
-                      </button>
-                      <button
-                        class="bg-green-500 hover:bg-green-600 text-white p-1 rounded-md"
-                      >
-                        Done
-                      </button>
-                    </div>
+                    <p class="px-1">{{ toDoTask.project.projectName }}</p>
+                    <p class="px-1">{{ toDoTask.sprint.sprint_name }}</p>
+                    <p class="px-1">{{ toDoTask.taskName }}</p>
+                    <p class="px-1">
+                      {{ toDoTask.startDate | date : "d MMM " }}
+                    </p>
+                    <p class="px-1">
+                      {{ toDoTask.deadline | date : "d MMM " }}
+                    </p>
                   </div>
                 </div>
                 <div
                   [ngClass]="{ hidden: openTab !== 2, block: openTab === 2 }"
                 >
-                  <div
-                    class="max-w-4xl flex gap-7 align-content-center p-6 my-3 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700"
-                  >
-                    <h5>Project Name</h5>
-                    <p>Task title</p>
-                    <p>Due Date</p>
-                    <p>status</p>
-                    <div class="flex">
-                      <button
-                        class="bg-blue-600 hover:bg-blue-700 text-white p-1 rounded-md me-2"
-                      >
-                        More
-                      </button>
-                      <button
-                        class="bg-green-500 hover:bg-green-600 text-white p-1 rounded-md"
-                      >
-                        Done
-                      </button>
-                    </div>
+                  <div class="w-full grid grid-cols-5 gap-4 text-center px-6">
+                    <p>Project</p>
+                    <p>Sprint</p>
+                    <p>Task Title</p>
+                    <p>Start Date</p>
+                    <p>Deadline</p>
                   </div>
                   <div
-                    class="max-w-4xl flex gap-7 p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700"
+                    class="w-full grid grid-cols-5 gap-4 text-center p-6 my-3 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700"
+                    *ngFor="let toDoTask of todayDoneTasks"
                   >
-                    <h5>Project Name</h5>
-                    <p>Task title</p>
-                    <p>Due Date</p>
-                    <p>status</p>
-                    <div class="flex">
-                      <button
-                        class="bg-blue-600 hover:bg-blue-700 text-white p-1 rounded-md me-2"
-                      >
-                        More
-                      </button>
-                      <button
-                        class="bg-green-500 hover:bg-green-600 text-white p-1 rounded-md"
-                      >
-                        Done
-                      </button>
-                    </div>
+                    <p class="px-1">{{ toDoTask.project.projectName }}</p>
+                    <p class="px-1">{{ toDoTask.sprint.sprint_name }}</p>
+                    <p class="px-1">{{ toDoTask.taskName }}</p>
+                    <p class="px-1">
+                      {{ toDoTask.startDate | date : "d MMM " }}
+                    </p>
+                    <p class="px-1">
+                      {{ toDoTask.deadline | date : "d MMM " }}
+                    </p>
                   </div>
                 </div>
                 <div
                   [ngClass]="{ hidden: openTab !== 3, block: openTab === 3 }"
                 >
-                  <div
-                    class="max-w-4xl flex gap-7 align-content-center p-6 my-3 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700"
-                  >
-                    <h5>Project Name</h5>
-                    <p>Task title</p>
-                    <p>Due Date</p>
-                    <p>status</p>
-                    <div class="flex">
-                      <button
-                        class="bg-blue-600 hover:bg-blue-700 text-white p-1 rounded-md me-2"
-                      >
-                        More
-                      </button>
-                      <button
-                        class="bg-green-500 hover:bg-green-600 text-white p-1 rounded-md"
-                      >
-                        Done
-                      </button>
-                    </div>
+                  <div class="w-full grid grid-cols-5 gap-4 text-center px-6">
+                    <p>Project</p>
+                    <p>Sprint</p>
+                    <p>Task Title</p>
+                    <p>Start Date</p>
+                    <p>Deadline</p>
                   </div>
                   <div
-                    class="max-w-4xl flex gap-7 p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700"
+                    class="w-full grid grid-cols-5 gap-4 text-center p-6 my-3 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700"
+                    *ngFor="let toDoTask of todayOverDueTasks"
                   >
-                    <h5>Project Name</h5>
-                    <p>Task title</p>
-                    <p>Due Date</p>
-                    <p>status</p>
-                    <div class="flex">
-                      <button
-                        class="bg-blue-600 hover:bg-blue-700 text-white p-1 rounded-md me-2"
-                      >
-                        More
-                      </button>
-                      <button
-                        class="bg-green-500 hover:bg-green-600 text-white p-1 rounded-md"
-                      >
-                        Done
-                      </button>
-                    </div>
+                    <p class="px-1">{{ toDoTask.project.projectName }}</p>
+                    <p class="px-1">{{ toDoTask.sprint.sprint_name }}</p>
+                    <p class="px-1">{{ toDoTask.taskName }}</p>
+                    <p class="px-1">
+                      {{ toDoTask.startDate | date : "d MMM " }}
+                    </p>
+                    <p class="px-1">
+                      {{ toDoTask.deadline | date : "d MMM " }}
+                    </p>
                   </div>
                 </div>
               </div>
@@ -197,5 +144,5 @@
       </div>
     </div>
   </div>
-  <app-calendar class="ml-4 mt-4"></app-calendar>
+  <app-calendar class="ml-4"></app-calendar>
 </div>
