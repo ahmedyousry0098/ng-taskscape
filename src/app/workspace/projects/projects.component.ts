@@ -10,6 +10,7 @@ import {
 import { AuthService } from 'src/app/services/auth.service';
 import { ProjectService } from 'src/app/services/project.service';
 import {
+  NameValidator,
   dateGreaterThanNowAndStart,
   dateGreaterThanNowValidator,
 } from 'src/app/validators/customValidators';
@@ -42,7 +43,10 @@ export class ProjectsComponent {
     }
   }
   addNewProjectForm = this.formBuilder.group({
-    projectName: ['', [Validators.minLength(3), Validators.required]],
+    projectName: [
+      '',
+      [Validators.minLength(3), Validators.required, NameValidator()],
+    ],
     start_date: [
       new Date(),
       [Validators.required, dateGreaterThanNowValidator],

@@ -12,9 +12,9 @@ import { TaskService } from 'src/app/services/task.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import {
+  NameValidator,
   dateGreaterThanNowAndStartCustom,
   dateGreaterThanNowValidator,
-  taskNameValidator,
 } from 'src/app/validators/customValidators';
 
 initTE({ Collapse, Ripple });
@@ -59,7 +59,7 @@ export class TaskDetailsComponent {
     this.updateTaskForm = this.formBuilder.group({
       taskName: [
         this.task.taskName,
-        [Validators.minLength(5), taskNameValidator()],
+        [Validators.minLength(5), NameValidator()],
       ],
       description: [this.task.description, [Validators.minLength(5)]],
       deadline: [

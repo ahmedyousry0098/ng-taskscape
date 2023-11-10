@@ -22,7 +22,7 @@
         </div>
         <div class="relative p-6">
           <div class="gap-1 w-fit py-3">
-            <label class="text-lg pb-2" for="projects">Projects</label>
+            <label class="text-lg pb-2" for="projects">Project:</label>
             <p-dropdown
               class="flex border border-slate-950 rounded"
               [options]="projects"
@@ -36,6 +36,7 @@
                 (createSprintForm.get('projectId')?.touched ||
                   createSprintForm.get('projectId')?.dirty)
               "
+              (onChange)="updateDeadlineBasedOnProject()"
             >
               ></p-dropdown
             >
@@ -51,7 +52,7 @@
           </div>
 
           <div class="flex flex-col gap-3">
-            <label class="text-lg" for="sprint_name">Sprint Name </label>
+            <label class="text-lg" for="sprint_name">Sprint Name: </label>
             <input
               type="text"
               name="sprint_name"
@@ -71,15 +72,15 @@
                 (createSprintForm.get('sprint_name')?.touched ||
                   createSprintForm.get('sprint_name')?.dirty)
               "
-              >The Sprint Name is required and must be more than 5
-              characters...</span
+              >The Sprint Name is required, start with capital letter and only
+              (.) special character valid...</span
             >
           </div>
 
           <div class="flex justify-between gap-5 pt-5">
             <!-- Start Date -->
-            <div class="flex flex-col gap-1">
-              <label for="start_date">Start Date</label>
+            <div class="flex flex-col gap-1 w-1/2">
+              <label class="text-lg" for="start_date">Start Date:</label>
               <input
                 type="date"
                 name="start_date"
@@ -93,7 +94,7 @@
                 "
               />
               <span
-                class="text-red-500"
+                class="text-red-500 w-full"
                 *ngIf="
                   createSprintForm.get('start_date')?.invalid &&
                   (createSprintForm.get('start_date')?.touched ||
@@ -103,8 +104,8 @@
                 date</span
               >
             </div>
-            <div class="flex flex-col gap-1">
-              <label for="deadline">End Date</label>
+            <div class="flex flex-col gap-1 w-1/2">
+              <label class="text-lg" for="deadline">Deadline:</label>
               <input
                 type="date"
                 name="deadline"
@@ -124,9 +125,10 @@
                   (createSprintForm.get('deadline')?.touched ||
                     createSprintForm.get('deadline')?.dirty)
                 "
-                >The End Date is required and greater than the current
-                date</span
-              >
+                >The deadline is required and must be greater than the current
+                date and before project deadline (
+                {{ selectedProjectDeadline | dateFormat : "dd/MM/yyy" }})
+              </span>
             </div>
           </div>
         </div>

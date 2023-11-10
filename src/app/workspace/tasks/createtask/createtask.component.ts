@@ -1,10 +1,17 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import {
+  AbstractControl,
+  FormBuilder,
+  ValidationErrors,
+  ValidatorFn,
+  Validators,
+} from '@angular/forms';
 import { AuthService } from 'src/app/services/auth.service';
 import { NotificationService } from 'src/app/services/notification.service';
 import { SprintService } from 'src/app/services/sprint.service';
 import { TaskService } from 'src/app/services/task.service';
 import {
+  NameValidator,
   dateGreaterThanNowAndStart,
   dateGreaterThanNowValidator,
 } from 'src/app/validators/customValidators';
@@ -14,6 +21,7 @@ import {
   IRole,
   ISprint,
 } from 'src/interfaces/interfaces';
+import { ChangeDetectorRef } from '@angular/core';
 
 @Component({
   selector: 'app-createtask',
@@ -32,13 +40,15 @@ export class CreatetaskComponent {
   selectedProjectId: string | undefined;
   sprintId: string | undefined;
   IRole!: IRole;
+  selectedSprintDeadline!: Date;
 
   constructor(
     private formBuilder: FormBuilder,
     private sprintService: SprintService,
     private authService: AuthService,
     private taskService: TaskService,
-    private notification: NotificationService
+    private notification: NotificationService,
+    private cdr: ChangeDetectorRef
   ) {}
   closeModal() {
     this.toggleModal.emit(false);
@@ -64,7 +74,7 @@ export class CreatetaskComponent {
   }
 
   createTaskForm = this.formBuilder.group({
-    taskName: ['', [Validators.required, Validators.minLength(5)]],
+    taskName: ['', [Validators.required, NameValidator()]],
     description: ['', [Validators.required, Validators.minLength(5)]],
     start_date: [
       new Date(),
@@ -76,6 +86,7 @@ export class CreatetaskComponent {
         Validators.required,
         dateGreaterThanNowValidator,
         dateGreaterThanNowAndStart,
+        this.getSprintDeadlineValidator(),
       ],
     ],
     assignTo: ['', Validators.required],
@@ -90,12 +101,48 @@ export class CreatetaskComponent {
         (project) => project._id === projectId
       );
       if (selectedProject) {
-        this.sprints = selectedProject.sprints;
-        this.employees = selectedProject.employees;
+        setTimeout(() => {
+          this.sprints = selectedProject.sprints;
+          this.employees = selectedProject.employees;
+          this.cdr.detectChanges();
+        });
       } else {
         this.sprints = [];
         this.employees = [];
       }
+    }
+  }
+  getSprintDeadlineValidator(): ValidatorFn {
+    return (control: AbstractControl): ValidationErrors | null => {
+      const selectedDate = new Date(control.value);
+      const selectedSprintDeadline = new Date(this.selectedSprintDeadline);
+
+      if (
+        selectedSprintDeadline &&
+        selectedDate &&
+        selectedDate >= selectedSprintDeadline
+      ) {
+        return { projectDeadlineError: true };
+      }
+
+      return null;
+    };
+  }
+  updateDeadlineBasedOnSprint(): void {
+    const selectedSprintId = this.createTaskForm.get('sprintId')?.value;
+    const selectedSprint = this.sprints.find(
+      (sprint) => sprint._id === selectedSprintId
+    );
+
+    if (selectedSprint) {
+      const selectedSprintDeadline = new Date(selectedSprint.deadline);
+      this.selectedSprintDeadline = selectedSprintDeadline;
+
+      this.createTaskForm
+        .get('deadline')
+        ?.setValue(this.selectedSprintDeadline);
+      this.createTaskForm.get('deadline')?.updateValueAndValidity();
+      this.cdr.detectChanges();
     }
   }
 
