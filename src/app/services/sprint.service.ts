@@ -1,13 +1,14 @@
 import { formatDate } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class SprintService {
+  private sprintAddedSubject = new Subject<void>();
+
   baseUrl = 'https://taskspace-rxco.onrender.com';
 
   constructor(private HttpClient: HttpClient) {}
@@ -40,5 +41,12 @@ export class SprintService {
 
   getSprintDetails(sptintId: string): Observable<any> {
     return this.HttpClient.get(`${this.baseUrl}/sprint/details/${sptintId}`);
+  }
+  notifySprintAdded() {
+    this.sprintAddedSubject.next();
+  }
+
+  getSprintAddedObservable() {
+    return this.sprintAddedSubject.asObservable();
   }
 }

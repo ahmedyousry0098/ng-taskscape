@@ -31,6 +31,9 @@ export class SprintComponent {
     } else {
       this.getEmployeeProject();
     }
+    this.sprintService.getSprintAddedObservable().subscribe(() => {
+      this.getScrumProjects();
+    });
   }
 
   toggleModal() {
@@ -42,9 +45,7 @@ export class SprintComponent {
 
   getScrumProjects() {
     this.sprintService.getScrumProjects(this.employeeID).subscribe((data) => {
-      console.log(data, 'org');
       this.projects = data.projects;
-
       this.sprints = data.projects.sprints;
     });
   }
