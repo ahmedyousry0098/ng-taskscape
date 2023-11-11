@@ -1,4 +1,4 @@
-<nav class="h-auto py-4 w-full sticky top-0">
+<nav class="h-auto py-4 pb-0 w-full sticky top-0">
   <div class="container mx-auto px-4 lg:px-28">
     <div class="flex items-center justify-between">
       <button
@@ -36,7 +36,6 @@
         <!-- Logo -->
         <div class="mr-3">
           <img src="../../assets/logo.png" alt="logo" class="h-10 w-10 inline mb-3">
-          <a 
           <a
             *ngIf="loggedIn"
             class="text-2xl text-blue-500"
@@ -89,13 +88,13 @@
       <div *ngIf="loggedIn" class="flex items-center me-6">
         Welcome, {{ employeeName }}
       </div>
-      <button
+      <button *ngIf="loggedIn"
         (click)="showDialog('top-right')"
         icon="pi pi-arrow-down-left"
         label="TopRight"
         styleClass="p-button-warning"
       >
-        <i class="fa-solid fa-bell fa-lg side-bar-icon"></i>
+        <i class="pe-4 fa-solid fa-bell fa-lg side-bar-icon"></i>
       </button>
       <p-dialog
         header="Notification"
