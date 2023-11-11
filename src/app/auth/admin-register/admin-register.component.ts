@@ -3,65 +3,75 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 import { ToasterService } from 'src/app/services/toaster.service';
+import { personNameValidator } from 'src/app/validators/customValidators';
 
 interface IStorageOrg {
   orgId: string;
-  organization_name: string
+  organization_name: string;
 }
 
 @Component({
   selector: 'app-admin-register',
   templateUrl: './admin-register.component.html',
-  styleUrls: ['./admin-register.component.css']
+  styleUrls: ['./admin-register.component.css'],
 })
 export class AdminRegisterComponent {
-  constructor(private _authService: AuthService, private _router: Router, private toasterService: ToasterService) { }
+  constructor(
+    private _authService: AuthService,
+    private _router: Router,
+    private toasterService: ToasterService
+  ) {}
 
-  orgId?: string = ''
-  organization_name?: string = ''
+  orgId?: string = '';
+  organization_name?: string = '';
 
   ngOnInit() {
-    this.getOrg()
+    this.getOrg();
   }
 
-  registerError(){
-    this.toasterService.error('You havn\'t entered data correctly')
+  registerError() {
+    this.toasterService.error("You havn't entered data correctly");
   }
 
   isLoading: boolean = false;
   adminRegisterForm: FormGroup = new FormGroup({
-    adminName: new FormControl(null, [Validators.required]),
+    adminName: new FormControl(null, [
+      Validators.required,
+      personNameValidator(),
+    ]),
     email: new FormControl(null, [Validators.required]),
     password: new FormControl(null, [Validators.required]),
-  })
+  });
 
   handleOAdminRegister(adminRegisterForm: FormGroup) {
     this.isLoading = true;
-    const data = {...this.adminRegisterForm.value, organization: this.orgId}
+    const data = { ...this.adminRegisterForm.value, organization: this.orgId };
     this._authService.adminRegister(data).subscribe({
       next: (res) => {
         this.isLoading = false;
-        this._router.navigate([''])
+        this._router.navigate(['']);
       },
       error: (err) => {
         this.isLoading = false;
-        this.toasterService.error('You havn\'t entered data correctly')
-      }
-    })
+        this.toasterService.error("You havn't entered data correctly");
+      },
+    });
   }
 
   getOrg(): IStorageOrg | undefined {
-    const organization: IStorageOrg = JSON.parse(localStorage.getItem('org') || "")
+    const organization: IStorageOrg = JSON.parse(
+      localStorage.getItem('org') || ''
+    );
     if (!organization?.orgId) {
-      this.isLoading = false
-      return
+      this.isLoading = false;
+      return;
     }
-    this.orgId = organization.orgId
-    this.organization_name = organization.organization_name
-    return organization
+    this.orgId = organization.orgId;
+    this.organization_name = organization.organization_name;
+    return organization;
   }
 
   ngOnDestroy() {
-    localStorage.removeItem('org')
+    localStorage.removeItem('org');
   }
 }

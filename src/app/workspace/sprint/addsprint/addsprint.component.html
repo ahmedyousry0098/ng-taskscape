@@ -65,7 +65,7 @@
                   createSprintForm.get('sprint_name')?.dirty)
               "
             />
-            <span
+            <!-- <span
               class="text-red-500"
               *ngIf="
                 createSprintForm.get('sprint_name')?.invalid &&
@@ -74,7 +74,28 @@
               "
               >The Sprint Name is required, start with capital letter and only
               (.) special character valid...</span
+            > -->
+            <span
+              class="text-red-500"
+              *ngIf="
+                createSprintForm.get('sprint_name')?.hasError('required') &&
+                (createSprintForm.get('sprint_name')?.touched ||
+                  createSprintForm.get('sprint_name')?.dirty)
+              "
             >
+              The Sprint Name is required
+            </span>
+            <span
+              class="text-red-500"
+              *ngIf="
+                createSprintForm.get('sprint_name')?.hasError('NameInvalid') &&
+                (createSprintForm.get('sprint_name')?.touched ||
+                  createSprintForm.get('sprint_name')?.dirty)
+              "
+            >
+              Sprint Name must start with a capital letter and only (.) special
+              character is valid
+            </span>
           </div>
 
           <div class="flex justify-between gap-5 pt-5">
@@ -118,15 +139,35 @@
                     createSprintForm.get('deadline')?.dirty)
                 "
               />
+
               <span
                 class="text-red-500"
                 *ngIf="
-                  createSprintForm.get('deadline')?.invalid &&
+                  createSprintForm.get('deadline')?.hasError('required') &&
                   (createSprintForm.get('deadline')?.touched ||
                     createSprintForm.get('deadline')?.dirty)
                 "
-                >The deadline is required and must be greater than the current
-                date and before project deadline (
+                >The deadline is required
+              </span>
+              <span
+                class="text-red-500"
+                *ngIf="
+                  createSprintForm.get('deadline')?.hasError('dateError') &&
+                  (createSprintForm.get('deadline')?.touched ||
+                    createSprintForm.get('deadline')?.dirty)
+                "
+                >The deadline must be greater than the current date
+              </span>
+              <span
+                class="text-red-500"
+                *ngIf="
+                  createSprintForm
+                    .get('deadline')
+                    ?.hasError('projectDeadlineError') &&
+                  (createSprintForm.get('deadline')?.touched ||
+                    createSprintForm.get('deadline')?.dirty)
+                "
+                >The deadline is must be before project deadline (
                 {{ selectedProjectDeadline | dateFormat : "dd/MM/yyy" }})
               </span>
             </div>

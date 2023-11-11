@@ -122,7 +122,7 @@ export class CreatetaskComponent {
         selectedDate &&
         selectedDate >= selectedSprintDeadline
       ) {
-        return { projectDeadlineError: true };
+        return { sprintDeadlineError: true };
       }
 
       return null;

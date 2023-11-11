@@ -16,9 +16,8 @@ export class NavbarComponent {
   token: string = '';
   imageUrl: string = '../../../assets/noavatar.jpg';
   photoChanged: boolean = false;
-  visible: boolean = true;
+  visible: boolean = false;
   notifications: INotification[] | null = null;
-
   position: any;
 
   showDialog(position: string) {
