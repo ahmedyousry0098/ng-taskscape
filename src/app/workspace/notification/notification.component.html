@@ -1,21 +1,27 @@
-<div *ngIf="notifications?.length; else nonotifications" id="container" class=" container flex flex-col my-3 border mx-auto">
-    <div 
-        *ngFor="let notification of notifications"
-        class="not-container"
-        [ngClass]="notification.isReaded ? 'bg-blue-300' : 'bg-gray-200'" 
-    >
-        <div class="flex flex-col justify-between center rounded-md">
-            <p class="">{{notification.title}}</p>
-            <p class="">{{notification.description}}</p>
-        </div>
-        <div class="">
-            <p class="text-gray-500 font-size">{{notification.createdAt|dateFormat}}</p>
-        </div>
+<div
+  *ngIf="notifications?.length; else nonotifications"
+  id="container"
+  class="container flex flex-col my-3 border mx-auto"
+>
+  <div
+    *ngFor="let notification of notifications"
+    class="not-container"
+    [ngClass]="notification.isReaded ? 'bg-blue-300' : 'bg-gray-200'"
+  >
+    <div class="flex flex-col justify-between center rounded-md">
+      <p class="">{{ notification.title }}</p>
+      <p class="">{{ notification.description }}</p>
     </div>
+    <div class="">
+      <p class="text-gray-500 font-size">
+        {{ notification.createdAt | dateFormat }}
+      </p>
+    </div>
+  </div>
 </div>
 
 <ng-template #nonotifications>
-    <div class="flex flex-col items-center justify-center w-screen h-full">
-        <p class="text-center text-gray-400 text-3xl">No Notifications Yet ..</p>
-    </div>
+  <div class="h-full grid grid-cols-1 place-content-center">
+    <p class="text-center text-gray-400 text-3xl">No Notifications Yet ..</p>
+  </div>
 </ng-template>

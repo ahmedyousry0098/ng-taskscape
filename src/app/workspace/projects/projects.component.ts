@@ -27,6 +27,18 @@ export class ProjectsComponent {
   projects?: IProject[];
   isSubmitted = false;
   isLoading: boolean = false;
+  colorClass = [
+    'bg-gray-400',
+    'bg-red-200	',
+    'bg-orange-200	',
+    'bg-green-400	',
+    'bg-emerald-300	',
+    'bg-teal-300	',
+    'bg-cyan-400',
+    'bg-sky-400	',
+    'bg-indigo-300',
+    'bg-pink-300	',
+  ];
 
   constructor(
     private formBuilder: FormBuilder,
@@ -34,6 +46,9 @@ export class ProjectsComponent {
     private auth: AuthService
   ) {}
   showModal = false;
+  getColor() {
+    console.log(this.colorClass[Math.floor(Math.random() * 10)]);
+  }
   toggleModal() {
     this.showModal = !this.showModal;
   }
@@ -42,6 +57,7 @@ export class ProjectsComponent {
       this.toggleModal();
     }
   }
+
   addNewProjectForm = this.formBuilder.group({
     projectName: [
       '',

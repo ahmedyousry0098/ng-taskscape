@@ -3,8 +3,9 @@
   <!-- projects container -->
   <div class="flex flex-wrap gap-3 ml-6">
     <!-- project Card -->
+    <ng-template ngClass="{{ getColor() }}"></ng-template>
     <div
-      class="bg-gray-200 w-80 h-52 m-2 flex justify-center"
+      class="w-80 h-52 m-2 flex justify-center"
       *ngFor="let project of projects"
     >
       <!-- card body -->
