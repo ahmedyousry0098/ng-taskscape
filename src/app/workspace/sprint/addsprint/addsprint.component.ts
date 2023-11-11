@@ -42,6 +42,8 @@ export class AddsprintComponent {
   }
 
   closeModal() {
+    this.createSprintForm.reset();
+
     this.toggleModal.emit(false);
   }
   onBackdropClick(event: Event): void {

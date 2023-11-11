@@ -1,4 +1,4 @@
-<nav class="h-auto py-4 pb-0 w-full sticky top-0">
+<nav class="h-auto py-4 w-full sticky top-0 mt-0 pt-1">
   <div class="container mx-auto px-4 lg:px-28">
     <div class="flex items-center justify-between">
       <button
@@ -34,8 +34,12 @@
         data-te-collapse-item
       >
         <!-- Logo -->
-        <div class="mr-3">
-          <img src="../../assets/logo.png" alt="logo" class="h-10 w-10 inline mb-3">
+        <div class="mr-3 me-auto">
+          <img
+            src="../../assets/logo.png"
+            alt="logo"
+            class="h-10 w-10 inline mb-3"
+          />
           <a
             *ngIf="loggedIn"
             class="text-2xl text-blue-500"
@@ -53,7 +57,7 @@
         </div>
 
         <!-- Left navigation links -->
-        <ul
+        <!-- <ul
           class="list-style-none mt-1 mr-auto lg:flex-row"
           data-te-navbar-nav-ref
         >
@@ -69,7 +73,7 @@
               >Notification</a
             >
           </li>
-        </ul>
+        </ul> -->
       </div>
 
       <div *ngIf="!loggedIn" class="flex items-center md:flex-row">
@@ -84,19 +88,29 @@
           >Create Organization</a
         >
       </div>
-
       <div *ngIf="loggedIn" class="flex items-center me-6">
-        Welcome, {{ employeeName }}
+        <span class="text-xl text-slate-500">Welcome, {{ employeeName }}</span>
       </div>
       <button *ngIf="loggedIn"
+      <a routerLink="workspace/settings">
+        <img
+          *ngIf="loggedIn"
+          [src]="imageUrl"
+          class="rounded-full h-10 w-10 me-6 cursor-pointer"
+          alt=""
+      /></a>
+      <button
+        *ngIf="loggedIn"
         (click)="showDialog('top-right')"
         icon="pi pi-arrow-down-left"
         label="TopRight"
         styleClass="p-button-warning"
+        class="me-6 scale-125"
       >
         <i class="pe-4 fa-solid fa-bell fa-lg side-bar-icon"></i>
       </button>
       <p-dialog
+        *ngIf="loggedIn"
         header="Notification"
         [(visible)]="visible"
         [position]="position"
@@ -109,8 +123,8 @@
         >
           <div
             *ngFor="let notification of notifications"
+            class="border-t border-b border-blue-600 text-black px-4 py-3 my-2"
             [ngClass]="notification.isReaded ? 'bg-blue-100' : 'bg-gray-300'"
-            class="bg-blue-100 border-t border-b border-blue-600 text-black px-4 py-3 my-2"
           >
             <div class="flex">
               <div *ngIf="notification.isReaded">
@@ -139,13 +153,7 @@
           </div>
         </ng-template>
       </p-dialog>
-      <a routerLink="workspace/settings">
-        <img
-          *ngIf="loggedIn"
-          [src]="imageUrl"
-          class="rounded-full h-10 w-10 me-6 cursor-pointer"
-          alt=""
-      /></a>
+
       <div *ngIf="loggedIn" class="flex items-center cursor-pointer">
         <a
           (click)="logout()"

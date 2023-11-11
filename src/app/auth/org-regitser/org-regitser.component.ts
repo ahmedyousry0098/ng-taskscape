@@ -3,6 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 import { ToasterService } from 'src/app/services/toaster.service';
+import { institutionNameValidator } from 'src/app/validators/customValidators';
 
 @Component({
   selector: 'app-org-regitser',
@@ -16,25 +17,30 @@ export class OrgRegitserComponent {
     private toasterService: ToasterService,
     private elementRef: ElementRef,
     private renderer: Renderer2
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     this.triggerAnimation();
   }
 
   triggerAnimation() {
-    const element = this.elementRef.nativeElement.querySelector('.org-register');
+    const element =
+      this.elementRef.nativeElement.querySelector('.org-register');
     this.renderer.addClass(element, 'animate__animated');
     this.renderer.addClass(element, 'animate__fadeIn');
   }
 
   isLoading: boolean = false;
   orgRegisterForm: FormGroup = new FormGroup({
-    organization_name: new FormControl('', [Validators.required]),
+    organization_name: new FormControl('', [
+      Validators.required,
+      institutionNameValidator(),
+    ]),
     company: new FormControl('', [
       Validators.required,
       Validators.minLength(3),
       Validators.maxLength(30),
+      institutionNameValidator(),
     ]),
     headQuarters: new FormControl('', [
       Validators.required,

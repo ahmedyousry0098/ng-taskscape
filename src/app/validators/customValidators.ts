@@ -47,9 +47,34 @@ export function dateGreaterThanNowAndStartCustom(startDate: Date): ValidatorFn {
 
 export function NameValidator(): ValidatorFn {
   return (control: AbstractControl): { [key: string]: any } | null => {
-    const validPattern = /^[A-Z][A-Za-z0-9.]*$/;
+    const validPattern = /^[A-Z][A-Za-z0-9. ]*$/;
     if (!validPattern.test(control.value)) {
       return { NameInvalid: true };
+    }
+
+    return null;
+  };
+}
+export function personNameValidator(): ValidatorFn {
+  return (control: AbstractControl): { [key: string]: any } | null => {
+    const validPattern = /^[A-Z][A-Za-z ]*/;
+    if (!validPattern.test(control.value)) {
+      return { personNameInvalid: true };
+    }
+
+    return null;
+  };
+}
+export function institutionNameValidator(): ValidatorFn {
+  return (control: AbstractControl): { [key: string]: any } | null => {
+    const value: string = control.value;
+
+    if (!value) {
+      return null;
+    }
+    const firstLetter = value.charAt(0);
+    if (firstLetter !== firstLetter.toUpperCase()) {
+      return { startWithCapital: true };
     }
 
     return null;

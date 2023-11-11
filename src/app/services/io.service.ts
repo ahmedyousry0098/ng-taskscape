@@ -20,6 +20,9 @@ export class IoService {
     private _AuthService: AuthService
   ) { 
     this.listenToNotifications()
+    this.listenToPushNew()
+    this.onConnected()
+    this.onError()
   }
 
   getNotifications() {
@@ -29,6 +32,18 @@ export class IoService {
   stablishSocketId() {
     const token = this._AuthService.getToken()
     this.Io.emit('updateSocketId', {token})
+  }
+
+  onConnected() {
+    this.Io.on('connected', () => {
+      this.fetchNotifications()
+    })
+  }
+
+  onError() {
+    this.Io.on('authFail', ({message}) => {
+      this._Toaster.error(message || 'something went wrong')
+    })
   }
 
   fetchNotifications() {
