@@ -19,6 +19,7 @@ export class NavbarComponent {
   visible: boolean = false;
   notifications: INotification[] | null = null;
   position: any;
+  isFresh: boolean = true;
 
   showDialog(position: string) {
     this.position = position;
@@ -56,6 +57,8 @@ export class NavbarComponent {
     this.employeeService.getEmployeeData().subscribe({
       next: (res) => {
         this.employeeName = res.employee.employeeName;
+        // this.isFresh = res.employee.isFresh;
+        // console.log(this.isFresh);
         if (
           res.employee.profile_photo &&
           res.employee.profile_photo.secure_url

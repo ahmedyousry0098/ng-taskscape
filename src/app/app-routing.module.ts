@@ -10,13 +10,17 @@ import { AdminRegisterComponent } from './auth/admin-register/admin-register.com
 import { EmpLoginComponent } from './auth/emp-login/emp-login.component';
 import { authGuard } from './guard/auth.guard';
 import { landingGuard } from './guard/landing.guard';
+import { ChangepasswordComponent } from './workspace/settings/changepassword/changepassword.component';
+import { AddProfilePicComponent } from './workspace/settings/add-profile-pic/add-profile-pic.component';
+import { ChangepasswordprofilefirstComponent } from './auth/changepasswordprofilefirst/changepasswordprofilefirst.component';
+import { AddpicComponent } from './auth/changepasswordprofilefirst/addpic/addpic.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
-  { 
-    path: 'home', 
+  {
+    path: 'home',
     component: LayoutComponent,
-    canActivate: [landingGuard]
+    canActivate: [landingGuard],
   },
 
   {
@@ -27,8 +31,23 @@ const routes: Routes = [
     loadChildren: () =>
       import('./workspace/workspace.module').then((m) => m.WorkspaceModule),
   },
+  {
+    path: 'change-password',
+    component: ChangepasswordprofilefirstComponent,
+    canActivate: [authGuard],
+  },
+  {
+    path: 'add-pic',
+    component: AddpicComponent,
+    canActivate: [authGuard],
+  },
+
   { path: 'admin-register', component: AdminRegisterComponent },
-  { path: 'employee-login', component: EmpLoginComponent, canActivate: [landingGuard] },
+  {
+    path: 'employee-login',
+    component: EmpLoginComponent,
+    canActivate: [landingGuard],
+  },
   { path: 'org-register', component: OrgRegitserComponent },
   { path: '**', component: NotfoundComponent },
 ];
