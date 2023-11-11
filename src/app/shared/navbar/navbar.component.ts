@@ -23,6 +23,7 @@ export class NavbarComponent {
   showDialog(position: string) {
     this.position = position;
     this.visible = true;
+    this._IoService.readNotifications()
   }
   constructor(
     private authService: AuthService,
@@ -44,11 +45,13 @@ export class NavbarComponent {
         this.loadEmployeePhoto();
       }
     });
+
     this._IoService.fetchNotifications();
     this._IoService.getNotifications().subscribe((myNotifications) => {
       this.notifications = myNotifications;
       this._IoService.readNotifications();
     });
+
   }
 
   loadEmployeePhoto() {
@@ -66,7 +69,7 @@ export class NavbarComponent {
         }
       },
       error: (err) => {
-        // console.log(err);
+        console.log(err);
       },
     });
   }

@@ -7,10 +7,12 @@ import { IoService } from 'src/app/services/io.service';
   styleUrls: ['./workspace-layout.component.css']
 })
 export class WorkspaceLayoutComponent {
-  constructor(private _IoService: IoService) {}
+  constructor(
+    private _IoService: IoService
+  ) {}
   
   ngOnInit() {
     this._IoService.stablishSocketId()
-    this._IoService.listenToPushNew()
+    this._IoService.fetchNotifications()
   }
 }

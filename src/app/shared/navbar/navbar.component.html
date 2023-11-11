@@ -1,7 +1,9 @@
+
 <nav
   class="h-auto py-4 w-full sticky top-0 mt-0 pt-1"
   *ngIf="router.url !== '/change-password' && router.url !== '/add-pic'"
 >
+
   <div class="container mx-auto px-4 lg:px-28">
     <div class="flex items-center justify-between">
       <button
@@ -37,6 +39,7 @@
         data-te-collapse-item
       >
         <!-- Logo -->
+       <!-- Logo -->
         <div class="mr-3 me-auto">
           <img
             src="../../assets/logo.png"
@@ -95,6 +98,7 @@
       <div *ngIf="loggedIn" class="flex items-center me-6">
         <span class="text-xl text-slate-500">Welcome, {{ employeeName }}</span>
       </div>
+
       <a routerLink="workspace/settings">
         <img
           *ngIf="loggedIn"
@@ -110,9 +114,10 @@
         styleClass="p-button-warning"
         class="me-6 scale-125"
       >
-        <i class="fa-solid fa-bell fa-lg side-bar-icon"></i>
+        <i class="pe-4 fa-solid fa-bell fa-lg side-bar-icon"></i>
       </button>
       <p-dialog
+        *ngIf="loggedIn"
         header="Notification"
         [(visible)]="visible"
         [position]="position"
@@ -125,8 +130,8 @@
         >
           <div
             *ngFor="let notification of notifications"
+            class="border-t border-b border-blue-600 text-black px-4 py-3 my-2"
             [ngClass]="notification.isReaded ? 'bg-blue-100' : 'bg-gray-300'"
-            class="bg-blue-100 border-t border-b border-blue-600 text-black px-4 py-3 my-2"
           >
             <div class="flex">
               <div *ngIf="notification.isReaded">
