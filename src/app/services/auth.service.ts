@@ -7,6 +7,8 @@ import {
   IEmployeeResponse,
   IOrgForm,
   IOrgResponse,
+  forgotPasswordForm,
+  resetPasswordForm
 } from '../auth/interfaces/register.interface';
 
 import { jwtDecode } from 'jwt-decode';
@@ -93,5 +95,19 @@ export class AuthService {
     localStorage.removeItem('token');
     window.location.reload()
     this.loggedIn.next(false);
+  }
+
+  forgotPassword(data: forgotPasswordForm): Observable<IEmployeeResponse> {
+    return this._httpclient.patch<IEmployeeResponse>(
+      `${this.baseUrl}/employee/forget-password`,
+      data
+    );
+  }
+
+  resetPassword(data: resetPasswordForm): Observable<IEmployeeResponse> {
+    return this._httpclient.patch<IEmployeeResponse>(
+      `${this.baseUrl}/employee/reset-password`,
+      data
+    );
   }
 }

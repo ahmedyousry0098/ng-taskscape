@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef, Renderer2, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
@@ -13,8 +13,20 @@ export class OrgRegitserComponent {
   constructor(
     private _AuthService: AuthService,
     private _Router: Router,
-    private toasterService: ToasterService
-  ) {}
+    private toasterService: ToasterService,
+    private elementRef: ElementRef,
+    private renderer: Renderer2
+  ) { }
+
+  ngOnInit(): void {
+    this.triggerAnimation();
+  }
+
+  triggerAnimation() {
+    const element = this.elementRef.nativeElement.querySelector('.org-register');
+    this.renderer.addClass(element, 'animate__animated');
+    this.renderer.addClass(element, 'animate__fadeIn');
+  }
 
   isLoading: boolean = false;
   orgRegisterForm: FormGroup = new FormGroup({
