@@ -34,6 +34,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { CommentsComponent } from './tasks/comments/comments.component';
 import { RelativeTimePipe } from '../pipe/relative-time.pipe';
 import { DragDropModule } from '@angular/cdk/drag-drop';
+import { ChangepasswordComponent } from './settings/changepassword/changepassword.component';
 
 @NgModule({
   declarations: [
@@ -55,7 +56,7 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
     CreatetaskComponent,
     TaskDetailsComponent,
     CalendarComponent,
-
+    ChangepasswordComponent,
     ConfirmationChangeStatusComponent,
     CommentsComponent,
     RelativeTimePipe,
