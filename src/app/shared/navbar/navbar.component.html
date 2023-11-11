@@ -37,7 +37,6 @@
         <div class="mr-3">
           <img src="../../assets/logo.png" alt="logo" class="h-10 w-10 inline mb-3">
           <a 
-          <a
             *ngIf="loggedIn"
             class="text-2xl text-blue-500"
             [routerLink]="['/workspace']"
@@ -52,25 +51,6 @@
             Taskscape
           </a>
         </div>
-
-        <!-- Left navigation links -->
-        <ul
-          class="list-style-none mt-1 mr-auto lg:flex-row"
-          data-te-navbar-nav-ref
-        >
-          <li
-            *ngIf="loggedIn"
-            class="mb-4 lg:mb-0 lg:mr-4"
-            data-te-nav-item-ref
-          >
-            <a
-              class="transition duration-200 hover:text-neutral-700 hover:ease-in-out focus:text-neutral-700 disabled:text-black/30 motion-reduce:transition-none"
-              href="workspace/notification"
-              data-te-nav-link-ref
-              >Notification</a
-            >
-          </li>
-        </ul>
       </div>
 
       <div *ngIf="!loggedIn" class="flex items-center md:flex-row">
@@ -90,6 +70,7 @@
         Welcome, {{ employeeName }}
       </div>
       <button
+        *ngIf="loggedIn"
         (click)="showDialog('top-right')"
         icon="pi pi-arrow-down-left"
         label="TopRight"
@@ -98,6 +79,7 @@
         <i class="fa-solid fa-bell fa-lg side-bar-icon"></i>
       </button>
       <p-dialog
+        *ngIf="loggedIn"
         header="Notification"
         [(visible)]="visible"
         [position]="position"
@@ -110,8 +92,8 @@
         >
           <div
             *ngFor="let notification of notifications"
+            class="border-t border-b border-blue-600 text-black px-4 py-3 my-2"
             [ngClass]="notification.isReaded ? 'bg-blue-100' : 'bg-gray-300'"
-            class="bg-blue-100 border-t border-b border-blue-600 text-black px-4 py-3 my-2"
           >
             <div class="flex">
               <div *ngIf="notification.isReaded">

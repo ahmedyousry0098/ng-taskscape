@@ -14,12 +14,15 @@ export class IoService {
   user_Id = this._AuthService.getDecodedToken()
   public message$: BehaviorSubject<string> = new BehaviorSubject('');
   public notifications$ = new BehaviorSubject<INotification[]|null>(null)
-  public Io = io(`${PROD_ENV.BaseURL}`)
+  public Io = io(`${DEV_ENV.BaseURL}`)
   constructor(
     private _Toaster: ToasterService,
     private _AuthService: AuthService
   ) { 
     this.listenToNotifications()
+    this.listenToPushNew()
+    this.onConnected()
+    this.onError()
   }
 
   getNotifications() {
@@ -29,6 +32,18 @@ export class IoService {
   stablishSocketId() {
     const token = this._AuthService.getToken()
     this.Io.emit('updateSocketId', {token})
+  }
+
+  onConnected() {
+    this.Io.on('connected', () => {
+      this.fetchNotifications()
+    })
+  }
+
+  onError() {
+    this.Io.on('authFail', ({message}) => {
+      this._Toaster.error(message || 'something went wrong')
+    })
   }
 
   fetchNotifications() {

@@ -16,7 +16,7 @@ export class NavbarComponent {
   token: string = '';
   imageUrl: string = '../../../assets/noavatar.jpg';
   photoChanged: boolean = false;
-  visible: boolean = true;
+  visible: boolean = false;
   notifications: INotification[] | null = null;
 
   position: any;
@@ -24,6 +24,7 @@ export class NavbarComponent {
   showDialog(position: string) {
     this.position = position;
     this.visible = true;
+    this._IoService.readNotifications()
   }
   constructor(
     private authService: AuthService,
@@ -45,12 +46,11 @@ export class NavbarComponent {
         this.loadEmployeePhoto();
       }
     });
-    this._IoService.fetchNotifications();
-    this._IoService.getNotifications().subscribe((myNotifications) => {
-      console.log(myNotifications);
-      this.notifications = myNotifications;
-      this._IoService.readNotifications();
-    });
+    this._IoService.getNotifications().subscribe((notifications => {
+      console.log(notifications);
+      
+      this.notifications = notifications
+    }))
   }
 
   loadEmployeePhoto() {
@@ -67,7 +67,7 @@ export class NavbarComponent {
         }
       },
       error: (err) => {
-        // console.log(err);
+        console.log(err);
       },
     });
   }
