@@ -12,10 +12,11 @@ import { TaskService } from 'src/app/services/task.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import {
+  NameValidator,
   dateGreaterThanNowAndStartCustom,
   dateGreaterThanNowValidator,
-  taskNameValidator,
 } from 'src/app/validators/customValidators';
+import { BsModalRef } from 'ngx-bootstrap/modal';
 
 initTE({ Collapse, Ripple });
 @Component({
@@ -26,10 +27,6 @@ initTE({ Collapse, Ripple });
 export class TaskDetailsComponent {
   showModalDetails: boolean = false;
   @Input() task!: ITaskDetailed;
-  @Output() commentCountChanged: EventEmitter<{
-    taskId: string;
-    count: number;
-  }> = new EventEmitter<{ taskId: string; count: number }>();
 
   isLoading: boolean = false;
   IRole!: IRole;
@@ -45,12 +42,14 @@ export class TaskDetailsComponent {
   assignToObj!: {};
   projectObj!: {};
   sprintObj!: {};
+  commentCounts: { [taskId: string]: number } = {};
 
   constructor(
     private dialog: MatDialog,
     private taskService: TaskService,
     private authService: AuthService,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    public bsModalRef: BsModalRef
   ) {}
   ngOnInit() {
     this.IRole = this.authService.getDecodedToken().role;
@@ -59,7 +58,7 @@ export class TaskDetailsComponent {
     this.updateTaskForm = this.formBuilder.group({
       taskName: [
         this.task.taskName,
-        [Validators.minLength(5), taskNameValidator()],
+        [Validators.minLength(5), NameValidator()],
       ],
       description: [this.task.description, [Validators.minLength(5)]],
       deadline: [
@@ -161,8 +160,5 @@ export class TaskDetailsComponent {
           },
         });
     }
-  }
-  handleCommentCountChanged(count: number) {
-    this.commentCountChanged.emit({ taskId: this.task._id, count: count });
   }
 }

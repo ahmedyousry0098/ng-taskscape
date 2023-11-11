@@ -203,10 +203,7 @@
               </div>
 
               <hr class="h-px my-8 bg-gray-200 border-0 dark:bg-gray-700" />
-              <app-comments
-                taskId="{{ task._id }}"
-                (commentCountChanged)="handleCommentCountChanged($event)"
-              ></app-comments>
+              <app-comments taskId="{{ task._id }}"></app-comments>
             </div>
           </div>
 

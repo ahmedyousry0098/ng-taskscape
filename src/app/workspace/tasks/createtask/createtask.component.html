@@ -21,7 +21,7 @@
         <div class="relative p-6">
           <div class="flex justify-between">
             <div class="gap-3 w-fit py-2">
-              <label class="text-lg pb-3" for="projects">Projects:</label>
+              <label class="text-lg pb-3" for="projects">Project:</label>
               <p-dropdown
                 class="flex border border-slate-950 rounded w-fit"
                 [options]="projects"
@@ -51,7 +51,7 @@
               >
             </div>
             <div class="gap-3 w-fit py-2">
-              <label class="text-lg pb-3" for="sprints">Sprints:</label>
+              <label class="text-lg pb-3" for="sprints">Sprint:</label>
               <p-dropdown
                 class="flex border border-slate-950 rounded w-fit"
                 [options]="sprints"
@@ -60,6 +60,7 @@
                 optionValue="_id"
                 display="chip"
                 placeholder="Select a sprint"
+                (onChange)="updateDeadlineBasedOnSprint()"
                 [class.border-red-500]="
                   createTaskForm.get('sprintId')?.invalid &&
                   (createTaskForm.get('sprintId')?.touched ||
@@ -108,7 +109,7 @@
             </div>
           </div>
           <div class="flex flex-col w-full gap-1 py-2">
-            <label class="text-lg" for="taskName">Task Name: </label>
+            <label class="text-lg" for="taskName">Task Title: </label>
             <input
               type="text"
               name="taskName"
@@ -128,8 +129,8 @@
                 (createTaskForm.get('taskName')?.touched ||
                   createTaskForm.get('taskName')?.dirty)
               "
-              >The task must has a title, start with capital letter and be more
-              than 5 letters..</span
+              >The task must has a title, start with capital letter and only (.)
+              special character valid...</span
             >
           </div>
           <div class="flex flex-col gap-1 py-2">
@@ -158,9 +159,9 @@
             >
           </div>
 
-          <div class="flex justify-between gap-3 py-2">
+          <div class="flex justify-between gap-12 py-2">
             <!-- Start Date -->
-            <div class="flex flex-col">
+            <div class="flex flex-col w-1/2">
               <label class="text-lg" for="start_date">Start Date:</label>
               <input
                 type="date"
@@ -181,11 +182,10 @@
                   (createTaskForm.get('start_date')?.touched ||
                     createTaskForm.get('start_date')?.dirty)
                 "
-                >The Start Date is required and greater than the current
-                date</span
-              >
+                >The Start Date is required and greater than the current date
+              </span>
             </div>
-            <div class="flex flex-col">
+            <div class="flex flex-col w-1/2">
               <label class="text-lg" for="deadline">Deadline:</label>
               <input
                 type="date"
@@ -206,7 +206,9 @@
                   (createTaskForm.get('deadline')?.touched ||
                     createTaskForm.get('deadline')?.dirty)
                 "
-                >The dedline is required and greater than the current date</span
+                >The deadline is required and must be greater than the current
+                date and before sprint deadline (
+                {{ selectedSprintDeadline | dateFormat : "dd/MM/yyy" }})</span
               >
             </div>
           </div>

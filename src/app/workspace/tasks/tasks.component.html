@@ -43,8 +43,13 @@
             cdkDrag
             [cdkDragData]="task"
           >
-            <p class="font-semibold">{{ task.taskName }}</p>
-
+            <div class="flex justify-between">
+              <p class="font-semibold">{{ task.taskName }}</p>
+              <div>
+                {{ task.commentCount || 0 }}
+                <i class="fas fa-comment text-white ps-1"></i>
+              </div>
+            </div>
             <div class="" *ngIf="IRole === 'scrumMaster'">
               <div
                 data-te-chip-init
@@ -62,6 +67,7 @@
                   alt="Contact Person"
                 />
                 {{ task.assignTo.employeeName }}
+
                 <span
                   data-te-chip-close
                   class="float-right w-4 cursor-pointer pl-[8px] text-[16px] text-[#afafaf] opacity-[.53] transition-all duration-200 ease-in-out hover:text-[#8b8b8b] dark:text-neutral-400 dark:hover:text-neutral-100"
@@ -97,10 +103,13 @@
             cdkDrag
             [cdkDragData]="task"
           >
-            <p class="font-semibold">
-              {{ task.taskName }}
-            </p>
-
+            <div class="flex justify-between">
+              <p class="font-semibold">{{ task.taskName }}</p>
+              <div>
+                {{ task.commentCount || 0 }}
+                <i class="fas fa-comment text-white ps-1"></i>
+              </div>
+            </div>
             <div class="" *ngIf="IRole === 'scrumMaster'">
               <div
                 data-te-chip-init
@@ -152,9 +161,13 @@
             cdkDrag
             [cdkDragData]="task"
           >
-            <p class="font-semibold">
-              {{ task.taskName }}
-            </p>
+            <div class="flex justify-between">
+              <p class="font-semibold">{{ task.taskName }}</p>
+              <div>
+                {{ task.commentCount || 0 }}
+                <i class="fas fa-comment text-white ps-1"></i>
+              </div>
+            </div>
 
             <div class="" *ngIf="IRole === 'scrumMaster'">
               <div

@@ -45,11 +45,11 @@ export function dateGreaterThanNowAndStartCustom(startDate: Date): ValidatorFn {
   };
 }
 
-export function taskNameValidator(): ValidatorFn {
+export function NameValidator(): ValidatorFn {
   return (control: AbstractControl): { [key: string]: any } | null => {
-    const validPattern = /^[A-Z][A-Za-z0-9\s]*$/;
+    const validPattern = /^[A-Z][A-Za-z0-9.]*$/;
     if (!validPattern.test(control.value)) {
-      return { taskNameInvalid: true };
+      return { NameInvalid: true };
     }
 
     return null;
