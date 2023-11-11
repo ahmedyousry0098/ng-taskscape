@@ -54,7 +54,6 @@ export class EmpLoginComponent {
         const token = res.token;
         this._authService.setLoggedIn(token);
         const isFresh = res.employee.isFresh;
-
         if (isFresh) {
           this._router.navigate(['/change-password']);
         } else {

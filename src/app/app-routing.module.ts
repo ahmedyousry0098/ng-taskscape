@@ -14,6 +14,7 @@ import { ChangepasswordComponent } from './workspace/settings/changepassword/cha
 import { AddProfilePicComponent } from './workspace/settings/add-profile-pic/add-profile-pic.component';
 import { ChangepasswordprofilefirstComponent } from './auth/changepasswordprofilefirst/changepasswordprofilefirst.component';
 import { AddpicComponent } from './auth/changepasswordprofilefirst/addpic/addpic.component';
+import { freshGuard } from './guard/fresh.guard';
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -34,12 +35,12 @@ const routes: Routes = [
   {
     path: 'change-password',
     component: ChangepasswordprofilefirstComponent,
-    canActivate: [authGuard],
+    canActivate: [authGuard, freshGuard],
   },
   {
     path: 'add-pic',
     component: AddpicComponent,
-    canActivate: [authGuard],
+    canActivate: [authGuard, freshGuard],
   },
 
   { path: 'admin-register', component: AdminRegisterComponent },
