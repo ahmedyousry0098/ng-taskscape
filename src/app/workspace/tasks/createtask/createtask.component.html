@@ -125,12 +125,21 @@
             <span
               class="text-red-500"
               *ngIf="
-                createTaskForm.get('taskName')?.invalid &&
+                createTaskForm.get('taskName')?.hasError('required') &&
                 (createTaskForm.get('taskName')?.touched ||
                   createTaskForm.get('taskName')?.dirty)
               "
-              >The task must has a title, start with capital letter and only (.)
-              special character valid...</span
+              >The task must has a title.</span
+            >
+            <span
+              class="text-red-500"
+              *ngIf="
+                createTaskForm.get('taskName')?.hasError('NameInvalid') &&
+                (createTaskForm.get('taskName')?.touched ||
+                  createTaskForm.get('taskName')?.dirty)
+              "
+              >The task must start with capital letter and only (.) special
+              character valid...</span
             >
           </div>
           <div class="flex flex-col gap-1 py-2">
@@ -202,12 +211,31 @@
               <span
                 class="text-red-500"
                 *ngIf="
-                  createTaskForm.get('deadline')?.invalid &&
+                  createTaskForm.get('deadline')?.hasError('required') &&
                   (createTaskForm.get('deadline')?.touched ||
                     createTaskForm.get('deadline')?.dirty)
                 "
-                >The deadline is required and must be greater than the current
-                date and before sprint deadline (
+                >The deadline is required.</span
+              >
+              <span
+                class="text-red-500"
+                *ngIf="
+                  createTaskForm.get('deadline')?.hasError('dateError') &&
+                  (createTaskForm.get('deadline')?.touched ||
+                    createTaskForm.get('deadline')?.dirty)
+                "
+                >The deadline must be greater than the current date.</span
+              >
+              <span
+                class="text-red-500"
+                *ngIf="
+                  createTaskForm
+                    .get('deadline')
+                    ?.hasError('sprintDeadlineError') &&
+                  (createTaskForm.get('deadline')?.touched ||
+                    createTaskForm.get('deadline')?.dirty)
+                "
+                >The deadline must be before sprint deadline (
                 {{ selectedSprintDeadline | dateFormat : "dd/MM/yyy" }})</span
               >
             </div>

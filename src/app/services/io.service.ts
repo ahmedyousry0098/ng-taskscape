@@ -14,7 +14,7 @@ export class IoService {
   user_Id = this._AuthService.getDecodedToken()
   public message$: BehaviorSubject<string> = new BehaviorSubject('');
   public notifications$ = new BehaviorSubject<INotification[]|null>(null)
-  public Io = io(`${DEV_ENV.BaseURL}`)
+  public Io = io(`${PROD_ENV.BaseURL}`)
   constructor(
     private _Toaster: ToasterService,
     private _AuthService: AuthService

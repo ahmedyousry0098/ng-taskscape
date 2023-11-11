@@ -1,4 +1,4 @@
-<nav class="h-auto py-4 w-full sticky top-0">
+<nav class="h-auto py-4 w-full sticky top-0 mt-0 pt-1">
   <div class="container mx-auto px-4 lg:px-28">
     <div class="flex items-center justify-between">
       <button
@@ -34,9 +34,14 @@
         data-te-collapse-item
       >
         <!-- Logo -->
-        <div class="mr-3">
-          <img src="../../assets/logo.png" alt="logo" class="h-10 w-10 inline mb-3">
-          <a 
+        <div class="mr-3 me-auto">
+          <img
+            src="../../assets/logo.png"
+            alt="logo"
+            class="h-10 w-10 inline mb-3"
+          />
+
+          <a
             *ngIf="loggedIn"
             class="text-2xl text-blue-500"
             [routerLink]="['/workspace']"
@@ -51,6 +56,25 @@
             Taskscape
           </a>
         </div>
+
+        <!-- Left navigation links -->
+        <!-- <ul
+          class="list-style-none mt-1 mr-auto lg:flex-row"
+          data-te-navbar-nav-ref
+        >
+          <li
+            *ngIf="loggedIn"
+            class="mb-4 lg:mb-0 lg:mr-4"
+            data-te-nav-item-ref
+          >
+            <a
+              class="transition duration-200 hover:text-neutral-700 hover:ease-in-out focus:text-neutral-700 disabled:text-black/30 motion-reduce:transition-none"
+              href="workspace/notification"
+              data-te-nav-link-ref
+              >Notification</a
+            >
+          </li>
+        </ul> -->
       </div>
 
       <div *ngIf="!loggedIn" class="flex items-center md:flex-row">
@@ -65,16 +89,23 @@
           >Create Organization</a
         >
       </div>
-
       <div *ngIf="loggedIn" class="flex items-center me-6">
-        Welcome, {{ employeeName }}
+        <span class="text-xl text-slate-500">Welcome, {{ employeeName }}</span>
       </div>
+      <a routerLink="workspace/settings">
+        <img
+          *ngIf="loggedIn"
+          [src]="imageUrl"
+          class="rounded-full h-10 w-10 me-6 cursor-pointer"
+          alt=""
+      /></a>
       <button
         *ngIf="loggedIn"
         (click)="showDialog('top-right')"
         icon="pi pi-arrow-down-left"
         label="TopRight"
         styleClass="p-button-warning"
+        class="me-6 scale-125"
       >
         <i class="fa-solid fa-bell fa-lg side-bar-icon"></i>
       </button>
@@ -122,13 +153,7 @@
           </div>
         </ng-template>
       </p-dialog>
-      <a routerLink="workspace/settings">
-        <img
-          *ngIf="loggedIn"
-          [src]="imageUrl"
-          class="rounded-full h-10 w-10 me-6 cursor-pointer"
-          alt=""
-      /></a>
+
       <div *ngIf="loggedIn" class="flex items-center cursor-pointer">
         <a
           (click)="logout()"

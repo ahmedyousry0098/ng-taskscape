@@ -18,7 +18,6 @@ export class NavbarComponent {
   photoChanged: boolean = false;
   visible: boolean = false;
   notifications: INotification[] | null = null;
-
   position: any;
 
   showDialog(position: string) {
