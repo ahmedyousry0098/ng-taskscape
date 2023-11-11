@@ -10,6 +10,15 @@ export interface IOrgForm {
   logo: object;
 }
 
+export interface forgotPasswordForm{
+  email: string;
+}
+
+export interface resetPasswordForm{
+  code: string;
+  newPassword: string;
+}
+
 export interface IAdminForm {
   adminName: string;
   email: string;
