@@ -40,7 +40,6 @@
             alt="logo"
             class="h-10 w-10 inline mb-3"
           />
-
           <a
             *ngIf="loggedIn"
             class="text-2xl text-blue-500"
@@ -92,6 +91,7 @@
       <div *ngIf="loggedIn" class="flex items-center me-6">
         <span class="text-xl text-slate-500">Welcome, {{ employeeName }}</span>
       </div>
+      <button *ngIf="loggedIn"
       <a routerLink="workspace/settings">
         <img
           *ngIf="loggedIn"
@@ -107,7 +107,7 @@
         styleClass="p-button-warning"
         class="me-6 scale-125"
       >
-        <i class="fa-solid fa-bell fa-lg side-bar-icon"></i>
+        <i class="pe-4 fa-solid fa-bell fa-lg side-bar-icon"></i>
       </button>
       <p-dialog
         *ngIf="loggedIn"
