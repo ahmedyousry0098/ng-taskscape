@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 import { EmployeeService } from 'src/app/services/employee.service';
+import { IoService } from 'src/app/services/io.service';
+import { INotification } from 'src/interfaces/notification.interface';
 
 @Component({
   selector: 'app-navbar',
@@ -14,11 +16,20 @@ export class NavbarComponent {
   token: string = '';
   imageUrl: string = '../../../assets/noavatar.jpg';
   photoChanged: boolean = false;
+  visible: boolean = true;
+  notifications: INotification[] | null = null;
 
+  position: any;
+
+  showDialog(position: string) {
+    this.position = position;
+    this.visible = true;
+  }
   constructor(
     private authService: AuthService,
     private router: Router,
-    private employeeService: EmployeeService
+    private employeeService: EmployeeService,
+    private _IoService: IoService
   ) {
     this.authService.isLoggedIn.subscribe((loggedIn) => {
       this.loggedIn = loggedIn;
@@ -33,6 +44,12 @@ export class NavbarComponent {
       if (changed) {
         this.loadEmployeePhoto();
       }
+    });
+    this._IoService.fetchNotifications();
+    this._IoService.getNotifications().subscribe((myNotifications) => {
+      console.log(myNotifications);
+      this.notifications = myNotifications;
+      this._IoService.readNotifications();
     });
   }
 
