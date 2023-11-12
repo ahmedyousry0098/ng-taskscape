@@ -8,6 +8,7 @@ export interface IProject {
   organization?: string;
   _id: string;
   sprints: ISprint[];
+  backGround?: string;
 }
 export interface IEmployee {
   employeeName: string;

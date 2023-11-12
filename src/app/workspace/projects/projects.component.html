@@ -3,19 +3,22 @@
   <!-- projects container -->
   <div class="flex flex-wrap gap-3 ml-6">
     <!-- project Card -->
-    <ng-template ngClass="{{ getColor() }}"></ng-template>
     <div
-      class="w-80 h-52 m-2 flex justify-center"
+      class="w-80 h-52 m-2 flex justify-center border border-blue-950 rounded-sm"
       *ngFor="let project of projects"
+      ngClass="{{ project.backGround }}"
     >
       <!-- card body -->
       <div class="flex flex-col justify-center items-center">
-        <h3 class="font-semibold text-xl">{{ project.projectName }}</h3>
+        <p class="font-semibold text-xl text-center">
+          {{ project.projectName }}
+        </p>
+        <p class="mx-2">{{ project.description }}</p>
         <button
           routerLink="detail/{{ project._id }}"
-          class="bg-slate-500 hover:bg-slate-600 py-2 px-4 text-white rounded-md mt-2 me-4"
+          class="bg-blue-500 hover:bg-blue-600 py-2 px-6 text-white rounded-md mt-2"
         >
-          view
+          View Details
         </button>
       </div>
     </div>
