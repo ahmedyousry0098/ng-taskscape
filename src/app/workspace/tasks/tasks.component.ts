@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, NgZone } from '@angular/core';
+import { ChangeDetectorRef, Component } from '@angular/core';
 import { AuthService } from 'src/app/services/auth.service';
 import { TaskService } from 'src/app/services/task.service';
 import {
@@ -17,6 +17,7 @@ import {
 } from '@angular/cdk/drag-drop';
 import { CommentService } from 'src/app/services/comment.service';
 import { forkJoin } from 'rxjs';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-tasks',
@@ -29,6 +30,7 @@ export class TasksComponent {
   employees: IEmployee[] = [];
   employeeID: string = this.authService.getDecodedToken()._id;
   showModal = false;
+  showModalDetails: boolean = false;
   sprints!: ISprint[];
   tasks: ITaskDetailed[] = [];
   task: ITaskDetailed[] = [];
@@ -43,9 +45,9 @@ export class TasksComponent {
   constructor(
     private taskService: TaskService,
     private authService: AuthService,
-    private modalService: BsModalService,
     private commentService: CommentService,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private dialog: MatDialog
   ) {}
   private getCommentCounts() {
     const commentRequests = this.tasks.map((task) =>
@@ -92,14 +94,11 @@ export class TasksComponent {
   }
 
   openTaskDetails(task: ITaskDetailed) {
-    const initialState = {
-      task: task,
-    };
-    this.modalRef = this.modalService.show(TaskDetailsComponent, {
-      initialState,
+    const dialogRef = this.dialog.open(TaskDetailsComponent, {
+      data: { task: task },
     });
+    dialogRef.afterClosed().subscribe((result) => {});
   }
-
   getTasksOfEmployee() {
     this.taskService.getEmployeeTasks(this.employeeID).subscribe((data) => {
       this.tasks = data.tasks;

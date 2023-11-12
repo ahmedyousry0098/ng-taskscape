@@ -161,6 +161,16 @@
           >
             Password is required
           </p>
+          <p
+            *ngIf="
+              adminRegisterForm.get('password')?.getError('passwordInvalid') &&
+              adminRegisterForm.get('password')?.touched
+            "
+            class="text-red-700"
+          >
+            Password must have at least one lowercase letter, uppercase letter,
+            one digit, one special character, and be at least 8 characters long.
+          </p>
         </div>
       </div>
       <div class="flex items-center border-2 py-2 px-3 rounded-2xl mb-4">

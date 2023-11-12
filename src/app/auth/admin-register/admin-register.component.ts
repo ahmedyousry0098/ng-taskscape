@@ -3,7 +3,10 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 import { ToasterService } from 'src/app/services/toaster.service';
-import { personNameValidator } from 'src/app/validators/customValidators';
+import {
+  passwordValidator,
+  personNameValidator,
+} from 'src/app/validators/customValidators';
 
 interface IStorageOrg {
   orgId: string;
@@ -40,7 +43,7 @@ export class AdminRegisterComponent {
       personNameValidator(),
     ]),
     email: new FormControl(null, [Validators.required]),
-    password: new FormControl(null, [Validators.required]),
+    password: new FormControl(null, [Validators.required, passwordValidator()]),
   });
 
   handleOAdminRegister(adminRegisterForm: FormGroup) {
