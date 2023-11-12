@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, Observable, catchError, map, of } from 'rxjs';
 import {
   IAdminForm,
   IAdminResponse,
@@ -8,10 +8,11 @@ import {
   IOrgForm,
   IOrgResponse,
   forgotPasswordForm,
-  resetPasswordForm
+  resetPasswordForm,
 } from '../auth/interfaces/register.interface';
 
 import { jwtDecode } from 'jwt-decode';
+import { EmployeeService } from './employee.service';
 
 @Injectable({
   providedIn: 'root',
@@ -22,7 +23,13 @@ export class AuthService {
   private loggedIn = new BehaviorSubject<boolean>(false);
   isLoggedIn = this.loggedIn.asObservable();
 
-  constructor(private _httpclient: HttpClient) {
+  private isFreshUserSubject = new BehaviorSubject<boolean>(false);
+  isFreshUser$ = this.isFreshUserSubject.asObservable();
+
+  constructor(
+    private _httpclient: HttpClient,
+    private employeeService: EmployeeService
+  ) {
     this.checkLoggedIn();
   }
 
@@ -47,7 +54,7 @@ export class AuthService {
     );
   }
   setLoggedIn(token: string) {
-    localStorage.setItem('token', token)
+    localStorage.setItem('token', token);
     this.loggedIn.next(true);
   }
   isAuthenticated(): boolean {
@@ -93,7 +100,7 @@ export class AuthService {
 
   logout() {
     localStorage.removeItem('token');
-    window.location.reload()
+    window.location.reload();
     this.loggedIn.next(false);
   }
 
@@ -109,5 +116,12 @@ export class AuthService {
       `${this.baseUrl}/employee/reset-password`,
       data
     );
+  }
+  isFresh() {
+    this.employeeService.getEmployeeData().subscribe((res) => {
+      const isFresh = res.employee.isFresh;
+      this.isFreshUserSubject.next(isFresh);
+    });
+    return this.isFresh;
   }
 }

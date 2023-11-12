@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectorRef, Component } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 import { EmployeeService } from 'src/app/services/employee.service';
@@ -23,11 +23,11 @@ export class NavbarComponent {
   showDialog(position: string) {
     this.position = position;
     this.visible = true;
-    this._IoService.readNotifications()
+    this._IoService.readNotifications();
   }
   constructor(
     private authService: AuthService,
-    private router: Router,
+    public router: Router,
     private employeeService: EmployeeService,
     private _IoService: IoService
   ) {
@@ -45,17 +45,19 @@ export class NavbarComponent {
         this.loadEmployeePhoto();
       }
     });
-    this._IoService.getNotifications().subscribe((notifications => {
-      console.log(notifications);
-      
-      this.notifications = notifications
-    }))
+
+    this._IoService.fetchNotifications();
+    this._IoService.getNotifications().subscribe((myNotifications) => {
+      this.notifications = myNotifications;
+      this._IoService.readNotifications();
+    });
   }
 
   loadEmployeePhoto() {
     this.employeeService.getEmployeeData().subscribe({
       next: (res) => {
         this.employeeName = res.employee.employeeName;
+
         if (
           res.employee.profile_photo &&
           res.employee.profile_photo.secure_url
@@ -70,6 +72,10 @@ export class NavbarComponent {
       },
     });
   }
+  isFreshUser() {
+    this.authService.isFresh();
+  }
+
   logout() {
     this.authService.logout();
     this.router.navigate(['/home']);
