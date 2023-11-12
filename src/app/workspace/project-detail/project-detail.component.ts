@@ -14,6 +14,7 @@ import {
   dateGreaterThanNowAndStart,
   dateGreaterThanNowValidator,
 } from 'src/app/validators/customValidators';
+import { NotificationService } from 'src/app/services/notification.service';
 
 @Component({
   selector: 'app-project-detail',
@@ -26,7 +27,8 @@ export class ProjectDetailComponent {
     private route: ActivatedRoute,
     private formBuilder: FormBuilder,
     private auth: AuthService,
-    private datePipe: DatePipe
+    private datePipe: DatePipe,
+    private _notification: NotificationService
   ) {}
   employeeRole: IRole = this.auth.getDecodedToken().role;
   isSubmitted: boolean = false;
@@ -36,6 +38,7 @@ export class ProjectDetailComponent {
   projectId: string = '';
   orgId: string = '';
   noEmployeesArray: boolean = false;
+  isLoading: boolean = false;
 
   editProjectForm: FormGroup = this.formBuilder.group({
     projectName: [
@@ -187,8 +190,11 @@ export class ProjectDetailComponent {
       .subscribe({
         next: (res) => {
           console.log(res);
+          this._notification.showNotification(res.message, 'OK', 'success');
         },
         error: (err) => {
+          this._notification.showNotification(err.message, 'OK', 'error');
+
           console.log(err);
         },
       });

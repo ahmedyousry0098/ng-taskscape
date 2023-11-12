@@ -1,4 +1,4 @@
-<div class="flex lg-gap-40 flex-wrap mt-4 gap-10">
+<div class="flex lg-gap-20 flex-wrap mt-4 gap-10 w-full">
   <div class="ml-4">
     <p class="font-semibold text-lg">Welcome {{ employeeName }}!</p>
     <p>
@@ -65,76 +65,110 @@
                 <div
                   [ngClass]="{ hidden: openTab !== 1, block: openTab === 1 }"
                 >
-                  <div class="w-full grid grid-cols-5 gap-4 text-center px-6">
-                    <p>Project</p>
-                    <p>Sprint</p>
-                    <p>Task Title</p>
-                    <p>Start Date</p>
-                    <p>Deadline</p>
+                  <div *ngIf="todayToDoTasks.length === 0" class="w-full">
+                    <p class="text-center text-lg">
+                      Relax! No Tasks for today yet
+                    </p>
+                    <img
+                      src="../../../assets/sanbath_chill.700beda22e65d32475d72ba306977084.png"
+                      alt=""
+                    />
                   </div>
-                  <div
-                    class="w-full grid grid-cols-5 gap-4 text-center p-6 my-3 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700"
-                    *ngFor="let toDoTask of todayToDoTasks"
-                  >
-                    <p class="px-1">{{ toDoTask.project.projectName }}</p>
-                    <p class="px-1">{{ toDoTask.sprint.sprint_name }}</p>
-                    <p class="px-1">{{ toDoTask.taskName }}</p>
-                    <p class="px-1">
-                      {{ toDoTask.startDate | date : "d MMM " }}
-                    </p>
-                    <p class="px-1">
-                      {{ toDoTask.deadline | date : "d MMM " }}
-                    </p>
+                  <div *ngIf="todayToDoTasks.length > 0">
+                    <div class="w-full grid grid-cols-5 gap-4 text-center px-6">
+                      <p>Project</p>
+                      <p>Sprint</p>
+                      <p>Task Title</p>
+                      <p>Start Date</p>
+                      <p>Deadline</p>
+                    </div>
+
+                    <div
+                      class="w-full grid grid-cols-5 gap-4 text-center p-6 my-3 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700"
+                      *ngFor="let toDoTask of todayToDoTasks"
+                    >
+                      <p class="px-1">{{ toDoTask.project.projectName }}</p>
+                      <p class="px-1">{{ toDoTask.sprint.sprint_name }}</p>
+                      <p class="px-1">{{ toDoTask.taskName }}</p>
+                      <p class="px-1">
+                        {{ toDoTask.startDate | date : "d MMM " }}
+                      </p>
+                      <p class="px-1">
+                        {{ toDoTask.deadline | date : "d MMM " }}
+                      </p>
+                    </div>
                   </div>
                 </div>
                 <div
                   [ngClass]="{ hidden: openTab !== 2, block: openTab === 2 }"
                 >
-                  <div class="w-full grid grid-cols-5 gap-4 text-center px-6">
-                    <p>Project</p>
-                    <p>Sprint</p>
-                    <p>Task Title</p>
-                    <p>Start Date</p>
-                    <p>Deadline</p>
+                  <div *ngIf="todayDoneTasks.length === 0" class="w-full">
+                    <p class="text-center text-lg">
+                      Relax! No Tasks for today yet
+                    </p>
+                    <img
+                      src="../../../assets/sanbath_chill.700beda22e65d32475d72ba306977084.png"
+                      alt=""
+                    />
                   </div>
-                  <div
-                    class="w-full grid grid-cols-5 gap-4 text-center p-6 my-3 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700"
-                    *ngFor="let toDoTask of todayDoneTasks"
-                  >
-                    <p class="px-1">{{ toDoTask.project.projectName }}</p>
-                    <p class="px-1">{{ toDoTask.sprint.sprint_name }}</p>
-                    <p class="px-1">{{ toDoTask.taskName }}</p>
-                    <p class="px-1">
-                      {{ toDoTask.startDate | date : "d MMM " }}
-                    </p>
-                    <p class="px-1">
-                      {{ toDoTask.deadline | date : "d MMM " }}
-                    </p>
+                  <div *ngIf="todayDoneTasks.length > 0">
+                    <div class="w-full grid grid-cols-5 gap-4 text-center px-6">
+                      <p>Project</p>
+                      <p>Sprint</p>
+                      <p>Task Title</p>
+                      <p>Start Date</p>
+                      <p>Deadline</p>
+                    </div>
+                    <div
+                      class="w-full grid grid-cols-5 gap-4 text-center p-6 my-3 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700"
+                      *ngFor="let toDoTask of todayDoneTasks"
+                    >
+                      <p class="px-1">{{ toDoTask.project.projectName }}</p>
+                      <p class="px-1">{{ toDoTask.sprint.sprint_name }}</p>
+                      <p class="px-1">{{ toDoTask.taskName }}</p>
+                      <p class="px-1">
+                        {{ toDoTask.startDate | date : "d MMM " }}
+                      </p>
+                      <p class="px-1">
+                        {{ toDoTask.deadline | date : "d MMM " }}
+                      </p>
+                    </div>
                   </div>
                 </div>
                 <div
                   [ngClass]="{ hidden: openTab !== 3, block: openTab === 3 }"
                 >
-                  <div class="w-full grid grid-cols-5 gap-4 text-center px-6">
-                    <p>Project</p>
-                    <p>Sprint</p>
-                    <p>Task Title</p>
-                    <p>Start Date</p>
-                    <p>Deadline</p>
+                  <div *ngIf="todayOverDueTasks.length === 0" class="w-full">
+                    <p class="text-center text-lg">
+                      Relax! No Tasks for today yet
+                    </p>
+                    <img
+                      src="../../../assets/sanbath_chill.700beda22e65d32475d72ba306977084.png"
+                      alt=""
+                    />
                   </div>
-                  <div
-                    class="w-full grid grid-cols-5 gap-4 text-center p-6 my-3 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700"
-                    *ngFor="let toDoTask of todayOverDueTasks"
-                  >
-                    <p class="px-1">{{ toDoTask.project.projectName }}</p>
-                    <p class="px-1">{{ toDoTask.sprint.sprint_name }}</p>
-                    <p class="px-1">{{ toDoTask.taskName }}</p>
-                    <p class="px-1">
-                      {{ toDoTask.startDate | date : "d MMM " }}
-                    </p>
-                    <p class="px-1">
-                      {{ toDoTask.deadline | date : "d MMM " }}
-                    </p>
+                  <div *ngIf="todayOverDueTasks.length > 0">
+                    <div class="w-full grid grid-cols-5 gap-4 text-center px-6">
+                      <p>Project</p>
+                      <p>Sprint</p>
+                      <p>Task Title</p>
+                      <p>Start Date</p>
+                      <p>Deadline</p>
+                    </div>
+                    <div
+                      class="w-full grid grid-cols-5 gap-4 text-center p-6 my-3 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700"
+                      *ngFor="let toDoTask of todayOverDueTasks"
+                    >
+                      <p class="px-1">{{ toDoTask.project.projectName }}</p>
+                      <p class="px-1">{{ toDoTask.sprint.sprint_name }}</p>
+                      <p class="px-1">{{ toDoTask.taskName }}</p>
+                      <p class="px-1">
+                        {{ toDoTask.startDate | date : "d MMM " }}
+                      </p>
+                      <p class="px-1">
+                        {{ toDoTask.deadline | date : "d MMM " }}
+                      </p>
+                    </div>
                   </div>
                 </div>
               </div>

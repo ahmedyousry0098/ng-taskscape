@@ -1,5 +1,5 @@
 import { HttpHeaders } from '@angular/common/http';
-import { Component, ElementRef, Renderer2, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
@@ -16,20 +16,8 @@ export class EmpLoginComponent {
     private _authService: AuthService,
     private _router: Router,
     private _employeeService: EmployeeService,
-    private toasterService: ToasterService,
-    private elementRef: ElementRef,
-    private renderer: Renderer2
-  ) { }
+    private toasterService: ToasterService,) { }
 
-  ngOnInit(): void {
-    this.triggerAnimation();
-  }
-
-  triggerAnimation() {
-    const element = this.elementRef.nativeElement.querySelector('.emp-login');
-    this.renderer.addClass(element, 'animate__animated');
-    this.renderer.addClass(element, 'animate__fadeIn');
-  }
 
   isLoading: boolean = false;
 
@@ -38,7 +26,7 @@ export class EmpLoginComponent {
     password: new FormControl(null, [Validators.required]),
   });
   forgotPasswordForm: FormGroup = new FormGroup({
-    email: new FormControl(null, [Validators.required])
+    email: new FormControl(null, [Validators.required]),
   });
   resetPasswordForm: FormGroup = new FormGroup({
     code: new FormControl(null, [Validators.required]),
@@ -54,10 +42,8 @@ export class EmpLoginComponent {
         const token = res.token;
         this._authService.setLoggedIn(token);
         const isFresh = res.employee.isFresh;
-
         if (isFresh) {
-          this.changeFristStatus();
-          this._router.navigate(['/workspace/settings']);
+          this._router.navigate(['/change-password']);
         } else {
           this._router.navigate(['/workspace']);
         }
@@ -66,23 +52,9 @@ export class EmpLoginComponent {
         this.isLoading = false;
         console.log(err);
 
-        this.toasterService.error('You havn\'t entered data correctly')
+        this.toasterService.error("You havn't entered data correctly");
       },
     });
-  }
-
-  changeFristStatus() {
-    console.log(this._authService.getUserIdFromToken());
-    this._employeeService
-      .changeFreshStatus(this._authService.getUserIdFromToken())
-      .subscribe({
-        next: (res) => {
-          console.log(res);
-        },
-        error: (err) => {
-          console.error(err);
-        },
-      });
   }
 
   handleForgotPassword(forgotPasswordForm: FormGroup) {
