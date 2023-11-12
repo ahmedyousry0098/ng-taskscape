@@ -74,13 +74,13 @@ export class WorkspaceHomeComponent {
       this.tasks = data.tasks;
       this.todayToDoTasks = this.tasks.filter(
         (task) =>
-          new Date(task.startDate).getDate() === todayDate.getDate() &&
+          new Date(task.startDate).getDate() <= todayDate.getDate() &&
           task.status === 'todo'
       );
       console.log(this.todayToDoTasks);
       this.todayOverDueTasks = this.tasks.filter(
         (task) =>
-          new Date(task.deadline).getDate() < todayDate.getDate() &&
+          new Date(task.deadline).getDate() <= todayDate.getDate() &&
           task.status === 'todo'
       );
       this.todayDoneTasks = this.tasks.filter(

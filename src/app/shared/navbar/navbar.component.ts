@@ -23,7 +23,7 @@ export class NavbarComponent {
   showDialog(position: string) {
     this.position = position;
     this.visible = true;
-    this._IoService.readNotifications()
+    this._IoService.readNotifications();
   }
   constructor(
     private authService: AuthService,
@@ -51,7 +51,6 @@ export class NavbarComponent {
       this.notifications = myNotifications;
       this._IoService.readNotifications();
     });
-
   }
 
   loadEmployeePhoto() {

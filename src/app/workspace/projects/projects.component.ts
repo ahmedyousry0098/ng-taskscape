@@ -14,6 +14,8 @@ import {
   dateGreaterThanNowAndStart,
   dateGreaterThanNowValidator,
 } from 'src/app/validators/customValidators';
+import { NotificationService } from 'src/app/services/notification.service';
+
 @Component({
   selector: 'app-projects',
   templateUrl: './projects.component.html',
@@ -37,18 +39,16 @@ export class ProjectsComponent {
     'bg-cyan-400',
     'bg-sky-400	',
     'bg-indigo-300',
-    'bg-pink-300	',
+    'bg-pink-300',
   ];
 
   constructor(
     private formBuilder: FormBuilder,
     private projectService: ProjectService,
-    private auth: AuthService
+    private auth: AuthService,
+    private _notification: NotificationService
   ) {}
   showModal = false;
-  getColor() {
-    console.log(this.colorClass[Math.floor(Math.random() * 10)]);
-  }
   toggleModal() {
     this.showModal = !this.showModal;
   }
@@ -106,6 +106,7 @@ export class ProjectsComponent {
         })
         .subscribe({
           next: (res) => {
+            console.log();
             this.isLoading = false;
             this.getScrumMasterProjects();
             this.toggleModal();
@@ -113,15 +114,23 @@ export class ProjectsComponent {
           error: (err) => {
             console.log(err);
             this.isLoading = false;
+            this._notification.showNotification(err.message, 'OK', 'error');
           },
         });
     }
   }
 
   getScrumMasterProjects() {
-    this.projectService
-      .getAllProjectsScrum()
-      .subscribe((data) => (this.projects = data.projects));
+    this.projectService.getAllProjectsScrum().subscribe(
+      (data) =>
+        (this.projects = data.projects.map((item: IProject, index: number) => ({
+          ...item,
+          backGround:
+            index >= this.colorClass.length
+              ? this.colorClass[index % this.colorClass.length]
+              : this.colorClass[index],
+        })))
+    );
   }
   ngOnInit() {
     this.IRole = this.auth.getDecodedToken().role;
@@ -132,9 +141,18 @@ export class ProjectsComponent {
         this.getScrumMasterProjects();
       });
     } else if (this.IRole === IRole.member) {
-      this.projectService
-        .getAllProjectsEmployee()
-        .subscribe((data) => (this.projects = data.projects));
+      this.projectService.getAllProjectsEmployee().subscribe(
+        (data) =>
+          (this.projects = data.projects.map(
+            (item: IProject, index: number) => ({
+              ...item,
+              backGround:
+                index >= this.colorClass.length
+                  ? this.colorClass[index % this.colorClass.length]
+                  : this.colorClass[index],
+            })
+          ))
+      );
     }
   }
 }
