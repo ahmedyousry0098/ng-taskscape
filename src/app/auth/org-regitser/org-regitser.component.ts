@@ -82,7 +82,11 @@ export class OrgRegitserComponent {
       },
       error: (err) => {
         this.isLoading = false;
-        this.toasterService.error("You havn't entered data correctly");
+        if(err.error.error == 'company already exist') {
+          this.toasterService.error(err.error.error);
+        } else {
+          this.toasterService.error(err.error.details);
+        }
         console.log(err);
       },
       complete: () => {

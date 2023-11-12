@@ -52,7 +52,7 @@ export class AdminRegisterComponent {
     this._authService.adminRegister(data).subscribe({
       next: (res) => {
         this.isLoading = false;
-        this._router.navigate(['']);
+        window.location.href = "https://taskscape-admin.vercel.app/login";
       },
       error: (err) => {
         this.isLoading = false;
