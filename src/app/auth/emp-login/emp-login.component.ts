@@ -1,5 +1,5 @@
 import { HttpHeaders } from '@angular/common/http';
-import { Component, ElementRef, Renderer2, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
@@ -16,20 +16,8 @@ export class EmpLoginComponent {
     private _authService: AuthService,
     private _router: Router,
     private _employeeService: EmployeeService,
-    private toasterService: ToasterService,
-    private elementRef: ElementRef,
-    private renderer: Renderer2
-  ) {}
+    private toasterService: ToasterService,) { }
 
-  ngOnInit(): void {
-    this.triggerAnimation();
-  }
-
-  triggerAnimation() {
-    const element = this.elementRef.nativeElement.querySelector('.emp-login');
-    this.renderer.addClass(element, 'animate__animated');
-    this.renderer.addClass(element, 'animate__fadeIn');
-  }
 
   isLoading: boolean = false;
 
