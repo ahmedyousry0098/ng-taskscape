@@ -65,6 +65,17 @@ export function personNameValidator(): ValidatorFn {
     return null;
   };
 }
+export function passwordValidator(): ValidatorFn {
+  return (control: AbstractControl): { [key: string]: any } | null => {
+    const validPattern =
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%?&])[A-Za-z\d@$!%?&]{8,}$/;
+    if (!validPattern.test(control.value)) {
+      return { passwordInvalid: true };
+    }
+
+    return null;
+  };
+}
 export function institutionNameValidator(): ValidatorFn {
   return (control: AbstractControl): { [key: string]: any } | null => {
     const value: string = control.value;

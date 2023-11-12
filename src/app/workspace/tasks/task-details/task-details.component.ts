@@ -1,12 +1,11 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
-import {
-  IRole,
-  IStatus,
-  ITaskDetailed,
-  ITaskUpdate,
-} from 'src/interfaces/interfaces';
+import { Component, Inject, Input, Output } from '@angular/core';
+import { IRole, ITaskDetailed, ITaskUpdate } from 'src/interfaces/interfaces';
 import { Collapse, Ripple, initTE } from 'tw-elements';
-import { MatDialog } from '@angular/material/dialog';
+import {
+  MAT_DIALOG_DATA,
+  MatDialog,
+  MatDialogRef,
+} from '@angular/material/dialog';
 import { ConfirmationChangeStatusComponent } from '../confirmation-change-status/confirmation-change-status.component';
 import { TaskService } from 'src/app/services/task.service';
 import { AuthService } from 'src/app/services/auth.service';
@@ -49,8 +48,14 @@ export class TaskDetailsComponent {
     private taskService: TaskService,
     private authService: AuthService,
     private formBuilder: FormBuilder,
-    public bsModalRef: BsModalRef
-  ) {}
+    public bsModalRef: BsModalRef,
+    public dialogRef: MatDialogRef<TaskDetailsComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: any
+  ) {
+    if (data && data.task) {
+      this.task = data.task;
+    }
+  }
   ngOnInit() {
     this.IRole = this.authService.getDecodedToken().role;
     initTE({ Collapse, Ripple });
@@ -76,10 +81,11 @@ export class TaskDetailsComponent {
     this.assignToObj = this.task.assignTo;
     this.projectObj = this.task.project;
     this.sprintObj = this.task.sprint;
+    console.log(this.task);
   }
 
   closeModal() {
-    this.showModalDetails = !this.showModalDetails;
+    this.dialogRef.close();
   }
   onBackdropClick(event: Event): void {
     if (event.target === event.currentTarget) {

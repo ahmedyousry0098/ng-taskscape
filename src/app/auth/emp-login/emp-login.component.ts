@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 import { ToasterService } from 'src/app/services/toaster.service';
 import { EmployeeService } from 'src/app/services/employee.service';
+import { passwordValidator } from 'src/app/validators/customValidators';
 
 @Component({
   selector: 'app-emp-login',
@@ -16,8 +17,8 @@ export class EmpLoginComponent {
     private _authService: AuthService,
     private _router: Router,
     private _employeeService: EmployeeService,
-    private toasterService: ToasterService,) { }
-
+    private toasterService: ToasterService
+  ) {}
 
   isLoading: boolean = false;
 
