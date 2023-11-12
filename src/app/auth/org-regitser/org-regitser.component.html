@@ -315,6 +315,7 @@
       </div>
       <a class="mx-auto" routerLink="/org-register">
         <button
+        [disabled]="orgRegisterForm.invalid"
           type="submit"
           [ngClass]="
             orgRegisterForm.valid
