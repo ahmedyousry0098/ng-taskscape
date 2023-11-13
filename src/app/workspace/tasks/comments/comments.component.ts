@@ -63,7 +63,6 @@ export class CommentsComponent {
   addComment() {
     this.isLoading = true;
     const comment = this.addCommentForm.get('comment')?.value;
-    console.log(this.taskId, this.addCommentForm.value);
     this.commentService.addTaskComment(this.taskId, comment!).subscribe({
       next: (res) => {
         this.isLoading = false;
