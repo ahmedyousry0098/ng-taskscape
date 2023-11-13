@@ -111,6 +111,19 @@
             >
               Password is required
             </p>
+            <p
+              *ngIf="
+                employeeLoginForm
+                  .get('password')
+                  ?.getError('passwordInvalid') &&
+                employeeLoginForm.get('password')?.touched
+              "
+              class="text-red-700"
+            >
+              Password must have at least one lowercase letter, uppercase
+              letter, one digit, one special character, and be at least 8
+              characters long.
+            </p>
           </div>
 
           <!-- Remember me checkbox -->
@@ -341,6 +354,20 @@
                                   class="text-red-700 ps-1"
                                 >
                                   New Password is required
+                                </p>
+                                <p
+                                  *ngIf="
+                                    employeeLoginForm
+                                      .get('password')
+                                      ?.getError('passwordInvalid') &&
+                                    employeeLoginForm.get('password')?.touched
+                                  "
+                                  class="text-red-700"
+                                >
+                                  Password must have at least one lowercase
+                                  letter, uppercase letter, one digit, one
+                                  special character, and be at least 8
+                                  characters long.
                                 </p>
                                 <button
                                   type="submit"
