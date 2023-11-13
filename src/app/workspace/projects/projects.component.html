@@ -3,23 +3,25 @@
   <!-- projects container -->
   <div class="flex flex-wrap gap-3 ml-6 w-[calc(100%+2.5rem)]">
     <!-- project Card -->
-    <div
-      class="w-96 h-52 m-2 flex justify-center border border-blue-950 rounded-sm"
-      *ngFor="let project of projects"
-      ngClass="{{ project.backGround }}"
-    >
-      <!-- card body -->
-      <div class="flex flex-col justify-center items-center">
-        <p class="font-semibold text-xl text-center">
-          {{ project.projectName }}
-        </p>
-        <p class="mx-2">{{ project.description }}</p>
-        <button
-          routerLink="detail/{{ project._id }}"
-          class="bg-blue-500 hover:bg-blue-600 py-2 px-6 text-white rounded-md mt-2"
-        >
-          View Details
-        </button>
+    <div *ngIf="projects">
+      <div
+        class="w-96 h-52 m-2 flex justify-center border border-blue-950 rounded-sm"
+        *ngFor="let project of projects"
+        ngClass="{{ project.backGround }}"
+      >
+        <!-- card body -->
+        <div class="flex flex-col justify-center items-center">
+          <p class="font-semibold text-xl text-center">
+            {{ project.projectName }}
+          </p>
+          <p class="mx-2">{{ project.description }}</p>
+          <button
+            routerLink="detail/{{ project._id }}"
+            class="bg-blue-500 hover:bg-blue-600 py-2 px-6 text-white rounded-md mt-2"
+          >
+            View Details
+          </button>
+        </div>
       </div>
     </div>
 

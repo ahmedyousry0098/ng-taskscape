@@ -1,0 +1,39 @@
+.loader {
+  width: 70px;
+  height: 70px;
+  position: relative;
+}
+
+.loader:before {
+  content: "";
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  border: 6px solid rgb(2, 6, 23);
+  position: absolute;
+  top: 0;
+  left: 0;
+  animation: pulse 1s ease-in-out infinite;
+}
+
+.loader:after {
+  content: "";
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  border: 6px solid transparent;
+  border-top-color: rgb(2, 6, 23);
+  position: absolute;
+  top: 0;
+  left: 0;
+  animation: spin 1s linear infinite;
+}
+
+.loader-text {
+  font-size: 24px;
+  margin-top: 20px;
+  color: rgb(2, 6, 23);
+  font-family: Arial, sans-serif;
+  text-align: center;
+  text-transform: uppercase;
+}

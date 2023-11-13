@@ -51,6 +51,7 @@ export class CreatetaskComponent {
     private cdr: ChangeDetectorRef
   ) {}
   closeModal() {
+    this.createTaskForm.reset();
     this.toggleModal.emit(false);
   }
   onBackdropClick(event: Event): void {
@@ -172,6 +173,7 @@ export class CreatetaskComponent {
             this.notification.showNotification(res.message, 'OK', 'success');
             this.taskService.notifyNewTask(res.task);
             this.toggleModal.emit(false);
+            this.createTaskForm.reset();
           },
           error: (err) => {
             console.log(err);
