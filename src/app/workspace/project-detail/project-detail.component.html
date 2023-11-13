@@ -1,4 +1,4 @@
-<div class="w-[calc(100%+22rem)] px-6 py-10 bg-gray-100 h-fit">
+<div class="w-[calc(100%-22rem)] px-6 py-10 h-fit">
   <div class="container max-w-screen-xl mx-auto">
     <div>
       <h2 class="font-semibold text-xl text-gray-600">Project Details</h2>
@@ -138,7 +138,7 @@
               >
                 <label for="employees">Collaborators</label>
                 <p-multiSelect
-                  class="flex border"
+                  class="border"
                   [options]="allEmployees"
                   [(ngModel)]="checkedEmployees"
                   formControlName="employees"
@@ -151,6 +151,7 @@
                       employees: checkedEmployees
                     })
                   "
+                  [style]="{ width: '100%' }"
                   [class.border-red-500]="
                     editProjectForm.get('employees')?.invalid &&
                     (editProjectForm.get('employees')?.touched ||
