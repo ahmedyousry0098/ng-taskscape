@@ -48,11 +48,11 @@ export class AdminRegisterComponent {
     this._authService.adminRegister(data).subscribe({
       next: (res) => {
         this.isLoading = false;
-        window.location.href = "https://taskscape-admin.vercel.app/login";
+        this.toasterService.success(res.message);
       },
       error: (err) => {
         this.isLoading = false;
-        this.toasterService.error("You havn't entered data correctly");
+        this.toasterService.error("Successfully registered, Check your email please");
       },
     });
   }
