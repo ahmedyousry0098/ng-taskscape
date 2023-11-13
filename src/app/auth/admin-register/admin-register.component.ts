@@ -32,17 +32,13 @@ export class AdminRegisterComponent {
     this.getOrg();
   }
 
-  registerError() {
-    this.toasterService.error("You havn't entered data correctly");
-  }
-
   isLoading: boolean = false;
   adminRegisterForm: FormGroup = new FormGroup({
     adminName: new FormControl(null, [
       Validators.required,
       personNameValidator(),
     ]),
-    email: new FormControl(null, [Validators.required]),
+    email: new FormControl(null, [Validators.required, Validators.email]),
     password: new FormControl(null, [Validators.required, passwordValidator()]),
   });
 
