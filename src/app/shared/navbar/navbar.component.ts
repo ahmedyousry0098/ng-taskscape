@@ -49,7 +49,6 @@ export class NavbarComponent {
     this._IoService.fetchNotifications();
     this._IoService.getNotifications().subscribe((myNotifications) => {
       this.notifications = myNotifications;
-      this._IoService.readNotifications();
     });
   }
 
