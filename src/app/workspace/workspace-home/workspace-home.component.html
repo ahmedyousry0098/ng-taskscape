@@ -2,7 +2,7 @@
   <div class="ml-4">
     <p class="font-semibold text-lg">Welcome {{ employeeName }}!</p>
     <p>
-      You have {{ todayToDoTasks.length }}
+      You have {{ todayToDoTasks.length }} Task
       <span *ngIf="employeeRole === 'scrumMaster'">for follow up</span>
       <span *ngIf="employeeRole === 'member'">in your calendar</span>
     </p>
@@ -91,10 +91,10 @@
                       <p class="px-1">{{ toDoTask.sprint.sprint_name }}</p>
                       <p class="px-1">{{ toDoTask.taskName }}</p>
                       <p class="px-1">
-                        {{ toDoTask.startDate | date : "d MMM " }}
+                        {{ toDoTask.startDate | dateFormat : "d MMM " }}
                       </p>
                       <p class="px-1">
-                        {{ toDoTask.deadline | date : "d MMM " }}
+                        {{ toDoTask.deadline | dateFormat : "d MMM " }}
                       </p>
                     </div>
                   </div>
@@ -127,10 +127,10 @@
                       <p class="px-1">{{ toDoTask.sprint.sprint_name }}</p>
                       <p class="px-1">{{ toDoTask.taskName }}</p>
                       <p class="px-1">
-                        {{ toDoTask.startDate | date : "d MMM " }}
+                        {{ toDoTask.startDate | dateFormat : "d MMM " }}
                       </p>
                       <p class="px-1">
-                        {{ toDoTask.deadline | date : "d MMM " }}
+                        {{ toDoTask.deadline | dateFormat : "d MMM " }}
                       </p>
                     </div>
                   </div>
@@ -163,10 +163,10 @@
                       <p class="px-1">{{ toDoTask.sprint.sprint_name }}</p>
                       <p class="px-1">{{ toDoTask.taskName }}</p>
                       <p class="px-1">
-                        {{ toDoTask.startDate | date : "d MMM " }}
+                        {{ toDoTask.startDate | dateFormat : "d MMM " }}
                       </p>
                       <p class="px-1">
-                        {{ toDoTask.deadline | date : "d MMM " }}
+                        {{ toDoTask.deadline | dateFormat : "d MMM " }}
                       </p>
                     </div>
                   </div>

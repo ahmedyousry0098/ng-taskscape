@@ -30,16 +30,11 @@ export class ProjectsComponent {
   isSubmitted = false;
   isLoading: boolean = false;
   colorClass = [
-    'bg-gray-400',
-    'bg-red-200	',
-    'bg-orange-200	',
-    'bg-green-400	',
-    'bg-emerald-300	',
+    'bg-blue-200',
+    'bg-stone-300',
+    'bg-teal-100	',
     'bg-teal-300	',
-    'bg-cyan-400',
-    'bg-sky-400	',
-    'bg-indigo-300',
-    'bg-pink-300',
+    'bg-sky-200	',
   ];
 
   constructor(

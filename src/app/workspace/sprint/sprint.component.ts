@@ -2,7 +2,12 @@ import { Component } from '@angular/core';
 import { AuthService } from 'src/app/services/auth.service';
 import { SprintService } from 'src/app/services/sprint.service';
 
-import { IProjectWithSprint, IRole, ISprint } from 'src/interfaces/interfaces';
+import {
+  IProject,
+  IProjectWithSprint,
+  IRole,
+  ISprint,
+} from 'src/interfaces/interfaces';
 
 @Component({
   selector: 'app-sprint',
@@ -18,6 +23,14 @@ export class SprintComponent {
   orgId: string | null = this.authService.getDecodedToken().orgId;
   employeeID: string | null = this.authService.getDecodedToken()._id;
   showModal = false;
+  activeProject: IProjectWithSprint[] = [];
+  colorClass = [
+    'bg-blue-200',
+    'bg-stone-300',
+    'bg-teal-100	',
+    'bg-teal-300	',
+    'bg-sky-200	',
+  ];
 
   constructor(
     private sprintService: SprintService,
@@ -45,15 +58,32 @@ export class SprintComponent {
 
   getScrumProjects() {
     this.sprintService.getScrumProjects(this.employeeID).subscribe((data) => {
-      this.projects = data.projects;
       this.sprints = data.projects.sprints;
+
+      this.projects = data.projects.map((item: IProject, index: number) => ({
+        ...item,
+        backGround:
+          index >= this.colorClass.length
+            ? this.colorClass[index % this.colorClass.length]
+            : this.colorClass[index],
+      }));
     });
   }
+
   getEmployeeProject() {
     this.sprintService.getEmployeeProject(this.employeeID).subscribe((data) => {
-      this.projects = data.projects;
-
       this.sprints = data.projects.sprints;
+      this.projects = data.projects.map((item: IProject, index: number) => ({
+        ...item,
+        backGround:
+          index >= this.colorClass.length
+            ? this.colorClass[index % this.colorClass.length]
+            : this.colorClass[index],
+      }));
     });
+  }
+  getProjectId(id: string) {
+    this.activeProject = this.projects?.filter((project) => project._id === id);
+    console.log(this.activeProject[0].startDate);
   }
 }

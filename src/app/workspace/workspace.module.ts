@@ -35,6 +35,8 @@ import { CommentsComponent } from './tasks/comments/comments.component';
 import { RelativeTimePipe } from '../pipe/relative-time.pipe';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { ChangepasswordComponent } from './settings/changepassword/changepassword.component';
+import { AccordionModule } from 'primeng/accordion';
+import { CardModule } from 'primeng/card';
 
 @NgModule({
   declarations: [
@@ -79,6 +81,8 @@ import { ChangepasswordComponent } from './settings/changepassword/changepasswor
 
     MatDialogModule,
     DragDropModule,
+    AccordionModule,
+    CardModule,
   ],
   providers: [DatePipe],
 })
