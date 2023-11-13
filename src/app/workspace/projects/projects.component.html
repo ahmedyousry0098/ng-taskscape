@@ -1,10 +1,10 @@
 <div class="container">
   <h2 class="font-bold text-xl p-1 ml-5 mt-5">Your projects</h2>
   <!-- projects container -->
-  <div class="flex flex-wrap gap-3 ml-6">
+  <div class="flex flex-wrap gap-3 ml-6 w-[calc(100%+2.5rem)]">
     <!-- project Card -->
     <div
-      class="w-80 h-52 m-2 flex justify-center border border-blue-950 rounded-sm"
+      class="w-96 h-52 m-2 flex justify-center border border-blue-950 rounded-sm"
       *ngFor="let project of projects"
       ngClass="{{ project.backGround }}"
     >
@@ -24,7 +24,7 @@
     </div>
 
     <div
-      class="bg-green-300 w-80 h-52 m-2 flex justify-center"
+      class="bg-green-300 w-96 h-52 m-2 flex justify-center"
       *ngIf="IRole === 'scrumMaster'"
     >
       <!-- card body -->
