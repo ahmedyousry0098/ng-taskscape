@@ -1,30 +1,27 @@
 <!-- <div class="container w-screen justify-center flex flex-col py-5"></div> -->
 
-<div class="container w-screen overflow-y-scroll">
-  <h1 class="px-5">Tasks</h1>
-
-  <div class="px-5 pb-5">
+<div class="container ml-4 flex flex-col py-5">
+  <div class="flex items-center mx-2">
+    <p class="text-lg">
+      <i class="fa-solid fa-list-check me-2"></i>Check Your Tasks
+    </p>
     <button
-      class="relative inline-flex p-0.5 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-purple-600 to-blue-500 group-hover:from-purple-600 group-hover:to-blue-500 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800"
+      class="bg-blue-500 hover:bg-blue-700 text-white py-2 px-3 rounded lg:py-2 lg:px-4 ms-6 mb-2"
       (click)="toggleModal()"
       *ngIf="IRole === 'scrumMaster'"
     >
-      <span
-        class="relative px-5 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0"
-      >
-        <i class="fa-solid fa-plus p-1"></i>Add Task
-      </span>
+      <i class="fa-solid fa-plus p-1"></i>Add Task
     </button>
-
-    <app-createtask
-      [showModal]="showModal"
-      (toggleModal)="onToggleModal($event)"
-    ></app-createtask>
   </div>
-  <div class="flex flex-row w-fit">
+
+  <app-createtask
+    [showModal]="showModal"
+    (toggleModal)="onToggleModal($event)"
+  ></app-createtask>
+  <div class="flex flex-row justify-center w-[calc(100%+12rem)]">
     <ng-container *ngIf="tasks && tasks.length > 0; else noTasks">
       <div
-        class="my-2 p-2 m-5 bg-slate-100 h-fit w-60"
+        class="my-2 p-2 m-5 bg-sky-50 h-fit w-80 shadow-lg"
         cdkDropList
         (cdkDropListDropped)="onDrop($event, 'todo')"
         [cdkDropListData]="todoTasks"
@@ -77,7 +74,7 @@
             </div>
           </div>
         </ng-container>
-        <ng-template #noTodoTasks class="my-2 p-2 m-5 bg-slate-100 h-fit w-60">
+        <ng-template #noTodoTasks class="my-2 p-2 m-5 bg-slate-100 h-fit w-0">
           <h3 class="ps-3 pt-5 text-red-800">
             There are no tasks in this status.
           </h3>
@@ -85,7 +82,7 @@
       </div>
 
       <div
-        class="my-2 p-2 m-5 bg-slate-100 h-fit w-60"
+        class="my-2 p-2 m-5 bg-sky-50 h-fit w-80 shadow-lg"
         cdkDropList
         (cdkDropListDropped)="onDrop($event, 'doing')"
         [cdkDropListData]="doingTasks"
@@ -143,7 +140,7 @@
         </ng-template>
       </div>
       <div
-        class="my-2 p-2 m-5 bg-slate-100 h-fit w-60"
+        class="my-2 p-2 m-5 bg-sky-50 h-fit w-80 shadow-lg"
         cdkDropList
         (cdkDropListDropped)="onDrop($event, 'done')"
         [cdkDropListData]="doneTasks"
@@ -155,7 +152,7 @@
           *ngIf="doneTasks && doneTasks.length > 0; else noDoneTasks"
         >
           <div
-            class="flex flex-col p-2 my-3 bg-green-200 border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 cursor-pointer"
+            class="flex flex-col p-2 my-3 bg-green-300 border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 cursor-pointer"
             *ngFor="let task of doneTasks"
             (click)="openTaskDetails(task)"
             cdkDrag

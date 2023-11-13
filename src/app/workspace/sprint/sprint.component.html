@@ -1,4 +1,4 @@
-<div class="container ml-4 flex flex-col py-5">
+<div class="w-[calc(100%+12rem)] container ml-4 flex flex-col py-5">
   <div class="flex items-center mx-2">
     <p class="text-lg">
       <i class="fa-regular fa-calendar-days mx-2"></i>Check Your Sprints
@@ -17,7 +17,7 @@
     [projects]="projects"
     (toggleModal)="onToggleModal($event)"
   ></app-addsprint>
-  <div class="flex justify-between items-center gap-4">
+  <div class="flex flex-wrap justify-center items-center gap-4">
     <p-accordion>
       <p-accordionTab
         class="text-lg"
