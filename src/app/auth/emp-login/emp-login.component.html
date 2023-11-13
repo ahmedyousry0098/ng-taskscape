@@ -20,7 +20,7 @@
           Employee Login
         </h1>
         <p class="text-center">
-          are you the organization admin?
+          Are you the organization admin?
           <a
             href="https://taskscape-admin.vercel.app/login"
             class="text-blue-600"
@@ -241,19 +241,18 @@
                         Email is required
                       </p>
                       <button
-                        type="submit"
-                        [ngClass]="
-                          forgotPasswordForm.valid
-                            ? 'bg-blue-500 hover:bg-blue-700'
-                            : 'bg-gray-400'
-                        "
                         data-modal-toggle="password-modal"
-                        class="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-                      >
-                        <i *ngIf="isLoading" class="fas fa-spinner fa-spin"></i>
-                        <span *ngIf="!isLoading"
-                          >Send Password Reset Email</span
-                        >
+                        [disabled]="forgotPasswordForm.invalid"
+                                  type="submit"
+                                  [ngClass]="
+                                    forgotPasswordForm.valid
+                                      ? 'bg-blue-500 hover:bg-blue-700'
+                                      : 'bg-gray-400'
+                                  "
+                                  class="block w-3/4 mx-auto mt-4 py-2 rounded-2xl text-white font-semibold mb-2"
+                                >
+                                  <i *ngIf="isLoading" class="fas fa-spinner fa-spin"></i>
+                                  <span *ngIf="!isLoading">Send Password Reset Email</span>
                       </button>
                       <div
                         *ngIf="!isLoading"
@@ -365,10 +364,10 @@
                                 </p>
                                 <p
                                   *ngIf="
-                                    employeeLoginForm
+                                    resetPasswordForm
                                       .get('password')
                                       ?.getError('passwordInvalid') &&
-                                    employeeLoginForm.get('password')?.touched
+                                      resetPasswordForm.get('password')?.touched
                                   "
                                   class="text-red-700"
                                 >
@@ -378,12 +377,17 @@
                                   characters long.
                                 </p>
                                 <button
+                                [disabled]="resetPasswordForm.invalid"
                                   type="submit"
-                                  data-modal-target="password"
-                                  data-modal-toggle="password-modal"
-                                  class="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                                  [ngClass]="
+                                    resetPasswordForm.valid
+                                      ? 'bg-blue-500 hover:bg-blue-700'
+                                      : 'bg-gray-400'
+                                  "
+                                  class="block w-1/2 mx-auto mt-4 py-2 rounded-2xl text-white font-semibold mb-2"
                                 >
-                                  Reset Password
+                                  <i *ngIf="isLoading" class="fas fa-spinner fa-spin"></i>
+                                  <span *ngIf="!isLoading">Reset Password</span>
                                 </button>
                               </form>
                             </div>
@@ -400,19 +404,18 @@
           <!-- Submit button -->
           <a routerLink="/[peojects]">
             <button
-              [ngClass]="
-                employeeLoginForm.valid
-                  ? 'bg-blue-500 hover:bg-blue-700'
-                  : 'bg-gray-400'
-              "
-              type="submit"
-              class="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-              data-te-ripple-init
-              data-te-ripple-color="light"
-            >
-              <i *ngIf="isLoading" class="fas fa-spinner fa-spin"></i>
-              <span *ngIf="!isLoading"> Sign In </span>
-            </button>
+        [disabled]="employeeLoginForm.invalid"
+          type="submit"
+          [ngClass]="
+            employeeLoginForm.valid
+              ? 'bg-blue-500 hover:bg-blue-700'
+              : 'bg-gray-400'
+          "
+          class="block w-1/2 mx-auto mt-4 py-2 rounded-2xl text-white font-semibold mb-2"
+        >
+          <i *ngIf="isLoading" class="fas fa-spinner fa-spin"></i>
+          <span *ngIf="!isLoading">Login</span>
+        </button>
           </a>
         </form>
       </div>
