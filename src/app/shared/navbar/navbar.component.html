@@ -1,33 +1,60 @@
-
 <nav
   class="h-auto w-full top-0 mt-0 pt-1"
   *ngIf="router.url !== '/change-password' && router.url !== '/add-pic'"
 >
-
   <div class="container mx-auto px-4 lg:px-28">
     <div class="flex items-center justify-between">
       <button
         class="block lg:hidden text-black hover:no-underline hover:shadow-none focus:no-underline focus:shadow-none focus:outline-none focus:ring-0"
-        type="button" data-te-collapse-init data-te-target="#navbarSupportedContent1"
-        aria-controls="navbarSupportedContent1" aria-expanded="false" aria-label="Toggle navigation" *ngIf="loggedIn">
+        type="button"
+        data-te-collapse-init
+        data-te-target="#navbarSupportedContent1"
+        aria-controls="navbarSupportedContent1"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+        *ngIf="loggedIn"
+      >
         <span class="h-7 w-7">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="h-7 w-7">
-            <path fill-rule="evenodd"
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            fill="currentColor"
+            class="h-7 w-7"
+          >
+            <path
+              fill-rule="evenodd"
               d="M3 6.75A.75.75 0 013.75 6h16.5a.75.75 0 010 1.5H3.75A.75.75 0 013 6.75zM3 12a.75.75 0 01.75-.75h16.5a.75.75 0 010 1.5H3.75A.75.75 0 013 12zm0 5.25a.75.75 0 01.75-.75h16.5a.75.75 0 010 1.5H3.75a.75.75 0 01-.75-.75z"
-              clip-rule="evenodd"></path>
+              clip-rule="evenodd"
+            ></path>
           </svg>
         </span>
       </button>
 
       <!-- Collapsible navigation container -->
-      <div class="flex-grow mt-2" id="navbarSupportedContent1" data-te-collapse-item>
+      <div
+        class="flex-grow mt-2"
+        id="navbarSupportedContent1"
+        data-te-collapse-item
+      >
         <!-- Logo -->
         <div class="mr-3 me-auto">
-          <img src="../../assets/logo.png" alt="logo" class="h-10 w-10 inline mb-3" />
-          <a *ngIf="loggedIn" class="text-2xl text-blue-500" [routerLink]="['/workspace']">
+          <img
+            src="../../assets/logo.png"
+            alt="logo"
+            class="h-10 w-10 inline mb-3"
+          />
+          <a
+            *ngIf="loggedIn"
+            class="text-2xl text-blue-500"
+            [routerLink]="['/workspace']"
+          >
             Taskscape
           </a>
-          <a *ngIf="!loggedIn" class="text-2xl text-blue-500" [routerLink]="['/home']">
+          <a
+            *ngIf="!loggedIn"
+            class="text-2xl text-blue-500"
+            [routerLink]="['/home']"
+          >
             Taskscape
           </a>
         </div>
@@ -53,29 +80,56 @@
       </div>
 
       <div *ngIf="!loggedIn" class="flex items-center md:flex-row">
-        <a class="border text-blue-500 border-blue-500 mb-1 mr-2 text-center hover:bg-blue-700 hover:text-white duration-300 py-2 px-3 rounded lg:py-2 lg:px-4"
-          routerLink="/employee-login">Login as employee</a>
-        <a class="bg-blue-500 mb-1 text-center hover:bg-blue-700 text-white duration-300 py-2 px-3 rounded lg:py-2 lg:px-4"
-          routerLink="/org-register">Create Organization</a>
+        <a
+          class="border text-blue-500 border-blue-500 mb-1 mr-2 text-center hover:bg-blue-700 hover:text-white duration-300 py-2 px-3 rounded lg:py-2 lg:px-4"
+          routerLink="/employee-login"
+          >Login as employee</a
+        >
+        <a
+          class="bg-blue-500 mb-1 text-center hover:bg-blue-700 text-white duration-300 py-2 px-3 rounded lg:py-2 lg:px-4"
+          routerLink="/org-register"
+          >Create Organization</a
+        >
       </div>
       <div *ngIf="loggedIn" class="flex items-center me-6">
         <span class="text-xl text-slate-500">Welcome, {{ employeeName }}</span>
       </div>
       <button *ngIf="loggedIn">
         <a routerLink="workspace/settings">
-          <img *ngIf="loggedIn" [src]="imageUrl" class="rounded-full h-10 w-10 me-6 cursor-pointer" alt="" /></a>
+          <img
+            *ngIf="loggedIn"
+            [src]="imageUrl"
+            class="rounded-full h-10 w-10 me-6 cursor-pointer"
+            alt=""
+        /></a>
       </button>
-      <button *ngIf="loggedIn" (click)="showDialog('top-right')" icon="pi pi-arrow-down-left" label="TopRight"
-        styleClass="p-button-warning" class="me-6 scale-125">
+      <button
+        *ngIf="loggedIn"
+        (click)="showDialog('top-right')"
+        icon="pi pi-arrow-down-left"
+        label="TopRight"
+        styleClass="p-button-warning"
+        class="me-6 scale-125"
+      >
         <i class="pe-4 fa-solid fa-bell fa-lg side-bar-icon"></i>
       </button>
-      <p-dialog *ngIf="loggedIn" header="Notification" [(visible)]="visible" [position]="position"
-        [style]="{ width: '35vw' }">
-        <div *ngIf="notifications?.length; else nonotifications" id="container"
-          class="container flex flex-col my-3 border mx-auto">
-          <div *ngFor="let notification of notifications"
+      <p-dialog
+        *ngIf="loggedIn"
+        header="Notification"
+        [(visible)]="visible"
+        [position]="position"
+        [style]="{ width: '35vw' }"
+      >
+        <div
+          *ngIf="notifications?.length; else nonotifications"
+          id="container"
+          class="container flex flex-col my-3 border mx-auto"
+        >
+          <div
+            *ngFor="let notification of notifications"
             class="border-t border-b border-blue-600 text-black px-4 py-3 my-2"
-            [ngClass]="notification.isReaded ? 'bg-blue-100' : 'bg-gray-300'">
+            [ngClass]="notification.isReaded ? 'bg-blue-100' : 'bg-gray-300'"
+          >
             <div class="flex">
               <div *ngIf="notification.isReaded">
                 <i class="fa-solid fa-envelope-open"></i>
@@ -95,7 +149,6 @@
           </div>
         </div>
 
-
         <ng-template #nonotifications>
           <div class="h-full grid grid-cols-1 place-content-center">
             <p class="text-center text-gray-400 text-3xl">
@@ -106,7 +159,10 @@
       </p-dialog>
 
       <div *ngIf="loggedIn" class="flex items-center cursor-pointer">
-        <a (click)="logout()" class="bg-blue-500 hover:bg-blue-700 text-white py-2 px-3 rounded lg:py-2 lg:px-4">
+        <a
+          (click)="logout()"
+          class="bg-blue-500 hover:bg-blue-700 text-white py-2 px-3 rounded lg:py-2 lg:px-4"
+        >
           Logout
         </a>
       </div>

@@ -5,7 +5,6 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { FooterComponent } from './footer/footer.component';
 import { RouterModule } from '@angular/router';
 import { DialogModule } from 'primeng/dialog';
-
 @NgModule({
   declarations: [NotfoundComponent, NavbarComponent, FooterComponent],
   imports: [CommonModule, RouterModule, DialogModule],
