@@ -24,7 +24,7 @@ export class EmpLoginComponent {
 
   employeeLoginForm: FormGroup = new FormGroup({
     email: new FormControl(null, [Validators.required]),
-    password: new FormControl(null, [Validators.required]),
+    password: new FormControl(null, [Validators.required, passwordValidator()]),
   });
   forgotPasswordForm: FormGroup = new FormGroup({
     email: new FormControl(null, [Validators.required]),

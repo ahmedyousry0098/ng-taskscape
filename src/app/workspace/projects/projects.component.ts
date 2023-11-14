@@ -46,6 +46,7 @@ export class ProjectsComponent {
   showModal = false;
   toggleModal() {
     this.showModal = !this.showModal;
+    this.addNewProjectForm.reset();
   }
   onBackdropClick(event: Event): void {
     if (event.target === event.currentTarget) {
@@ -78,6 +79,8 @@ export class ProjectsComponent {
   onSubmit(): void {
     this.isSubmitted = true;
     this.isLoading = true;
+    console.log(this.scrumMaster, 'this.scrumMaster');
+    console.log(this.orgId, 'this.orgId');
     if (this.addNewProjectForm.valid) {
       const {
         projectName,
@@ -88,7 +91,7 @@ export class ProjectsComponent {
         organization,
         scrumMaster,
       } = this.addNewProjectForm.value;
-
+      console.log(this.addNewProjectForm.value);
       this.projectService
         .createNewProject({
           projectName: projectName,
@@ -105,6 +108,7 @@ export class ProjectsComponent {
             this.isLoading = false;
             this.getScrumMasterProjects();
             this.toggleModal();
+            this.addNewProjectForm.reset();
           },
           error: (err) => {
             console.log(err);
@@ -128,6 +132,8 @@ export class ProjectsComponent {
     );
   }
   ngOnInit() {
+    console.log(this.orgId, 'org');
+    console.log(this.scrumMaster);
     this.IRole = this.auth.getDecodedToken().role;
 
     if (this.IRole === IRole.scrumMaster) {

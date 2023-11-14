@@ -52,7 +52,9 @@ export class AdminRegisterComponent {
       },
       error: (err) => {
         this.isLoading = false;
-        this.toasterService.error("Successfully registered, Check your email please");
+        this.toasterService.error(
+          'Successfully registered, Check your email please'
+        );
       },
     });
   }

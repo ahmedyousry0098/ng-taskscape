@@ -33,6 +33,7 @@ export class ProjectService {
   }
   createNewProject(formData: any): Observable<IProject> {
     this.token = this.auth.getToken();
+    console.log(formData);
 
     return this.HttpClient.post<IProject>(
       `${this.baseUrl}/project/create`,
