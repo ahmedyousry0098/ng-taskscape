@@ -189,6 +189,7 @@ export class ProjectsComponent {
   projects?: IProject[];
   isSubmitted = false;
   isLoading: boolean = false;
+  isLoadingProjects: boolean = true;
   colorClass = [
     'bg-blue-200',
     'bg-stone-300',
@@ -276,6 +277,7 @@ export class ProjectsComponent {
   }
 
   getScrumMasterProjects() {
+    this.isLoadingProjects = true;
     this.projectService.getAllProjectsScrum().subscribe(
       (data) =>
         (this.projects = data.projects.map((item: IProject, index: number) => ({
@@ -286,6 +288,7 @@ export class ProjectsComponent {
               : this.colorClass[index],
         })))
     );
+    this.isLoadingProjects = false;
   }
   ngOnInit() {
     this.IRole = this.auth.getDecodedToken().role;

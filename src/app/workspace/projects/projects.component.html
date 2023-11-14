@@ -1,7 +1,13 @@
 <div class="container">
   <h2 class="font-bold text-xl p-1 ml-5 mt-5">Your projects</h2>
+  <div class="text-center ms-[600px] mt-48" *ngIf="!projects">
+    <div class="loader-container py-3 scale-150">
+      <div class="loader mx-auto"></div>
+      <div class="loader-text">Loading...</div>
+    </div>
+  </div>
   <!-- projects container -->
-  <div class="flex flex-wrap gap-3 ml-6">
+  <div class="flex flex-wrap gap-3 ml-6" *ngIf="projects">
     <!-- project Card -->
     <div
       class="w-80 h-52 m-2 flex justify-center border border-blue-950 rounded-sm"
