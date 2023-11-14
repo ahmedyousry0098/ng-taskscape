@@ -18,7 +18,16 @@
     [showModal]="showModal"
     (toggleModal)="onToggleModal($event)"
   ></app-createtask>
-  <div class="flex flex-row justify-center w-[calc(100%+12rem)]">
+  <div class="text-center ms-[600px] mt-48" *ngIf="isLoadingTasks">
+    <div class="loader-container py-3 scale-150">
+      <div class="loader mx-auto"></div>
+      <div class="loader-text">Loading...</div>
+    </div>
+  </div>
+  <div
+    class="flex flex-row justify-center w-[calc(100%+12rem)]"
+    *ngIf="!isLoadingTasks"
+  >
     <ng-container *ngIf="tasks && tasks.length > 0; else noTasks">
       <div
         class="my-2 p-2 m-5 bg-sky-50 h-fit w-80 shadow-lg"
@@ -28,13 +37,13 @@
         #todoList="cdkDropList"
         [cdkDropListConnectedTo]="[doingList, doneList]"
       >
-        <h2 class="ps-4">To do Tasks ({{ todoTasks.length }})</h2>
+        <h2 class="text-center py-2">To do Tasks ({{ todoTasks.length }})</h2>
 
         <ng-container
           *ngIf="todoTasks && todoTasks.length > 0; else noTodoTasks"
         >
           <div
-            class="flex flex-col p-2 my-3 bg-red-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 cursor-pointer"
+            class="flex flex-col p-2 my-3 bg-red-300 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 cursor-pointer"
             *ngFor="let task of todoTasks"
             (click)="openTaskDetails(task)"
             cdkDrag
@@ -54,7 +63,7 @@
                 class="[word-wrap: break-word] my-[3px] mr-4 flex h-[42px] cursor-pointer items-center justify-between rounded-[21px] bg-[#eceff1] px-[12px] py-0 text-[13px] font-normal normal-case leading-loose text-[#4f4f4f] shadow-none transition-[opacity] duration-300 ease-linear hover:!shadow-none active:bg-[#cacfd1] dark:bg-neutral-600 dark:text-neutral-200"
               >
                 <img
-                  class="my-0 -ml-[12px] mr-[8px] h-12 w-12 rounded-[100%]"
+                  class="my-0 -ml-[12px] mr-[8px] h-12 w-12 rounded-[100%] border-2 border-red-300"
                   [src]="
                     (task.assignTo &&
                       task.assignTo.profile_photo &&
@@ -89,7 +98,9 @@
         #doingList="cdkDropList"
         [cdkDropListConnectedTo]="[todoList, doneList]"
       >
-        <h2 class="ps-4">In progress Tasks ({{ doingTasks.length }})</h2>
+        <h2 class="text-center py-2">
+          In progress Tasks ({{ doingTasks.length }})
+        </h2>
         <ng-container
           *ngIf="doingTasks && doingTasks.length > 0; else noTodoingTasks"
         >
@@ -114,7 +125,7 @@
                 class="[word-wrap: break-word] my-[3px] mr-4 flex h-[42px] cursor-pointer items-center justify-between rounded-[21px] bg-[#eceff1] px-[12px] py-0 text-[13px] font-normal normal-case leading-loose text-[#4f4f4f] shadow-none transition-[opacity] duration-300 ease-linear hover:!shadow-none active:bg-[#cacfd1] dark:bg-neutral-600 dark:text-neutral-200"
               >
                 <img
-                  class="my-0 -ml-[12px] mr-[8px] h-12 w-12 rounded-[100%]"
+                  class="my-0 -ml-[12px] mr-[8px] h-12 w-12 rounded-[100%] border-2 border-blue-200"
                   [src]="
                     (task.assignTo &&
                       task.assignTo.profile_photo &&
@@ -147,7 +158,7 @@
         #doneList="cdkDropList"
         [cdkDropListConnectedTo]="[doingList, todoList]"
       >
-        <h2 class="ps-4">Done Tasks ({{ doneTasks.length }})</h2>
+        <h2 class="text-center py-2">Done Tasks ({{ doneTasks.length }})</h2>
         <ng-container
           *ngIf="doneTasks && doneTasks.length > 0; else noDoneTasks"
         >
@@ -173,7 +184,7 @@
                 class="[word-wrap: break-word] my-[3px] mr-4 flex h-[42px] cursor-pointer items-center justify-between rounded-[21px] bg-[#eceff1] px-[12px] py-0 text-[13px] font-normal normal-case leading-loose text-[#4f4f4f] shadow-none transition-[opacity] duration-300 ease-linear hover:!shadow-none active:bg-[#cacfd1] dark:bg-neutral-600 dark:text-neutral-200"
               >
                 <img
-                  class="my-0 -ml-[12px] mr-[8px] h-12 w-12 rounded-[100%]"
+                  class="my-0 -ml-[12px] mr-[8px] h-12 w-12 rounded-[100%] border-2 border-green-300"
                   [src]="
                     (task.assignTo &&
                       task.assignTo.profile_photo &&
@@ -199,10 +210,19 @@
         </ng-template>
       </div>
     </ng-container>
-    <ng-template #noTasks>
-      <div class="my-2 p-2 m-5 bg-slate-100 h-fit w-full">
-        <h3 class="p-5 text-red-800">
-          There are no tasks for this sprint yet.
+    <ng-template class="w-full" #noTasks>
+      <div class="p-2 m-5 bg-slate-100 h-28 w-full text-center">
+        <h3
+          class="pt-10 text-center font-semibold text-red-800"
+          *ngIf="IRole === 'member'"
+        >
+          You have not been assigned tasks yet.
+        </h3>
+        <h3
+          class="pt-10 text-center font-semibold text-red-800"
+          *ngIf="IRole === 'scrumMaster'"
+        >
+          You have not assigned tasks to members yet
         </h3>
       </div>
     </ng-template>

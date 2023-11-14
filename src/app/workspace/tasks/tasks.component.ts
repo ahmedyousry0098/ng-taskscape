@@ -42,6 +42,7 @@ export class TasksComponent {
   taskId: string = '';
   commentCounts!: any;
   comments!: string[];
+  isLoadingTasks: boolean = true;
   constructor(
     private taskService: TaskService,
     private authService: AuthService,
@@ -100,40 +101,47 @@ export class TasksComponent {
     dialogRef.afterClosed().subscribe((result) => {});
   }
   getTasksOfEmployee() {
+    this.isLoadingTasks = true;
     this.taskService.getEmployeeTasks(this.employeeID).subscribe((data) => {
       this.tasks = data.tasks;
       this.getCommentCounts();
       this.todoTasks = this.tasks.filter((task) => task.status === 'todo');
       this.doingTasks = this.tasks.filter((task) => task.status === 'doing');
       this.doneTasks = this.tasks.filter((task) => task.status === 'done');
+      this.isLoadingTasks = false;
     });
   }
   getTasksOfScrum() {
+    this.isLoadingTasks = true;
     this.taskService.getScrumTasks(this.employeeID).subscribe((data) => {
       this.tasks = data.tasks;
       this.getCommentCounts();
-
       this.todoTasks = this.tasks.filter((task) => task.status === 'todo');
       this.doingTasks = this.tasks.filter((task) => task.status === 'doing');
       this.doneTasks = this.tasks.filter((task) => task.status === 'done');
+      this.isLoadingTasks = false;
     });
   }
   updateTaskLists() {
+    this.isLoadingTasks = true;
     this.taskService.getScrumTasks(this.employeeID).subscribe((data) => {
       this.tasks = data.tasks;
       this.getCommentCounts();
       this.todoTasks = this.tasks.filter((task) => task.status === 'todo');
       this.doingTasks = this.tasks.filter((task) => task.status === 'doing');
       this.doneTasks = this.tasks.filter((task) => task.status === 'done');
+      this.isLoadingTasks = false;
     });
   }
   updateTaskListsMember() {
+    this.isLoadingTasks = true;
     this.taskService.getEmployeeTasks(this.employeeID).subscribe((data) => {
       this.tasks = data.tasks;
       this.getCommentCounts();
       this.todoTasks = this.tasks.filter((task) => task.status === 'todo');
       this.doingTasks = this.tasks.filter((task) => task.status === 'doing');
       this.doneTasks = this.tasks.filter((task) => task.status === 'done');
+      this.isLoadingTasks = false;
     });
   }
   onDrop(event: CdkDragDrop<ITaskDetailed[]>, newStatus: string) {

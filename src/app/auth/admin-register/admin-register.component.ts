@@ -32,17 +32,13 @@ export class AdminRegisterComponent {
     this.getOrg();
   }
 
-  registerError() {
-    this.toasterService.error("You havn't entered data correctly");
-  }
-
   isLoading: boolean = false;
   adminRegisterForm: FormGroup = new FormGroup({
     adminName: new FormControl(null, [
       Validators.required,
       personNameValidator(),
     ]),
-    email: new FormControl(null, [Validators.required]),
+    email: new FormControl(null, [Validators.required, Validators.email]),
     password: new FormControl(null, [Validators.required, passwordValidator()]),
   });
 
@@ -52,11 +48,11 @@ export class AdminRegisterComponent {
     this._authService.adminRegister(data).subscribe({
       next: (res) => {
         this.isLoading = false;
-        window.location.href = "https://taskscape-admin.vercel.app/login";
+        this.toasterService.success(res.message);
       },
       error: (err) => {
         this.isLoading = false;
-        this.toasterService.error("You havn't entered data correctly");
+        this.toasterService.error("Successfully registered, Check your email please");
       },
     });
   }

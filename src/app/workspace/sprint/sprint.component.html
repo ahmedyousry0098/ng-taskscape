@@ -17,7 +17,17 @@
     [projects]="projects"
     (toggleModal)="onToggleModal($event)"
   ></app-addsprint>
-  <div class="flex flex-wrap justify-center items-center gap-4">
+  <div class="text-center ms-[600px] mt-48" *ngIf="isLoadingSprits">
+    <div class="loader-container py-3 scale-150">
+      <div class="loader mx-auto"></div>
+      <div class="loader-text">Loading...</div>
+    </div>
+  </div>
+
+  <div
+    class="flex flex-wrap justify-center items-center gap-4"
+    *ngIf="!isLoadingSprits"
+  >
     <p-accordion>
       <p-accordionTab
         class="text-lg"
@@ -53,7 +63,7 @@
                 </td>
                 <td class="text-center">
                   <button
-                    class="relative inline-flex items-center justify-center mb-1 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-cyan-500 to-blue-500 group-hover:from-cyan-500 group-hover:to-blue-500 hover:text-white focus:ring-4 focus:outline-none focus:ring-cyan-200 dark:focus:ring-cyan-800"
+                    class="relative inline-flex items-center justify-center mb-1 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-cyan-500 to-blue-500 group-hover:from-cyan-500 group-hover:to-blue-500 hover:text-white focus:ring-4 focus:outline-none focus:ring-cyan-200 dark:focus:ring-cyan-800 mt-1"
                     routerLink="details/{{ sprint._id }}"
                   >
                     <span

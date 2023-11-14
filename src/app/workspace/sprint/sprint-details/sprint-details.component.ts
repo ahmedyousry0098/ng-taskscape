@@ -22,6 +22,7 @@ export class SprintDetailsComponent {
   todoTasks: ITask[] = [];
   doneTasks: ITask[] = [];
   doingTasks: ITask[] = [];
+  isLoadingSprits: boolean = true;
   imageUrl: string = '../../../assets/noavatar.jpg';
   constructor(
     private route: ActivatedRoute,
@@ -39,7 +40,7 @@ export class SprintDetailsComponent {
   }
 
   getSprintDetails() {
-    console.log(this.sprintId);
+    this.isLoadingSprits = true;
     this.sprintService.getSprintDetails(this.sprintId).subscribe((data) => {
       this.sprintName = data.details.sprint_name;
       this.startDate = data.details.start_date;
@@ -49,6 +50,7 @@ export class SprintDetailsComponent {
       this.todoTasks = this.tasks.filter((task) => task.status === 'todo');
       this.doingTasks = this.tasks.filter((task) => task.status === 'doing');
       this.doneTasks = this.tasks.filter((task) => task.status === 'done');
+      this.isLoadingSprits = false;
     });
   }
 }
