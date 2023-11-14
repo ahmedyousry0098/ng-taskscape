@@ -1,10 +1,15 @@
-import { IRole, ITaskDetailed } from './../../../interfaces/interfaces';
+import {
+  IRole,
+  IStatus,
+  ITaskDetailed,
+} from './../../../interfaces/interfaces';
 import { UserProfileService } from './../../services/user-profile.service';
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 import { IoService } from 'src/app/services/io.service';
 import { TaskService } from 'src/app/services/task.service';
+import { isFuture, isPast, isToday } from 'date-fns';
 
 @Component({
   selector: 'app-workspace-home',
@@ -72,21 +77,25 @@ export class WorkspaceHomeComponent {
 
     this.taskService.getScrumTasks(this.employeeID).subscribe((data) => {
       this.tasks = data.tasks;
-      this.todayToDoTasks = this.tasks.filter(
-        (task) =>
-          new Date(task.startDate).getDate() <= todayDate.getDate() &&
-          task.status === 'todo'
-      );
-      console.log(this.todayToDoTasks);
-      this.todayOverDueTasks = this.tasks.filter(
-        (task) =>
-          new Date(task.deadline).getDate() <= todayDate.getDate() &&
-          task.status === 'todo'
-      );
+      this.todayToDoTasks = this.tasks.filter((task) => {
+        return (
+          isToday(new Date(task.startDate)) ||
+          (isFuture(new Date(task.deadline)) &&
+            isPast(new Date(task.startDate)) &&
+            task.status === IStatus.TODO)
+        );
+      });
+
+      this.todayOverDueTasks = this.tasks.filter((task) => {
+        return (
+          (isToday(new Date(task.deadline)) ||
+            isPast(new Date(task.deadline))) &&
+          task.status === IStatus.TODO
+        );
+      });
       this.todayDoneTasks = this.tasks.filter(
         (task) =>
-          new Date(task.startDate).getDate() === todayDate.getDate() &&
-          task.status === 'done'
+          isToday(new Date(task.deadline)) && task.status === IStatus.DONE
       );
     });
   }
