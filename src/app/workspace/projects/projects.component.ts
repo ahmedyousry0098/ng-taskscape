@@ -46,7 +46,7 @@ export class ProjectsComponent {
   showModal = false;
   toggleModal() {
     this.showModal = !this.showModal;
-    this.addNewProjectForm.reset();
+    // this.addNewProjectForm.reset();
   }
   onBackdropClick(event: Event): void {
     if (event.target === event.currentTarget) {
@@ -108,7 +108,7 @@ export class ProjectsComponent {
             this.isLoading = false;
             this.getScrumMasterProjects();
             this.toggleModal();
-            this.addNewProjectForm.reset();
+            // this.addNewProjectForm.reset();
           },
           error: (err) => {
             console.log(err);
