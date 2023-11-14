@@ -1,248 +1,238 @@
 <div class="container">
   <h2 class="font-bold text-xl p-1 ml-5 mt-5">Your projects</h2>
   <!-- projects container -->
-  <div class="text-center ms-[600px] mt-48" *ngIf="!projects">
-    <div class="loader-container py-3 scale-150">
-      <div class="loader mx-auto"></div>
-      <div class="loader-text">Loading...</div>
-    </div>
-  </div>
-  <div *ngIf="projects">
-    <div class="flex flex-wrap gap-3 ml-6 w-[calc(100%+2.5rem)]">
-      <!-- project Card -->
-      <div *ngIf="projects">
-        <div
-          class="w-96 h-52 m-2 flex justify-center border border-blue-950 rounded-sm"
-          *ngFor="let project of projects"
-          ngClass="{{ project.backGround }}"
-        >
-          <!-- card body -->
-          <div class="flex flex-col justify-center items-center">
-            <p class="font-semibold text-xl text-center">
-              {{ project.projectName }}
-            </p>
-            <p class="px-2 text-center">{{ project.description }}</p>
-            <button
-              routerLink="detail/{{ project._id }}"
-              class="bg-blue-500 hover:bg-blue-600 py-2 px-6 text-white rounded-md mt-2"
-            >
-              View Details
-            </button>
-          </div>
-        </div>
-      </div>
-
-      <div
-        class="bg-green-300 w-96 h-52 m-2 flex justify-center"
-        *ngIf="IRole === 'scrumMaster'"
-      >
-        <!-- card body -->
-
-        <!-- Add project -->
+  <div class="flex flex-wrap gap-3 ml-6">
+    <!-- project Card -->
+    <div
+      class="w-80 h-52 m-2 flex justify-center border border-blue-950 rounded-sm"
+      *ngFor="let project of projects"
+      ngClass="{{ project.backGround }}"
+    >
+      <!-- card body -->
+      <div class="flex flex-col justify-center items-center">
+        <p class="font-semibold text-xl text-center">
+          {{ project.projectName }}
+        </p>
+        <p class="px-2 text-center">{{ project.description }}</p>
         <button
-          class="flex flex-col justify-center items-center cursor-pointer"
-          type="button"
-          (click)="toggleModal()"
+          routerLink="detail/{{ project._id }}"
+          class="bg-blue-500 hover:bg-blue-600 py-2 px-6 text-white rounded-md mt-2"
         >
-          <h3 class="font-semibold text-xl">Add Project</h3>
-          <p class="text-2xl">+</p>
+          View Details
         </button>
-        <div
-          *ngIf="showModal"
-          (click)="onBackdropClick($event)"
-          class="overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none justify-center items-center flex bg-black bg-opacity-60"
-        >
-          <div class="relative w-auto my-6 mx-auto max-w-6xl h-fit">
-            <!--content-->
+      </div>
+    </div>
+
+    <div
+      class="bg-green-300 w-80 h-52 m-2 flex justify-center"
+      *ngIf="IRole === 'scrumMaster'"
+    >
+      <!-- card body -->
+
+      <!-- Add project -->
+      <button
+        class="flex flex-col justify-center items-center cursor-pointer"
+        type="button"
+        (click)="toggleModal()"
+      >
+        <h3 class="font-semibold text-xl">Add Project</h3>
+        <p class="text-2xl">+</p>
+      </button>
+      <div
+        *ngIf="showModal"
+        (click)="onBackdropClick($event)"
+        class="overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none justify-center items-center flex"
+      >
+        <div class="relative w-auto my-6 mx-auto max-w-6xl">
+          <!--content-->
+          <div
+            class="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none"
+          >
+            <!--header-->
             <div
-              class="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-sky-50 outline-none focus:outline-none"
+              class="flex items-start justify-between p-5 border-b border-solid border-blueGray-200 rounded-t"
             >
-              <!--header-->
-              <div
-                class="flex items-start justify-between p-5 border-b border-solid border-blueGray-200 rounded-t"
+              <h3 class="text-3xl font-semibold">Create New Project</h3>
+              <button
+                class="p-1 ml-auto bg-transparent border-0 text-black opacity-5 float-right text-3xl leading-none font-semibold outline-none focus:outline-none"
+                (click)="toggleModal()"
               >
-                <h3 class="text-3xl font-semibold">Create New Project</h3>
-                <button
-                  class="p-1 ml-auto bg-transparent border-0 text-black opacity-5 float-right text-3xl leading-none font-semibold outline-none focus:outline-none"
-                  (click)="toggleModal()"
+                <span
+                  class="bg-gray-500 text-black opacity-5 h-6 w-6 text-2xl block outline-none focus:outline-none"
                 >
+                  ×
+                </span>
+              </button>
+            </div>
+            <!--body-->
+            <div class="relative p-6 flex-auto">
+              <form
+                class="p-4 space-y-6"
+                [formGroup]="addNewProjectForm"
+                (ngSubmit)="onSubmit()"
+              >
+                <!-- project name -->
+                <div class="flex flex-col gap-1">
+                  <label for="project-name">Project Name</label>
+                  <input
+                    type="text"
+                    name="project-name"
+                    id="project-name"
+                    formControlName="projectName"
+                    class="border border-gray-600 rounded-md"
+                    [class.border-red-500]="
+                      addNewProjectForm.get('projectName')?.invalid &&
+                      (addNewProjectForm.get('projectName')?.touched ||
+                        addNewProjectForm.get('projectName')?.dirty ||
+                        isSubmitted)
+                    "
+                  />
                   <span
-                    class="bg-gray-500 text-black opacity-5 h-6 w-6 text-2xl block outline-none focus:outline-none"
+                    class="text-red-500"
+                    *ngIf="
+                      addNewProjectForm.get('projectName')?.invalid &&
+                      (addNewProjectForm.get('projectName')?.touched ||
+                        addNewProjectForm.get('projectName')?.dirty ||
+                        isSubmitted)
+                    "
+                    >The project must has a name, start with capital letter and
+                    only (.) special character valid...</span
                   >
-                    ×
-                  </span>
-                </button>
-              </div>
-              <!--body-->
-              <div class="relative p-6 flex-auto">
-                <form
-                  class="p-4 space-y-6"
-                  [formGroup]="addNewProjectForm"
-                  (ngSubmit)="onSubmit()"
-                >
-                  <!-- project name -->
+                </div>
+                <!-- date -->
+                <div class="flex justify-between gap-5">
+                  <!-- Start Date -->
                   <div class="flex flex-col gap-1">
-                    <label for="project-name">Project Name</label>
+                    <label for="startDate">Start Date</label>
                     <input
-                      type="text"
-                      name="project-name"
-                      id="project-name"
-                      formControlName="projectName"
+                      type="date"
+                      name="startDate"
+                      id="startDate"
+                      formControlName="start_date"
                       class="border border-gray-600 rounded-md"
                       [class.border-red-500]="
-                        addNewProjectForm.get('projectName')?.invalid &&
-                        (addNewProjectForm.get('projectName')?.touched ||
-                          addNewProjectForm.get('projectName')?.dirty ||
+                        addNewProjectForm.get('start_date')?.invalid &&
+                        (addNewProjectForm.get('start_date')?.touched ||
+                          addNewProjectForm.get('start_date')?.dirty ||
                           isSubmitted)
                       "
                     />
                     <span
                       class="text-red-500"
                       *ngIf="
-                        addNewProjectForm.get('projectName')?.invalid &&
-                        (addNewProjectForm.get('projectName')?.touched ||
-                          addNewProjectForm.get('projectName')?.dirty ||
+                        addNewProjectForm.get('start_date')?.invalid &&
+                        (addNewProjectForm.get('start_date')?.touched ||
+                          addNewProjectForm.get('start_date')?.dirty ||
                           isSubmitted)
                       "
-                      >The project must has a name, start with capital letter
-                      and only (.) special character valid...</span
+                      >This field is required</span
                     >
                   </div>
-                  <!-- date -->
-                  <div class="flex justify-between gap-5">
-                    <!-- Start Date -->
-                    <div class="flex flex-col gap-1">
-                      <label for="startDate">Start Date</label>
-                      <input
-                        type="date"
-                        name="startDate"
-                        id="startDate"
-                        formControlName="start_date"
-                        class="border border-gray-600 rounded-md"
-                        [class.border-red-500]="
-                          addNewProjectForm.get('start_date')?.invalid &&
-                          (addNewProjectForm.get('start_date')?.touched ||
-                            addNewProjectForm.get('start_date')?.dirty ||
-                            isSubmitted)
-                        "
-                      />
-                      <span
-                        class="text-red-500"
-                        *ngIf="
-                          addNewProjectForm.get('start_date')?.invalid &&
-                          (addNewProjectForm.get('start_date')?.touched ||
-                            addNewProjectForm.get('start_date')?.dirty ||
-                            isSubmitted)
-                        "
-                        >This field is required</span
-                      >
-                    </div>
-                    <div class="flex flex-col gap-1">
-                      <label for="deadline">End Date</label>
-                      <input
-                        type="date"
-                        name="deadline"
-                        id="deadline"
-                        formControlName="deadline"
-                        class="border border-gray-600 rounded-md"
-                        [class.border-red-500]="
-                          addNewProjectForm.get('deadline')?.invalid &&
-                          (addNewProjectForm.get('deadline')?.touched ||
-                            addNewProjectForm.get('deadline')?.dirty ||
-                            isSubmitted)
-                        "
-                      />
-                      <span
-                        class="text-red-500"
-                        *ngIf="
-                          addNewProjectForm.get('deadline')?.invalid &&
-                          (addNewProjectForm.get('deadline')?.touched ||
-                            addNewProjectForm.get('deadline')?.dirty ||
-                            isSubmitted)
-                        "
-                        >This field is required</span
-                      >
-                    </div>
-                  </div>
-                  <!-- description -->
                   <div class="flex flex-col gap-1">
-                    <label for="description">Project Description</label>
-                    <textarea
-                      name="description"
-                      id="description"
-                      cols="30"
-                      rows="5"
-                      formControlName="description"
+                    <label for="deadline">End Date</label>
+                    <input
+                      type="date"
+                      name="deadline"
+                      id="deadline"
+                      formControlName="deadline"
                       class="border border-gray-600 rounded-md"
                       [class.border-red-500]="
-                        addNewProjectForm.get('description')?.invalid &&
-                        (addNewProjectForm.get('description')?.touched ||
-                          addNewProjectForm.get('description')?.dirty ||
+                        addNewProjectForm.get('deadline')?.invalid &&
+                        (addNewProjectForm.get('deadline')?.touched ||
+                          addNewProjectForm.get('deadline')?.dirty ||
                           isSubmitted)
                       "
-                    ></textarea>
+                    />
                     <span
                       class="text-red-500"
                       *ngIf="
-                        addNewProjectForm.get('description')?.invalid &&
-                        (addNewProjectForm.get('description')?.touched ||
-                          addNewProjectForm.get('description')?.dirty ||
+                        addNewProjectForm.get('deadline')?.invalid &&
+                        (addNewProjectForm.get('deadline')?.touched ||
+                          addNewProjectForm.get('deadline')?.dirty ||
                           isSubmitted)
                       "
                       >This field is required</span
                     >
                   </div>
-
-                  <div class="flex flex-col gap-1">
-                    <label for="employees">Collaborators</label>
-                    <p-multiSelect
-                      class="flex border"
-                      [options]="employees"
-                      formControlName="employees"
-                      optionLabel="employeeName"
-                      optionValue="_id"
-                      display="chip"
-                      placeholder="add collaborators to your project"
-                      [class.border-red-500]="
-                        addNewProjectForm.get('employees')?.invalid &&
-                        (addNewProjectForm.get('employees')?.touched ||
-                          addNewProjectForm.get('employees')?.dirty ||
-                          isSubmitted)
-                      "
-                    ></p-multiSelect>
-                    <span
-                      class="text-red-500"
-                      *ngIf="
-                        addNewProjectForm.get('employees')?.invalid &&
-                        (addNewProjectForm.get('employees')?.touched ||
-                          addNewProjectForm.get('employees')?.dirty ||
-                          isSubmitted)
-                      "
-                      >This field is required</span
-                    >
-                  </div>
-
-                  <div
-                    class="flex items-center p-6 space-x-2 border-t border-gray-200 rounded-b dark:border-gray-600"
+                </div>
+                <!-- description -->
+                <div class="flex flex-col gap-1">
+                  <label for="description">Project Description</label>
+                  <textarea
+                    name="description"
+                    id="description"
+                    cols="30"
+                    rows="5"
+                    formControlName="description"
+                    class="border border-gray-600 rounded-md"
+                    [class.border-red-500]="
+                      addNewProjectForm.get('description')?.invalid &&
+                      (addNewProjectForm.get('description')?.touched ||
+                        addNewProjectForm.get('description')?.dirty ||
+                        isSubmitted)
+                    "
+                  ></textarea>
+                  <span
+                    class="text-red-500"
+                    *ngIf="
+                      addNewProjectForm.get('description')?.invalid &&
+                      (addNewProjectForm.get('description')?.touched ||
+                        addNewProjectForm.get('description')?.dirty ||
+                        isSubmitted)
+                    "
+                    >This field is required</span
                   >
-                    <button
-                      type="submit"
-                      class="text-white bg-blue-600 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
-                    >
-                      <i *ngIf="isLoading" class="fas fa-spinner fa-spin"></i>
+                </div>
 
-                      Add Project
-                    </button>
-                    <button
-                      type="button"
-                      class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600"
-                      (click)="toggleModal()"
-                    >
-                      Decline
-                    </button>
-                  </div>
-                </form>
-              </div>
+                <div class="flex flex-col gap-1">
+                  <label for="employees">Collaborators</label>
+                  <p-multiSelect
+                    class="flex border"
+                    [options]="employees"
+                    formControlName="employees"
+                    optionLabel="employeeName"
+                    optionValue="_id"
+                    display="chip"
+                    placeholder="add collaborators to your project"
+                    [class.border-red-500]="
+                      addNewProjectForm.get('employees')?.invalid &&
+                      (addNewProjectForm.get('employees')?.touched ||
+                        addNewProjectForm.get('employees')?.dirty ||
+                        isSubmitted)
+                    "
+                  ></p-multiSelect>
+                  <span
+                    class="text-red-500"
+                    *ngIf="
+                      addNewProjectForm.get('employees')?.invalid &&
+                      (addNewProjectForm.get('employees')?.touched ||
+                        addNewProjectForm.get('employees')?.dirty ||
+                        isSubmitted)
+                    "
+                    >This field is required</span
+                  >
+                </div>
+
+                <div
+                  class="flex items-center p-6 space-x-2 border-t border-gray-200 rounded-b dark:border-gray-600"
+                >
+                  <button
+                    type="submit"
+                    class="text-white bg-blue-600 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
+                  >
+                    <i *ngIf="isLoading" class="fas fa-spinner fa-spin"></i>
+
+                    Add Project
+                  </button>
+                  <button
+                    type="button"
+                    class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600"
+                    (click)="toggleModal()"
+                  >
+                    Decline
+                  </button>
+                </div>
+              </form>
             </div>
           </div>
         </div>
