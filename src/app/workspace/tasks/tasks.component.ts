@@ -123,25 +123,25 @@ export class TasksComponent {
     });
   }
   updateTaskLists() {
-    this.isLoadingTasks = true;
+    // this.isLoadingTasks = true;
     this.taskService.getScrumTasks(this.employeeID).subscribe((data) => {
       this.tasks = data.tasks;
       this.getCommentCounts();
       this.todoTasks = this.tasks.filter((task) => task.status === 'todo');
       this.doingTasks = this.tasks.filter((task) => task.status === 'doing');
       this.doneTasks = this.tasks.filter((task) => task.status === 'done');
-      this.isLoadingTasks = false;
+      // this.isLoadingTasks = false;
     });
   }
   updateTaskListsMember() {
-    this.isLoadingTasks = true;
+    // this.isLoadingTasks = true;
     this.taskService.getEmployeeTasks(this.employeeID).subscribe((data) => {
       this.tasks = data.tasks;
       this.getCommentCounts();
       this.todoTasks = this.tasks.filter((task) => task.status === 'todo');
       this.doingTasks = this.tasks.filter((task) => task.status === 'doing');
       this.doneTasks = this.tasks.filter((task) => task.status === 'done');
-      this.isLoadingTasks = false;
+      // this.isLoadingTasks = false;
     });
   }
   onDrop(event: CdkDragDrop<ITaskDetailed[]>, newStatus: string) {

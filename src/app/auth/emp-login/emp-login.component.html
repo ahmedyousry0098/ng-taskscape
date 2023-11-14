@@ -243,16 +243,18 @@
                       <button
                         data-modal-toggle="password-modal"
                         [disabled]="forgotPasswordForm.invalid"
-                                  type="submit"
-                                  [ngClass]="
-                                    forgotPasswordForm.valid
-                                      ? 'bg-blue-500 hover:bg-blue-700'
-                                      : 'bg-gray-400'
-                                  "
-                                  class="block w-3/4 mx-auto mt-4 py-2 rounded-2xl text-white font-semibold mb-2"
-                                >
-                                  <i *ngIf="isLoading" class="fas fa-spinner fa-spin"></i>
-                                  <span *ngIf="!isLoading">Send Password Reset Email</span>
+                        type="submit"
+                        [ngClass]="
+                          forgotPasswordForm.valid
+                            ? 'bg-blue-500 hover:bg-blue-700'
+                            : 'bg-gray-400'
+                        "
+                        class="block w-3/4 mx-auto mt-4 py-2 rounded-2xl text-white font-semibold mb-2"
+                      >
+                        <i *ngIf="isLoading" class="fas fa-spinner fa-spin"></i>
+                        <span *ngIf="!isLoading"
+                          >Send Password Reset Email</span
+                        >
                       </button>
                       <div
                         *ngIf="!isLoading"
@@ -367,7 +369,7 @@
                                     resetPasswordForm
                                       .get('password')
                                       ?.getError('passwordInvalid') &&
-                                      resetPasswordForm.get('password')?.touched
+                                    resetPasswordForm.get('password')?.touched
                                   "
                                   class="text-red-700"
                                 >
@@ -377,7 +379,7 @@
                                   characters long.
                                 </p>
                                 <button
-                                [disabled]="resetPasswordForm.invalid"
+                                  [disabled]="resetPasswordForm.invalid"
                                   type="submit"
                                   [ngClass]="
                                     resetPasswordForm.valid
@@ -386,7 +388,10 @@
                                   "
                                   class="block w-1/2 mx-auto mt-4 py-2 rounded-2xl text-white font-semibold mb-2"
                                 >
-                                  <i *ngIf="isLoading" class="fas fa-spinner fa-spin"></i>
+                                  <i
+                                    *ngIf="isLoading"
+                                    class="fas fa-spinner fa-spin"
+                                  ></i>
                                   <span *ngIf="!isLoading">Reset Password</span>
                                 </button>
                               </form>
@@ -404,18 +409,18 @@
           <!-- Submit button -->
           <a routerLink="/[peojects]">
             <button
-        [disabled]="employeeLoginForm.invalid"
-          type="submit"
-          [ngClass]="
-            employeeLoginForm.valid
-              ? 'bg-blue-500 hover:bg-blue-700'
-              : 'bg-gray-400'
-          "
-          class="block w-1/2 mx-auto mt-4 py-2 rounded-2xl text-white font-semibold mb-2"
-        >
-          <i *ngIf="isLoading" class="fas fa-spinner fa-spin"></i>
-          <span *ngIf="!isLoading">Login</span>
-        </button>
+              [disabled]="employeeLoginForm.invalid"
+              type="submit"
+              [ngClass]="
+                employeeLoginForm.valid
+                  ? 'bg-blue-500 hover:bg-blue-700'
+                  : 'bg-gray-400'
+              "
+              class="block w-1/2 mx-auto mt-4 py-2 rounded-2xl text-white font-semibold mb-2"
+            >
+              <i *ngIf="isLoading" class="fas fa-spinner fa-spin"></i>
+              <span *ngIf="!isLoading">Login</span>
+            </button>
           </a>
         </form>
       </div>
